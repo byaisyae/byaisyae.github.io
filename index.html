@@ -2,7 +2,11 @@
 <html lang="id" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#06122a" />
     <title>
       Aisyae Digital Invitation — Undangan Pernikahan Digital & Generator Link
       Tamu
@@ -41,6 +45,43 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <style>
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        scroll-padding-top: 4.5rem;
+        overflow-x: hidden;
+      }
+      body {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      img {
+        max-width: 100%;
+      }
+      #mm {
+        max-height: calc(100vh - 4rem);
+        max-height: calc(100dvh - 4rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+      #mm:not(.hidden) {
+        animation: mmIn 0.2s ease-out;
+      }
+      @keyframes mmIn {
+        from {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #mm:not(.hidden) {
+          animation: none;
+        }
+      }
       html:not(.aos-on) [data-aos] {
         opacity: 1 !important;
         transform: none !important;
@@ -56,8 +97,16 @@
     </style>
   </head>
   <body class="bg-n9 text-sk-200 font-sans antialiased overflow-x-hidden">
+    <!-- ikon WhatsApp (dipakai berulang) -->
+    <svg style="position:absolute;width:0;height:0" aria-hidden="true">
+      <symbol id="i-wa" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </symbol>
+    </svg>
+
     <!-- NAV -->
     <header
+      id="hd"
       class="fixed top-0 inset-x-0 z-40 bg-n9/85 backdrop-blur-md border-b border-sk-300/15"
     >
       <div
@@ -69,68 +118,56 @@
           >Aisyae</a
         >
         <nav class="hidden md:flex items-center gap-1 text-sm">
-          <a
-            href="#katalog"
-            class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition"
-            >Koleksi</a
-          ><a
-            href="#fitur"
-            class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition"
-            >Keunggulan</a
-          ><a
-            href="#cara"
-            class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition"
-            >Cara Kerja</a
-          ><a
-            href="#generator"
-            class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition"
-            >Generator</a
-          >
+          <a href="#katalog" class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition">Koleksi</a>
+          <a href="#fitur" class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition">Keunggulan</a>
+          <a href="#cara" class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition">Cara Kerja</a>
+          <a href="#generator" class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition">Generator</a>
         </nav>
         <div class="flex items-center gap-2">
           <a
             href="#generator"
-            class="inline-flex items-center justify-center h-10 px-4 sm:px-5 rounded-full bg-sk-300 text-n9 text-sm font-medium leading-none whitespace-nowrap hover:bg-white transition"
-            ><span class="sm:hidden">Buat Link</span
-            ><span class="hidden sm:inline">Buat Link Tamu</span></a
+            class="hidden sm:inline-flex items-center justify-center h-10 px-5 rounded-full bg-sk-300 text-n9 text-sm font-medium leading-none whitespace-nowrap hover:bg-white transition"
+            >Buat Link Tamu</a
           >
           <button
             id="mnu"
             type="button"
-            aria-label="Menu"
+            aria-label="Buka menu"
+            aria-controls="mm"
             aria-expanded="false"
-            class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-sk-300/40 text-lg leading-none"
+            class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-sk-300/40 text-white hover:bg-sk-300/10 transition"
           >
-            &#9776;
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
           </button>
         </div>
       </div>
-      <div id="mm" class="hidden md:hidden border-t border-sk-300/15 bg-n9/95">
-        <div class="grid gap-1 px-4 py-3 text-sm">
+      <div
+        id="mm"
+        class="hidden md:hidden absolute inset-x-0 top-full border-b border-sk-300/15 bg-n9/95 backdrop-blur-md shadow-2xl shadow-black/40"
+      >
+        <div class="grid gap-1 px-4 py-4 text-base">
+          <a href="#katalog" class="flex items-center h-12 px-4 rounded-xl hover:bg-sk-300/10 active:bg-sk-300/15 hover:text-white transition">Koleksi</a>
+          <a href="#fitur" class="flex items-center h-12 px-4 rounded-xl hover:bg-sk-300/10 active:bg-sk-300/15 hover:text-white transition">Keunggulan</a>
+          <a href="#cara" class="flex items-center h-12 px-4 rounded-xl hover:bg-sk-300/10 active:bg-sk-300/15 hover:text-white transition">Cara Kerja</a>
+          <a href="#generator" class="flex items-center h-12 px-4 rounded-xl hover:bg-sk-300/10 active:bg-sk-300/15 hover:text-white transition">Generator</a>
           <a
-            href="#katalog"
-            class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white"
-            >Koleksi</a
-          ><a
-            href="#fitur"
-            class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white"
-            >Keunggulan</a
-          ><a
-            href="#cara"
-            class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white"
-            >Cara Kerja</a
-          ><a
             href="#generator"
-            class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white"
-            >Generator</a
+            class="flex items-center justify-center h-12 mt-2 rounded-full bg-sk-300 text-n9 font-medium hover:bg-white transition sm:hidden"
+            >Buat Link Tamu</a
+          >
+          <a
+            data-wa="msgOrder"
+            href="https://wa.me/6282233505516"
+            class="flex items-center justify-center gap-2 h-12 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-400 transition"
+            ><svg class="w-5 h-5 shrink-0" fill="currentColor" aria-hidden="true"><use href="#i-wa"/></svg> Pesan via WhatsApp</a
           >
         </div>
       </div>
     </header>
 
     <!-- HERO -->
-    <section id="top" class="glow relative pt-32 pb-20 px-5 text-center">
-      <p data-aos="fade-up" class="tracking-[.4em] text-xs text-sk-300">
+    <section id="top" class="glow relative pt-28 sm:pt-32 pb-16 sm:pb-20 px-5 text-center">
+      <p data-aos="fade-up" class="tracking-[.3em] sm:tracking-[.4em] text-[11px] sm:text-xs text-sk-300">
         AISYAE DIGITAL INVITATION
       </p>
       <h1
@@ -154,33 +191,26 @@
       </p>
       <div
         data-aos="fade-up"
-        class="mt-9 flex flex-wrap justify-center gap-3"
+        class="mt-9 flex flex-col sm:flex-row sm:flex-wrap justify-center items-stretch sm:items-center gap-3 max-w-xs sm:max-w-none mx-auto"
         data-aos-delay="300"
       >
         <a
           href="#generator"
-          class="px-7 py-3 rounded-full bg-sk-300 text-n9 font-semibold hover:bg-white hover:scale-105 transition"
+          class="px-7 py-3 text-center rounded-full bg-sk-300 text-n9 font-semibold hover:bg-white sm:hover:scale-105 transition"
           >Buat Link Tamu Sekarang</a
         >
         <a
           href="https://byaisyae.github.io/wedding-rere-jabal/?to=Tamu+Spesial"
           target="_blank"
           rel="noopener"
-          class="px-7 py-3 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
+          class="px-7 py-3 text-center rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
           >Lihat Contoh Undangan</a
-        >
-        <a
-          id="waCta"
-          class="hidden px-7 py-3 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
-          target="_blank"
-          rel="noopener"
-          >Konsultasi via WhatsApp</a
         >
       </div>
     </section>
 
     <!-- KOLEKSI DIGITAL INVITATION -->
-    <section id="katalog" class="py-20 px-5">
+    <section id="katalog" class="py-16 sm:py-20 px-5">
       <div class="max-w-6xl mx-auto text-center">
         <p data-aos="fade-up" class="tracking-[.4em] text-xs text-sk-300">
           DIGITAL INVITATION
@@ -208,7 +238,7 @@
     </section>
 
     <!-- KEUNGGULAN -->
-    <section id="fitur" class="py-20 px-5 bg-n8">
+    <section id="fitur" class="py-16 sm:py-20 px-5 bg-n8">
       <div class="max-w-6xl mx-auto text-center">
         <h2 data-aos="fade-up" class="font-script text-5xl text-white">
           Mengapa Undangan Digital?
@@ -225,7 +255,7 @@
     </section>
 
     <!-- CARA KERJA -->
-    <section id="cara" class="py-20 px-5">
+    <section id="cara" class="py-16 sm:py-20 px-5">
       <div class="max-w-5xl mx-auto text-center">
         <h2 data-aos="fade-up" class="font-script text-5xl text-white">
           Semudah 3 Langkah
@@ -235,7 +265,7 @@
     </section>
 
     <!-- GENERATOR -->
-    <section id="generator" class="py-20 px-5 bg-gradient-to-b from-n8 to-n9">
+    <section id="generator" class="py-16 sm:py-20 px-5 bg-gradient-to-b from-n8 to-n9">
       <div class="max-w-3xl mx-auto">
         <div class="text-center">
           <h2 data-aos="fade-up" class="font-script text-5xl text-white">
@@ -248,7 +278,7 @@
         </div>
         <div
           data-aos="fade-up"
-          class="mt-10 rounded-3xl border border-sk-300/25 bg-n9/70 p-6 sm:p-8 space-y-5"
+          class="mt-10 rounded-3xl border border-sk-300/25 bg-n9/70 p-5 sm:p-8 space-y-5"
         >
           <div>
             <p class="text-sm mb-2">Pilih desain undangan</p>
@@ -258,8 +288,11 @@
             >Link undangan
             <input
               id="base"
-              class="mt-1 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
+              class="mt-1 w-full px-4 py-3 text-base rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
               placeholder="https://username.github.io/nama-undangan/"
+              inputmode="url"
+              autocapitalize="off"
+              autocomplete="off"
           /></label>
           <label class="block text-sm"
             >Daftar nama tamu
@@ -271,7 +304,7 @@
             <textarea
               id="names"
               rows="5"
-              class="mt-1 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
+              class="mt-1 w-full px-4 py-3 text-base rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
             ></textarea>
           </label>
           <details class="text-sm">
@@ -281,7 +314,7 @@
             <textarea
               id="msg"
               rows="8"
-              class="mt-2 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
+              class="mt-2 w-full px-4 py-3 text-base rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
             ></textarea>
             <p class="mt-1 text-xs text-sk-300/70">
               Gunakan <b>{nama}</b> dan <b>{link}</b> — keduanya otomatis
@@ -309,7 +342,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-24 px-5 text-center bg-n7/40">
+    <section id="pesan" class="py-20 sm:py-24 px-5 text-center bg-n7/40">
       <div class="max-w-2xl mx-auto">
         <h2
           data-aos="fade-up"
@@ -321,19 +354,72 @@
           Biarkan undangan Anda bercerita. Kami siapkan desainnya, Anda tinggal
           menyambut para tamu dengan senyuman.
         </p>
+        <p data-aos="fade-up" class="mt-3 text-sk-300/90 leading-relaxed">
+          Ingin memesan undangan pernikahan digital? Ceritakan konsep Anda lewat
+          WhatsApp — kami bantu dari memilih desain, menyiapkan data, hingga
+          link undangan siap dibagikan ke para tamu.
+        </p>
+        <div
+          data-aos="fade-up"
+          class="mt-8 flex flex-col sm:flex-row justify-center gap-3 max-w-xs sm:max-w-none mx-auto"
+        >
+          <a
+            data-wa="msgOrder"
+            href="https://wa.me/6282233505516"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-emerald-500 text-white font-semibold hover:bg-emerald-400 sm:hover:scale-105 transition"
+            ><svg class="w-5 h-5 shrink-0" fill="currentColor" aria-hidden="true"><use href="#i-wa"/></svg> Pesan Undangan Digital</a
+          >
+          <a
+            href="#katalog"
+            class="px-7 py-3 text-center rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
+            >Lihat Koleksi</a
+          >
+        </div>
       </div>
     </section>
     <footer
-      class="py-8 text-center text-xs text-sk-300/70 border-t border-sk-300/10"
+      class="pt-8 pb-24 sm:pb-8 text-center text-xs text-sk-300/70 border-t border-sk-300/10"
     >
       &copy; <span id="yr"></span> Aisyae Digital Invitation — Dibuat dengan
       cinta.
     </footer>
 
+    <!-- WHATSAPP FLOATING BUTTON -->
+    <a
+      id="waFloat"
+      data-wa="msgOrder"
+      href="https://wa.me/6282233505516"
+      target="_blank"
+      rel="noopener"
+      aria-label="Chat WhatsApp untuk memesan undangan digital"
+      class="group fixed z-50 right-4 sm:right-6 flex items-center gap-3"
+      style="bottom: calc(1rem + env(safe-area-inset-bottom, 0px))"
+    >
+      <span
+        class="hidden sm:block rounded-full bg-n9 border border-sk-300/30 px-4 py-2 text-sm text-white shadow-lg opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition"
+        >Pesan Undangan Digital</span
+      >
+      <span class="relative flex w-14 h-14">
+        <span
+          class="absolute inset-0 rounded-full bg-[#25D366] opacity-50 animate-ping motion-reduce:animate-none"
+        ></span>
+        <span
+          class="relative inline-flex w-14 h-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-black/40 group-hover:scale-110 group-active:scale-95 transition"
+        >
+          <svg class="w-8 h-8" fill="currentColor" aria-hidden="true"><use href="#i-wa"/></svg>
+        </span>
+      </span>
+    </a>
+
     <script>
       /* ===== PENGATURAN — edit di sini ===== */
       const C = {
-        wa: "", // nomor WhatsApp kamu, mis. "6281234567890" (kosong = tombol konsultasi disembunyikan)
+        wa: "6282233505516", // nomor WhatsApp admin (format internasional, tanpa + atau 0 di depan)
+        // pesan otomatis saat tombol WhatsApp diklik
+        msgOrder: `Halo Aisyae Digital Invitation 👋\n\nSaya ingin memesan undangan pernikahan digital. Mohon info paket, harga, dan prosesnya ya.\n\nNama mempelai:\nTanggal acara:\nDesain yang diminati:\n\nTerima kasih 🙏`,
+        msgCustom: `Halo Aisyae Digital Invitation 👋\n\nSaya ingin memesan undangan digital dengan desain custom. Berikut konsep yang saya inginkan (warna / tema / animasi):\n\nBisa kita diskusikan? Terima kasih 🙏`,
         base: "https://byaisyae.github.io/wedding-rere-jabal/",
         msg: `Assalamualaikum Wr. Wb.\n\nKepada Yth. {nama},\n\nDengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.\n\nBuka undangan digital kami di sini:\n{link}\n\nMerupakan kehormatan bagi kami apabila Anda berkenan hadir dan memberikan doa restu. Terima kasih 🙏`,
       };
@@ -368,31 +454,39 @@
               })[c],
           );
       const mm = $("#mm"),
-        mb = $("#mnu");
-      mb.onclick = () => {
-        const o = mm.classList.toggle("hidden") === false;
+        mb = $("#mnu"),
+        hd = $("#hd");
+      const IC_OPEN =
+          '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+        IC_CLOSE =
+          '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+      const setMenu = (o) => {
+        mm.classList.toggle("hidden", !o);
         mb.setAttribute("aria-expanded", o);
-        mb.innerHTML = o ? "&#10005;" : "&#9776;";
+        mb.setAttribute("aria-label", o ? "Tutup menu" : "Buka menu");
+        mb.innerHTML = o ? IC_CLOSE : IC_OPEN;
       };
+      mb.onclick = () => setMenu(mm.classList.contains("hidden"));
       mm.addEventListener("click", (e) => {
-        if (e.target.closest(".mi")) {
-          mm.classList.add("hidden");
-          mb.innerHTML = "&#9776;";
-          mb.setAttribute("aria-expanded", false);
-        }
+        if (e.target.closest("a")) setMenu(false);
+      });
+      document.addEventListener("click", (e) => {
+        if (!hd.contains(e.target)) setMenu(false);
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setMenu(false);
+      });
+      matchMedia("(min-width:768px)").addEventListener("change", (e) => {
+        if (e.matches) setMenu(false);
       });
       $("#yr").textContent = new Date().getFullYear();
-      if (C.wa) {
-        const a = $("#waCta");
-        a.href =
-          "https://wa.me/" +
-          C.wa +
-          "?text=" +
-          encodeURIComponent(
-            "Halo Aisyae Digital Invitation, saya tertarik membuat undangan pernikahan digital.",
-          );
-        a.classList.remove("hidden");
-      }
+      const WA = (m) =>
+        "https://wa.me/" + C.wa + "?text=" + encodeURIComponent(m);
+      document.querySelectorAll("[data-wa]").forEach((a) => {
+        a.href = WA(C[a.dataset.wa]);
+        a.target = "_blank";
+        a.rel = "noopener";
+      });
 
       const F = [
         [
@@ -464,7 +558,9 @@
         .join("");
 
       /* koleksi desain */
-      const AN = ["fade-right", "zoom-in", "fade-left"];
+      const AN = matchMedia("(max-width:767px)").matches
+        ? ["fade-up", "fade-up", "fade-up"]
+        : ["fade-right", "zoom-in", "fade-left"];
       $("#dz").innerHTML =
         D.map((x, i) => {
           const [a, b] = x.n.split(" & ");
@@ -476,12 +572,12 @@
    <p class="text-[10px] text-sk-300 mt-5">Kepada Yth.</p><p class="font-serif text-lg text-white">Tamu Spesial</p><span class="inline-block mt-4 px-5 py-1.5 rounded-full bg-sk-300 text-n9 text-xs font-medium">Buka Undangan</span></div>
   </div></div>
  <p class="mt-5 text-[10px] tracking-[.3em] text-sk-300">${x.tag.toUpperCase()}</p><h3 class="font-serif text-xl text-white">${esc(x.n)}</h3><p class="text-xs text-sk-300/80">${x.d}</p>
- <div class="mt-4 flex justify-center gap-2 text-sm"><a href="${x.url}?to=Tamu+Spesial" target="_blank" rel="noopener" class="px-4 py-1.5 rounded-full bg-sk-300 text-n9 font-medium hover:bg-white transition">Lihat Demo</a><a href="#generator" data-u="${x.url}" class="pk px-4 py-1.5 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition">Buat Link</a></div></div>`;
+ <div class="mt-4 flex justify-center gap-2 text-sm"><a href="${x.url}?to=Tamu+Spesial" target="_blank" rel="noopener" class="px-4 py-2 rounded-full bg-sk-300 text-n9 font-medium hover:bg-white transition">Lihat Demo</a><a href="#generator" data-u="${x.url}" class="pk px-4 py-2 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition">Buat Link</a></div></div>`;
         }).join("") +
-        `<div data-aos="${AN[D.length % 3]}" data-aos-delay="${D.length * 120}" class="w-full max-w-[17rem] self-start"><div class="rounded-[2.2rem] p-2 border-2 border-dashed border-sk-300/40"><div class="aspect-[9/16] rounded-[1.8rem] grid place-items-center text-center px-6"><div><p class="font-script text-5xl text-sk-300">Desain Custom</p><p class="text-sm mt-4 text-sk-300/90 leading-relaxed">Punya konsep impian? Warna, tema, hingga animasi bisa disesuaikan dengan kisah Anda.</p><a href="${C.wa ? "https://wa.me/" + C.wa : "#generator"}" class="inline-block mt-5 px-5 py-1.5 rounded-full border border-sk-300/60 text-sm hover:bg-sk-300 hover:text-n9 transition">Diskusikan</a></div></div></div></div>`;
+        `<div data-aos="${AN[D.length % 3]}" data-aos-delay="${D.length * 120}" class="w-full max-w-[17rem] self-start"><div class="rounded-[2.2rem] p-2 border-2 border-dashed border-sk-300/40"><div class="aspect-[9/16] rounded-[1.8rem] grid place-items-center text-center px-6"><div><p class="font-script text-5xl text-sk-300">Desain Custom</p><p class="text-sm mt-4 text-sk-300/90 leading-relaxed">Punya konsep impian? Warna, tema, hingga animasi bisa disesuaikan dengan kisah Anda. Diskusikan dan pesan undangan digital custom Anda sekarang.</p><a href="${WA(C.msgCustom)}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-5 px-5 py-2 rounded-full bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-400 transition"><svg class="w-4 h-4" fill="currentColor" aria-hidden="true"><use href="#i-wa"/></svg>Diskusikan</a></div></div></div></div>`;
       $("#pick").innerHTML = D.map(
         (x) =>
-          `<button data-u="${x.url}" class="pk px-4 py-1.5 rounded-full border border-sk-300/40 hover:bg-sk-300 hover:text-n9 transition">${esc(x.n)}</button>`,
+          `<button data-u="${x.url}" class="pk px-4 py-2 rounded-full border border-sk-300/40 hover:bg-sk-300 hover:text-n9 transition">${esc(x.n)}</button>`,
       ).join("");
 
       /* generator */
@@ -557,7 +653,7 @@
               r,
               i,
             ) => `<div class="rounded-2xl border border-sk-300/25 bg-n9/70 p-4"><p class="font-medium text-white">${esc(r.n)}</p><p class="text-xs text-sk-300 break-all my-2">${esc(r.link)}</p>
- <div class="flex flex-wrap gap-2 text-sm"><button data-a="l" data-i="${i}" class="px-4 py-1.5 rounded-full bg-sk-300 text-n9 font-medium">Salin Link</button><button data-a="m" data-i="${i}" class="px-4 py-1.5 rounded-full border border-sk-300/50 hover:bg-sk-300/10">Salin Pesan</button><a href="${r.wa}" target="_blank" rel="noopener" class="px-4 py-1.5 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-400">Kirim WhatsApp</a></div></div>`,
+ <div class="flex flex-wrap gap-2 text-sm"><button data-a="l" data-i="${i}" class="px-4 py-2 rounded-full bg-sk-300 text-n9 font-medium">Salin Link</button><button data-a="m" data-i="${i}" class="px-4 py-2 rounded-full border border-sk-300/50 hover:bg-sk-300/10">Salin Pesan</button><a href="${r.wa}" target="_blank" rel="noopener" class="px-4 py-2 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-400">Kirim WhatsApp</a></div></div>`,
           ).join("") ||
           '<p class="text-center text-sm text-sk-300/70 py-6">Belum ada nama tamu.</p>';
       };

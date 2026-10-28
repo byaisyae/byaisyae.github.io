@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Wedding of Rere & Jabal</title>
+<meta property="og:title" content="The Wedding of Rere & Jabal">
+<meta property="og:description" content="Kami mengundang Anda untuk hadir di hari bahagia kami. Rabu, 30 Desember 2026.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://isanmh.github.io/wedding-rere-jabal/">
+<meta property="og:image" content="https://isanmh.github.io/wedding-rere-jabal/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>tailwind.config={theme:{extend:{colors:{n9:'#06122a',n8:'#0b1f3d',n7:'#12305c',sk:{200:'#d6e4f8',300:'#a9c6ee'}},fontFamily:{script:['"Great Vibes"','cursive'],serif:['"Playfair Display"','serif'],sans:['Poppins','sans-serif']}}}}</script>
+<style>
+.rv,.rl,.rr,.rz{opacity:0;transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.rv{transform:translateY(34px)}.rl{transform:translateX(-50px)}.rr{transform:translateX(50px)}.rz{transform:scale(.88)}
+.in{opacity:1!important;transform:none!important}
+body.lock{overflow:hidden}
+#cover{transition:transform 1s cubic-bezier(.7,0,.3,1)}#cover.up{transform:translateY(-100%)}
+.bg{background-size:cover;background-position:center}
+#app{overflow-x:hidden}
+@media(min-width:1024px){
+:root{--w:clamp(420px,34vw,520px)}
+#app{width:var(--w);margin-left:auto;position:relative;z-index:10;background:#06122a;box-shadow:-24px 0 70px rgba(0,0,0,.55)}
+#cover{left:auto!important;width:var(--w)}
+#nav{left:calc(100% - var(--w)/2)!important}
+body{background:#06122a}
+}
+.sl{transition:opacity 1.2s ease}
+.ph{background:linear-gradient(135deg,#12305c,#0b1f3d)}
+@keyframes zm{from{transform:scale(1)}to{transform:scale(1.12)}}.kb{animation:zm 18s ease-in-out infinite alternate}
+@media(prefers-reduced-motion:reduce){.rv,.rl,.rr,.rz{opacity:1;transform:none;transition:none}.kb{animation:none}}
+.wd{display:inline-block;transform:translateY(115%);transition:transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i)*.14s + .1s)}.in .wd{transform:none}
+.rc img{clip-path:inset(0 0 100% 0);transform:scale(1.35);transition:clip-path 1.3s cubic-bezier(.7,0,.2,1),transform 1.8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}.rc.in img{clip-path:inset(0);transform:none}
+.fx{background-size:auto 135%;background-repeat:no-repeat}
+#pg{left:0;right:0;transform-origin:left}
+@media(min-width:1024px){#pg{left:calc(100% - var(--w))}}
+@media(prefers-reduced-motion:reduce){.rc img{clip-path:none;transform:none}.wd{transform:none}}
+</style>
+</head>
+<body class="lock bg-n9 text-sk-200 font-sans antialiased overflow-x-hidden">
+
+<section id="cover" class="fixed inset-0 z-[60] grid place-items-center text-center px-6 overflow-hidden bg-n8">
+  <div id="cvbg" class="absolute inset-0 bg kb"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-n9/80 via-n8/60 to-n9/90"></div>
+  <div class="absolute inset-4 sm:inset-8 border border-sk-300/40 rounded-[2rem] pointer-events-none"></div>
+  <div class="relative">
+    <p class="tracking-[.45em] text-[11px] sm:text-xs text-sk-300">THE WEDDING OF</p>
+    <h1 class="font-script text-6xl sm:text-8xl lg:text-7xl text-white my-4 drop-shadow-lg">Rere &amp; Jabal</h1>
+    <p id="coverDate" class="font-serif tracking-widest text-sk-300"></p>
+    <div class="mt-10 mx-auto max-w-xs rounded-2xl bg-n9/50 backdrop-blur-sm border border-sk-300/20 py-5 px-4">
+      <p class="text-xs text-sk-300">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+      <p id="guest" class="font-serif text-2xl text-white mt-1"></p>
+    </div>
+    <button id="openBtn" class="mt-8 px-9 py-3 rounded-full bg-sk-300 text-n9 font-semibold shadow-lg hover:bg-white hover:scale-105 transition">Buka Undangan</button>
+  </div>
+</section>
+
+<div id="pg" class="hidden fixed top-0 h-1 bg-sk-300 z-[65]" style="transform:scaleX(0)"></div>
+<aside id="side" class="hidden lg:block fixed inset-y-0 left-0 z-0 overflow-hidden" style="right:var(--w)">
+  <div class="sl absolute inset-0 bg kb" data-k="cover" style="opacity:1"></div>
+  <div class="sl absolute inset-0 bg kb" data-k="date" style="opacity:0"></div>
+  <div class="sl absolute inset-0 bg kb" data-k="quote" style="opacity:0"></div>
+  <div class="sl absolute inset-0 bg kb" data-k="foot" style="opacity:0"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-n9/85 via-n9/10 to-n9/35"></div>
+  <div class="absolute bottom-16 left-14 text-white">
+    <p class="tracking-[.35em] text-xs">THE WEDDING OF</p>
+    <h2 class="font-serif text-6xl xl:text-7xl my-4">Rere &amp; Jabal</h2>
+    <p id="sideDate" class="tracking-widest text-sm"></p>
+  </div>
+</aside>
+<audio id="bgm" loop preload="auto"></audio>
+<button id="mb" class="hidden fixed top-5 right-4 z-40 w-11 h-11 rounded-full bg-n9/80 backdrop-blur-md border border-sk-300/40 text-sk-200 text-lg shadow-lg grid place-items-center" aria-label="Musik"></button>
+<main id="app"></main>
+<nav id="nav" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden max-w-[94vw] overflow-x-auto no-scrollbar rounded-full bg-n9/85 backdrop-blur-md border border-sk-300/30 px-2 py-1.5 text-[11px] sm:text-xs shadow-xl whitespace-nowrap"></nav>
+<div id="lb" class="fixed inset-0 z-[70] hidden place-items-center bg-n9/95 select-none">
+  <button id="lbx" class="absolute top-4 right-5 text-4xl text-white z-10" aria-label="Tutup">&times;</button>
+  <button id="lbp" class="absolute left-3 sm:left-8 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/15 text-white text-3xl leading-none hover:bg-white/30 transition" aria-label="Sebelumnya">&#8249;</button>
+  <button id="lbn" class="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/15 text-white text-3xl leading-none hover:bg-white/30 transition" aria-label="Berikutnya">&#8250;</button>
+  <img id="lbi" class="max-h-[78vh] max-w-[88vw] rounded-2xl shadow-2xl transition-all duration-200" alt="">
+  <div id="lbd" class="absolute bottom-6 flex gap-2"></div>
+</div>
+
+<script>
+/* ============ DATA — edit di sini ============ */
+// semua gambar dummy diambil dari folder img/ (ganti file di folder tsb dengan foto asli)
+const C={
+  bride:{full:"Regina Febrianti, S.T.",nick:"Rere",ig:"reginaferiantii",wa:"6285772146874",father:"Suhermawan",mother:"Tuti Milawati",role:"Putri",address:"KPAD Pindad Utara K2234 Kel. Kebon Jayanti, Kec. Kiaracondong, Kota Bandung",photo:"img/bride.jpg"},
+  groom:{full:"Jabal Mufridiharja, S.Pd., S.T.",nick:"Jabal",ig:"jabalmufrid",wa:"6287820237963",father:"Syarifudin",mother:"Supriyatini",role:"Putra",address:"Jl. Asep Berlian No.37 Kel. Cicadas, Kec. Cibeunying Kidul, Kota Bandung",photo:"img/groom.jpg"},
+  // TODO: ganti tanggal, lokasi, rekening, cerita & foto dengan data asli
+  date:"2026-12-30T08:00:00",
+  bg:{cover:"img/4.jpg",quote:"img/5.jpg",foot:"img/1.jpg",date:"img/2.jpg"},
+  events:[
+    {t:"Akad Nikah",time:"08.00 - 09.00 WIB",place:"LPTQ Jabar",addr:"Karang Pamulang, Kec. Mandalajati, Kota Bandung, Jawa Barat",map:"https://maps.app.goo.gl/CZrgQPNTWJ1KSniW6"},
+    {t:"Resepsi",time:"10.00 - 13.00 WIB",place:"LPTQ Jabar",addr:"Karang Pamulang, Kec. Mandalajati, Kota Bandung, Jawa Barat",map:"https://maps.app.goo.gl/CZrgQPNTWJ1KSniW6"}],
+  live:"https://www.instagram.com/",
+  music:"sound/nadin.mp3", // lagu latar (folder sound/)
+  gifts:[{bank:"BCA",no:"0000000000",name:"Regina Febrianti"}],
+  gallery:["img/3.jpg","img/d1.jpg","img/d2.jpg","img/5.jpg","img/d3.jpg","img/4.jpg","img/1.jpg","img/2.jpg"],
+  story:[
+    {d:"Tanggal / Tahun",t:"Awal Bertemu",p:"Ceritakan bagaimana kalian pertama kali bertemu.",i:"img/1.jpg"},
+    {d:"Tanggal / Tahun",t:"Menjalin Hubungan",p:"Ceritakan bagaimana hubungan kalian mulai terjalin.",i:"img/2.jpg"},
+    {d:"Tanggal / Tahun",t:"Bertunangan",p:"Ceritakan momen kalian memantapkan hati ke jenjang pernikahan.",i:"img/5.jpg"}]
+};
+/* =============================================== */
+const B=C.bride,G=C.groom,d0=new Date(C.date),$=s=>document.querySelector(s);
+const fmt=d0.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ov=(a,b)=>`background-image:linear-gradient(${a},${b}),url(${C.bg.cover})`;
+const bgs=(url,o='rgba(6,18,42,.82)')=>`background-image:linear-gradient(${o},${o}),url(${url})`;
+const sec=(id,h,sub,body,st='',cls='')=>`<section id="${id}" class="relative py-20 sm:py-28 px-5 sm:px-6 bg ${st?'fx':''} ${cls}" style="${st}"><div class="max-w-5xl mx-auto text-center"><h2 class="rv font-script text-5xl sm:text-6xl text-white">${h}</h2>${sub?`<p class="rv mt-4 text-sm sm:text-base text-sk-300/90 max-w-2xl mx-auto leading-relaxed" style="--d:.1s">${sub}</p>`:''}<div class="mt-12">${body}</div></div></section>`;
+const btn=(h,t)=>`<a href="${h}" target="_blank" rel="noopener" class="inline-block px-5 py-2 rounded-full border border-sk-300/60 text-sk-200 text-sm hover:bg-sk-300 hover:text-n9 transition">${t}</a>`;
+const prof=(p,a)=>`<div class="${a} text-center"><div class="ph relative mx-auto w-52 h-72 sm:w-60 sm:h-80 rounded-t-full rounded-b-3xl overflow-hidden border-4 border-sk-300/40 shadow-2xl"><img src="${p.photo}" alt="${p.nick}" loading="lazy" onerror="this.remove()" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+<h3 class="font-serif text-2xl text-white mt-6">${p.full}</h3><p class="font-script text-3xl text-sk-300">${p.nick}</p>
+<p class="text-sm mt-2 leading-relaxed">${p.role} dari Bapak <b class="text-white font-medium">${p.father}</b><br>&amp; Ibu <b class="text-white font-medium">${p.mother}</b></p>
+<div class="mt-4 flex justify-center gap-2 flex-wrap">${btn('https://instagram.com/'+p.ig,'@'+p.ig)}${btn('https://wa.me/'+p.wa,'WhatsApp')}</div></div>`;
+
+$('#app').innerHTML=
+`<header id="home" class="relative min-h-screen grid place-items-center text-center px-5 bg fx" style="${ov('rgba(6,18,42,.55)','rgba(6,18,42,.9)')}"><div data-p=".25">
+<p class="rv tracking-[.45em] text-xs text-sk-300">THE WEDDING OF</p>
+<h1 class="rz font-script text-7xl sm:text-9xl lg:text-7xl text-white my-6 drop-shadow-lg" style="--d:.15s">${B.nick} &amp; ${G.nick}</h1>
+<p class="rv font-serif tracking-[.3em] text-lg text-sk-200" style="--d:.3s">${d0.toLocaleDateString('id-ID',{day:'2-digit',month:'2-digit',year:'numeric'}).replaceAll('/','.')}</p>
+<div id="cd" class="rv mt-10 flex justify-center gap-2 sm:gap-4 lg:gap-2" style="--d:.45s"></div></div></header>`+
+sec('mempelai',"Assalamu'alaikum Wr. Wb.","Segala puji bagi Allah SWT yang telah menjadikan hamba-Nya hidup berpasang-pasangan. Dengan memohon ridho, rahmat, dan berkah-Nya, kami bermaksud mengundang Bapak/Ibu/Saudara/i dalam acara pernikahan kami.",
+ `<div class="grid md:grid-cols-2 lg:grid-cols-1 gap-14 md:gap-8 lg:gap-14">${prof(B,'rl')}${prof(G,'rr')}</div>`,'','bg-n8')+
+`<section class="relative py-24 px-6 bg fx" style="${bgs(C.bg.quote)}"><div data-p=".12" class="rz max-w-2xl mx-auto text-center"><p class="font-serif italic text-lg sm:text-2xl leading-relaxed text-white">"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."</p><p class="mt-5 tracking-widest text-xs text-sk-300">AR-RUM AYAT : 21</p></div></section>`+
+sec('acara','Save The Date',`<b class="text-white font-semibold tracking-wide">${fmt.toUpperCase()}</b>`,
+ `<div class="grid md:grid-cols-2 lg:grid-cols-1 gap-6">${C.events.map((e,i)=>`<div class="${i?'rr':'rl'} rounded-3xl border border-sk-300/30 bg-n9/70 backdrop-blur-sm p-8 sm:p-10"><h3 class="font-serif text-3xl text-white">${e.t}</h3><p class="mt-3 text-sk-300 font-medium">${e.time}</p><p class="mt-5 text-white">${e.place}</p><p class="text-sm mt-1 mb-6 leading-relaxed">${e.addr}</p>${btn(e.map,'Buka Maps')}</div>`).join('')}</div>
+ <div class="rv mt-6 rounded-3xl border border-sk-300/30 bg-n9/70 backdrop-blur-sm p-8"><h3 class="font-serif text-xl text-white">Live Streaming</h3><p class="text-sm my-3">Bagi tamu yang berhalangan hadir, silakan saksikan acara melalui link berikut:</p>${btn(C.live,'Live Streaming')}</div>`,bgs(C.bg.date,'rgba(6,18,42,.88)'))+
+sec('galeri','Our Gallery','',`<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-3 auto-rows-[9rem] sm:auto-rows-[12rem] lg:auto-rows-[9rem] gap-2 sm:gap-3">${C.gallery.map((g,i)=>`<div class="rz ph rounded-2xl overflow-hidden cursor-zoom-in ${[0,5].includes(i)?'row-span-2':''} ${i==3?'col-span-2':''}" style="--d:${(i%4)*.1}s"><img src="${g}" loading="lazy" onerror="this.remove()" class="gl w-full h-full object-cover hover:scale-110 transition duration-700"></div>`).join('')}</div>`,'','bg-n8')+
+sec('cerita','Our Story','',`<div class="space-y-12">${C.story.map((s,i)=>`<div class="grid md:grid-cols-2 lg:grid-cols-1 gap-6 items-center ${i%2?'md:[&>*:first-child]:order-2 lg:[&>*:first-child]:order-none':''}"><div class="rc ph rounded-3xl overflow-hidden aspect-[4/3]"><img src="${s.i}" alt="${s.t}" onerror="this.remove()" class="w-full h-full object-cover"></div><div class="${i%2?'rl':'rr'} text-left md:px-8 lg:px-0"><p class="text-xs tracking-widest text-sk-300">${s.d}</p><h3 class="font-serif text-2xl text-white mt-1">${s.t}</h3><p class="text-sm mt-2 leading-relaxed">${s.p}</p></div></div>`).join('')}</div>`)+
+sec('rsvp','RSVP &amp; Ucapan Doa','Konfirmasi kehadiran dan sampaikan doa restu untuk kedua mempelai.',
+ `<form id="f" class="rz text-left max-w-md mx-auto space-y-3">
+ <input name="n" required minlength="2" placeholder="Nama" class="w-full px-4 py-3 rounded-xl bg-n9/80 border border-sk-300/30 outline-none focus:border-sk-300">
+ <div class="grid grid-cols-2 gap-3"><select name="k" class="px-4 py-3 rounded-xl bg-n9/80 border border-sk-300/30"><option>Hadir</option><option>Tidak hadir</option><option>Masih ragu</option></select>
+ <select name="j" class="px-4 py-3 rounded-xl bg-n9/80 border border-sk-300/30"><option>1 orang</option><option>2 orang</option><option>3 orang</option><option>4 orang</option></select></div>
+ <textarea name="m" required rows="3" placeholder="Ucapan &amp; doa restu" class="w-full px-4 py-3 rounded-xl bg-n9/80 border border-sk-300/30 outline-none focus:border-sk-300"></textarea>
+ <button class="w-full py-3 rounded-xl bg-sk-300 text-n9 font-semibold hover:bg-white transition">Kirim</button></form>
+ <div id="cnt" class="mt-10 flex justify-center gap-6 text-sm"></div><div id="wl" class="mt-6 max-w-xl mx-auto max-h-96 overflow-y-auto space-y-3 text-left"></div>`,bgs(C.bg.foot,'rgba(6,18,42,.9)'))+
+sec('hadiah','Wedding Gift','Tanpa mengurangi rasa hormat, bagi tamu yang ingin mengirimkan hadiah kepada kedua mempelai dapat melalui:',
+ `<div class="grid sm:grid-cols-2 lg:grid-cols-1 gap-6 max-w-3xl mx-auto">${C.gifts.map(g=>`<div class="rl rounded-3xl p-7 bg-gradient-to-br from-n7 to-n9 border border-sk-300/30"><p class="font-serif text-2xl text-white">${g.bank}</p><p class="text-2xl tracking-widest my-2">${g.no}</p><p class="text-sm mb-4">a.n. ${g.name}</p><button data-copy="${g.no}" class="cp px-5 py-2 rounded-full bg-sk-300 text-n9 text-sm font-medium">Salin</button></div>`).join('')}
+ <div class="rr rounded-3xl p-7 border border-sk-300/30 bg-n9/60"><p class="font-serif text-xl text-white">Alamat Pengiriman Hadiah</p><p class="text-sm my-3 leading-relaxed"><b class="text-white">${B.full}</b><br>${B.address}</p><button data-copy="${B.full}, ${B.address}" class="cp px-5 py-2 rounded-full bg-sk-300 text-n9 text-sm font-medium">Salin</button></div></div>`,'','bg-n8')+
+`<footer class="relative py-28 px-6 text-center bg fx" style="${bgs(C.bg.foot,'rgba(6,18,42,.78)')}"><div class="rz max-w-xl mx-auto"><p class="text-sm">Kami yang berbahagia,</p><h2 class="font-script text-6xl sm:text-7xl lg:text-6xl text-white my-4">${B.nick} &amp; ${G.nick}</h2><p class="text-sm leading-relaxed">Merupakan sebuah kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Terima kasih.</p></div></footer><div class="h-20"></div>`;
+
+/* cover, tamu, navigasi */
+history.scrollRestoration='manual';scrollTo(0,0);
+$('#cvbg').style.backgroundImage=`url(${C.bg.cover})`;
+$('#coverDate').textContent=fmt;$('#sideDate').textContent=fmt.toUpperCase();
+const sl=[...document.querySelectorAll('.sl')];sl.forEach(el=>el.style.backgroundImage=`url(${C.bg[el.dataset.k]})`);
+const SK={home:'cover',mempelai:'cover',acara:'date',galeri:'quote',cerita:'quote',rsvp:'foot',hadiah:'foot'};
+const so=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){const k=SK[x.target.id];sl.forEach(el=>el.style.opacity=el.dataset.k===k?1:0)}}),{rootMargin:'-50% 0px -50% 0px'});
+Object.keys(SK).forEach(i=>so.observe(document.getElementById(i)));
+$('#guest').textContent=new URLSearchParams(location.search).get('to')||'Tamu Undangan';
+$('#nav').innerHTML=[['home','Home'],['mempelai','Mempelai'],['acara','Acara'],['galeri','Galeri'],['cerita','Cerita'],['rsvp','RSVP'],['hadiah','Hadiah']].map(([i,t])=>`<a href="#${i}" class="inline-block px-3 py-1.5 rounded-full hover:bg-sk-300 hover:text-n9 transition">${t}</a>`).join('');
+const a=$('#bgm');a.src=C.music;
+const mus=on=>{$('#mb').innerHTML=on?'<span style="display:inline-block;animation:spin 6s linear infinite">♫</span>':'<span class="opacity-60 line-through">♫</span>'};
+$('#mb').onclick=()=>a.paused?a.play().then(()=>mus(1)):(a.pause(),mus(0));
+$('#openBtn').onclick=()=>{const c=$('#cover');document.body.classList.remove('lock');c.classList.add('up');scrollTo({top:0,behavior:'instant'});$('#pg').classList.remove('hidden');onS();
+ $('#mb').classList.remove('hidden');a.play().then(()=>mus(1)).catch(()=>mus(0));$('#nav').classList.remove('hidden');setTimeout(()=>c.remove(),1000)};
+
+/* countdown */
+const tick=()=>{const s=Math.max(0,(d0-Date.now())/1000|0),v=[['Hari',s/86400],['Jam',s%86400/3600],['Menit',s%3600/60],['Detik',s%60]];
+ $('#cd').innerHTML=v.map(([l,n])=>`<div class="w-[4.3rem] sm:w-24 lg:w-[4.3rem] py-3 sm:py-5 lg:py-3 rounded-2xl border border-sk-300/30 bg-n9/60 backdrop-blur-sm"><div class="font-serif text-2xl sm:text-4xl lg:text-2xl text-white">${String(n|0).padStart(2,'0')}</div><div class="text-[9px] sm:text-[10px] tracking-widest text-sk-300">${l.toUpperCase()}</div></div>`).join('')};
+tick();setInterval(tick,1000);
+
+/* RSVP + ucapan (disimpan di localStorage browser) */
+const W=()=>JSON.parse(localStorage.getItem('wishes')||'[]');
+const draw=()=>{const w=W(),n=k=>w.filter(x=>x.k===k).length;
+ $('#cnt').innerHTML=['Hadir','Tidak hadir','Masih ragu'].map(k=>`<span><b class="text-white text-xl">${n(k)}</b> ${k}</span>`).join('');
+ $('#wl').innerHTML=w.slice().reverse().map(x=>`<div class="rounded-2xl bg-n9/80 border border-sk-300/20 p-4"><p class="font-semibold text-white">${esc(x.n)} <span class="text-[10px] ml-1 px-2 py-0.5 rounded-full bg-sk-300/20 text-sk-300">${x.k} · ${x.j}</span></p><p class="text-sm mt-1">${esc(x.m)}</p></div>`).join('')};
+$('#f').onsubmit=e=>{e.preventDefault();const w=W();w.push(Object.fromEntries(new FormData(e.target)));localStorage.setItem('wishes',JSON.stringify(w));e.target.reset();draw()};
+draw();
+
+/* salin + lightbox (geser / panah / dot) */
+const copyTxt=(t,ok)=>{const fb=()=>{const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;left:-9999px';document.body.appendChild(a);a.select();let g=false;try{g=document.execCommand('copy')}catch(_){}a.remove();g?ok():prompt('Salin manual:',t)};
+ navigator.clipboard&&window.isSecureContext?navigator.clipboard.writeText(t).then(ok,fb):fb()};
+let li=0;const GL=()=>[...document.querySelectorAll('.gl')];
+const lbShow=(i,d=0,first)=>{const a=GL(),im=$('#lbi');li=(i+a.length)%a.length;
+ const set=()=>{im.src=a[li].src;im.style.opacity=1;im.style.transform='none'};
+ if(first)set();else{im.style.opacity=0;im.style.transform=`translateX(${d*60}px)`;setTimeout(set,200)}
+ $('#lbd').innerHTML=a.map((_,k)=>`<button data-i="${k}" aria-label="Foto ${k+1}" class="ld h-2 rounded-full transition-all ${k==li?'w-6 bg-white':'w-2 bg-white/40'}"></button>`).join('')};
+const lbOpen=i=>{$('#lb').classList.replace('hidden','grid');lbShow(i,0,1)},lbClose=()=>$('#lb').classList.replace('grid','hidden');
+document.addEventListener('click',e=>{const b=e.target.closest('.cp');
+ if(b)return copyTxt(b.dataset.copy,()=>{b.textContent='Tersalin ✓';setTimeout(()=>b.textContent='Salin',1800)});
+ const g=e.target.closest('.gl');if(g)return lbOpen(GL().indexOf(g));
+ if(e.target.closest('#lbp'))return lbShow(li-1,-1);
+ if(e.target.closest('#lbn'))return lbShow(li+1,1);
+ const d=e.target.closest('.ld');if(d)return lbShow(+d.dataset.i,+d.dataset.i>li?1:-1);
+ if(e.target.id==='lb'||e.target.closest('#lbx'))lbClose()});
+let sx=0;$('#lb').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+$('#lb').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)lbShow(li+(dx<0?1:-1),dx<0?1:-1)},{passive:true});
+addEventListener('keydown',e=>{if($('#lb').classList.contains('hidden'))return;if(e.key==='ArrowRight')lbShow(li+1,1);if(e.key==='ArrowLeft')lbShow(li-1,-1);if(e.key==='Escape')lbClose()});
+
+/* animasi scroll interaktif */
+document.querySelectorAll('h2.rv').forEach(h=>{h.innerHTML=h.textContent.trim().split(/\s+/).map((w,i)=>`<span class="inline-block overflow-hidden align-bottom px-3 -mx-3 py-3 -my-3"><span class="wd" style="--i:${i}">${esc(w)}</span></span>`).join(' ')});
+const AN='.rv,.rl,.rr,.rz,.rc',grp=new Map();
+document.querySelectorAll(AN).forEach(el=>{const p=el.parentElement,i=grp.get(p)||0;grp.set(p,i+1);if(!el.style.getPropertyValue('--d'))el.style.setProperty('--d',Math.min(i,5)*.12+'s')});
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll(AN).forEach(el=>io.observe(el));
+const pe=[...document.querySelectorAll('[data-p]')],fx=[...document.querySelectorAll('.fx')],hc=$('#home>div'),pg=$('#pg');let tk=0;
+const onS=()=>{tk=0;const h=innerHeight,y=scrollY,m=document.documentElement.scrollHeight-h;
+ pg.style.transform=`scaleX(${m>0?y/m:0})`;hc.style.opacity=Math.max(0,1-y/(h*.75));
+ fx.forEach(el=>{const r=el.getBoundingClientRect();if(r.bottom<0||r.top>h)return;el.style.backgroundPositionY=(Math.min(1,Math.max(0,(h-r.top)/(h+r.height)))*100).toFixed(1)+'%'});
+ pe.forEach(el=>{const r=el.parentElement.getBoundingClientRect();if(r.bottom<-200||r.top>h+200)return;el.style.translate=`0 ${((r.top+r.height/2-h/2)*-el.dataset.p).toFixed(1)}px`})};
+addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(onS)},{passive:true});onS();
+</script>
+</body>
+</html>

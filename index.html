@@ -1,165 +1,608 @@
 <!doctype html>
 <html lang="id" class="scroll-smooth">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Aisyae Digital Invitation — Undangan Pernikahan Digital & Generator Link Tamu</title>
-<meta name="description" content="Undangan pernikahan digital elegan, personal untuk setiap tamu, siap dibagikan lewat WhatsApp dalam hitungan detik.">
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com/3.4.17"></script>
-<script>tailwind.config={theme:{extend:{colors:{n9:'#06122a',n8:'#0b1f3d',n7:'#12305c',sk:{200:'#d6e4f8',300:'#a9c6ee',400:'#7fa8e0'}},fontFamily:{script:['"Great Vibes"','cursive'],serif:['"Playfair Display"','serif'],sans:['Poppins','sans-serif']}}}}</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<style>
-html:not(.aos-on) [data-aos]{opacity:1!important;transform:none!important;pointer-events:auto!important}
-.glow{background:radial-gradient(60% 50% at 50% 0%,rgba(127,168,224,.25),transparent 70%)}
-</style>
-</head>
-<body class="bg-n9 text-sk-200 font-sans antialiased overflow-x-hidden">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+      Aisyae Digital Invitation — Undangan Pernikahan Digital & Generator Link
+      Tamu
+    </title>
+    <meta
+      name="description"
+      content="Undangan pernikahan digital elegan, personal untuk setiap tamu, siap dibagikan lewat WhatsApp dalam hitungan detik."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              n9: "#06122a",
+              n8: "#0b1f3d",
+              n7: "#12305c",
+              sk: { 200: "#d6e4f8", 300: "#a9c6ee", 400: "#7fa8e0" },
+            },
+            fontFamily: {
+              script: ['"Great Vibes"', "cursive"],
+              serif: ['"Playfair Display"', "serif"],
+              sans: ["Poppins", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <style>
+      html:not(.aos-on) [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+      }
+      .glow {
+        background: radial-gradient(
+          60% 50% at 50% 0%,
+          rgba(127, 168, 224, 0.25),
+          transparent 70%
+        );
+      }
+    </style>
+  </head>
+  <body class="bg-n9 text-sk-200 font-sans antialiased overflow-x-hidden">
+    <!-- NAV -->
+    <header
+      class="fixed top-0 inset-x-0 z-40 bg-n9/85 backdrop-blur-md border-b border-sk-300/15"
+    >
+      <div
+        class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3"
+      >
+        <a
+          href="#top"
+          class="inline-flex items-center h-10 pt-1 font-script text-3xl leading-none text-white"
+          >Aisyae</a
+        >
+        <nav class="hidden md:flex items-center gap-1 text-sm">
+          <a
+            href="#katalog"
+            class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition"
+            >Koleksi</a
+          ><a
+            href="#fitur"
+            class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition"
+            >Keunggulan</a
+          ><a
+            href="#cara"
+            class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition"
+            >Cara Kerja</a
+          ><a
+            href="#generator"
+            class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition"
+            >Generator</a
+          >
+        </nav>
+        <div class="flex items-center gap-2">
+          <a
+            href="#generator"
+            class="inline-flex items-center justify-center h-10 px-4 sm:px-5 rounded-full bg-sk-300 text-n9 text-sm font-medium leading-none whitespace-nowrap hover:bg-white transition"
+            ><span class="sm:hidden">Buat Link</span
+            ><span class="hidden sm:inline">Buat Link Tamu</span></a
+          >
+          <button
+            id="mnu"
+            type="button"
+            aria-label="Menu"
+            aria-expanded="false"
+            class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-sk-300/40 text-lg leading-none"
+          >
+            &#9776;
+          </button>
+        </div>
+      </div>
+      <div id="mm" class="hidden md:hidden border-t border-sk-300/15 bg-n9/95">
+        <div class="grid gap-1 px-4 py-3 text-sm">
+          <a
+            href="#katalog"
+            class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white"
+            >Koleksi</a
+          ><a
+            href="#fitur"
+            class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white"
+            >Keunggulan</a
+          ><a
+            href="#cara"
+            class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white"
+            >Cara Kerja</a
+          ><a
+            href="#generator"
+            class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white"
+            >Generator</a
+          >
+        </div>
+      </div>
+    </header>
 
-<!-- NAV -->
-<header class="fixed top-0 inset-x-0 z-40 bg-n9/85 backdrop-blur-md border-b border-sk-300/15">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-    <a href="#top" class="inline-flex items-center h-10 pt-1 font-script text-3xl leading-none text-white">Aisyae</a>
-    <nav class="hidden md:flex items-center gap-1 text-sm"><a href="#katalog" class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition">Koleksi</a><a href="#fitur" class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition">Keunggulan</a><a href="#cara" class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition">Cara Kerja</a><a href="#generator" class="inline-flex items-center h-10 px-4 rounded-full hover:bg-sk-300/10 hover:text-white transition">Generator</a></nav>
-    <div class="flex items-center gap-2">
-      <a href="#generator" class="inline-flex items-center justify-center h-10 px-4 sm:px-5 rounded-full bg-sk-300 text-n9 text-sm font-medium leading-none whitespace-nowrap hover:bg-white transition"><span class="sm:hidden">Buat Link</span><span class="hidden sm:inline">Buat Link Tamu</span></a>
-      <button id="mnu" type="button" aria-label="Menu" aria-expanded="false" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-sk-300/40 text-lg leading-none">&#9776;</button>
-    </div>
-  </div>
-  <div id="mm" class="hidden md:hidden border-t border-sk-300/15 bg-n9/95"><div class="grid gap-1 px-4 py-3 text-sm"><a href="#katalog" class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white">Koleksi</a><a href="#fitur" class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white">Keunggulan</a><a href="#cara" class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white">Cara Kerja</a><a href="#generator" class="mi flex items-center h-11 px-4 rounded-xl hover:bg-sk-300/10 hover:text-white">Generator</a></div></div>
-</header>
+    <!-- HERO -->
+    <section id="top" class="glow relative pt-32 pb-20 px-5 text-center">
+      <p data-aos="fade-up" class="tracking-[.4em] text-xs text-sk-300">
+        AISYAE DIGITAL INVITATION
+      </p>
+      <h1
+        data-aos="fade-up"
+        class="font-serif text-4xl sm:text-6xl text-white mt-5 leading-tight max-w-3xl mx-auto"
+        data-aos-delay="100"
+      >
+        Satu Link untuk
+        <span class="font-script text-5xl sm:text-7xl text-sk-300"
+          >Seribu Kebahagiaan</span
+        >
+      </h1>
+      <p
+        data-aos="fade-up"
+        class="mt-6 max-w-2xl mx-auto text-sk-300/90 leading-relaxed"
+        data-aos-delay="200"
+      >
+        Hari paling istimewa dalam hidup Anda layak dibuka dengan undangan yang
+        berkesan. Elegan, personal untuk setiap tamu, dan siap dibagikan lewat
+        WhatsApp hanya dalam hitungan detik.
+      </p>
+      <div
+        data-aos="fade-up"
+        class="mt-9 flex flex-wrap justify-center gap-3"
+        data-aos-delay="300"
+      >
+        <a
+          href="#generator"
+          class="px-7 py-3 rounded-full bg-sk-300 text-n9 font-semibold hover:bg-white hover:scale-105 transition"
+          >Buat Link Tamu Sekarang</a
+        >
+        <a
+          href="https://byaisyae.github.io/wedding-rere-jabal/?to=Tamu+Spesial"
+          target="_blank"
+          rel="noopener"
+          class="px-7 py-3 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
+          >Lihat Contoh Undangan</a
+        >
+        <a
+          id="waCta"
+          class="hidden px-7 py-3 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
+          target="_blank"
+          rel="noopener"
+          >Konsultasi via WhatsApp</a
+        >
+      </div>
+    </section>
 
-<!-- HERO -->
-<section id="top" class="glow relative pt-32 pb-20 px-5 text-center">
-  <p data-aos="fade-up" class="tracking-[.4em] text-xs text-sk-300">AISYAE DIGITAL INVITATION</p>
-  <h1 data-aos="fade-up" class="font-serif text-4xl sm:text-6xl text-white mt-5 leading-tight max-w-3xl mx-auto" data-aos-delay="100">Satu Link untuk <span class="font-script text-5xl sm:text-7xl text-sk-300">Seribu Kebahagiaan</span></h1>
-  <p data-aos="fade-up" class="mt-6 max-w-2xl mx-auto text-sk-300/90 leading-relaxed" data-aos-delay="200">Hari paling istimewa dalam hidup Anda layak dibuka dengan undangan yang berkesan. Elegan, personal untuk setiap tamu, dan siap dibagikan lewat WhatsApp hanya dalam hitungan detik.</p>
-  <div data-aos="fade-up" class="mt-9 flex flex-wrap justify-center gap-3" data-aos-delay="300">
-    <a href="#generator" class="px-7 py-3 rounded-full bg-sk-300 text-n9 font-semibold hover:bg-white hover:scale-105 transition">Buat Link Tamu Sekarang</a>
-    <a href="https://byaisyae.github.io/wedding-rere-jabal/?to=Tamu+Spesial" target="_blank" rel="noopener" class="px-7 py-3 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition">Lihat Contoh Undangan</a>
-    <a id="waCta" class="hidden px-7 py-3 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition" target="_blank" rel="noopener">Konsultasi via WhatsApp</a>
-  </div>
-</section>
+    <!-- KOLEKSI DIGITAL INVITATION -->
+    <section id="katalog" class="py-20 px-5">
+      <div class="max-w-6xl mx-auto text-center">
+        <p data-aos="fade-up" class="tracking-[.4em] text-xs text-sk-300">
+          DIGITAL INVITATION
+        </p>
+        <h2
+          data-aos="fade-up"
+          data-aos-delay="100"
+          class="font-script text-5xl sm:text-6xl text-white mt-3"
+        >
+          Koleksi Undangan Kami
+        </h2>
+        <p
+          data-aos="fade-up"
+          data-aos-delay="200"
+          class="mt-4 max-w-2xl mx-auto text-sk-300/90 leading-relaxed"
+        >
+          Lihat langsung undangan yang sudah jadi. Buka, geser, dan rasakan
+          sendiri pengalaman yang akan diterima para tamu Anda.
+        </p>
+        <div
+          id="dz"
+          class="mt-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 justify-items-center"
+        ></div>
+      </div>
+    </section>
 
-<!-- KOLEKSI DIGITAL INVITATION -->
-<section id="katalog" class="py-20 px-5">
-  <div class="max-w-6xl mx-auto text-center">
-    <p data-aos="fade-up" class="tracking-[.4em] text-xs text-sk-300">DIGITAL INVITATION</p>
-    <h2 data-aos="fade-up" data-aos-delay="100" class="font-script text-5xl sm:text-6xl text-white mt-3">Koleksi Undangan Kami</h2>
-    <p data-aos="fade-up" data-aos-delay="200" class="mt-4 max-w-2xl mx-auto text-sk-300/90 leading-relaxed">Lihat langsung undangan yang sudah jadi. Buka, geser, dan rasakan sendiri pengalaman yang akan diterima para tamu Anda.</p>
-    <div id="dz" class="mt-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 justify-items-center"></div>
-  </div>
-</section>
+    <!-- KEUNGGULAN -->
+    <section id="fitur" class="py-20 px-5 bg-n8">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 data-aos="fade-up" class="font-script text-5xl text-white">
+          Mengapa Undangan Digital?
+        </h2>
+        <p data-aos="fade-up" class="mt-3 text-sk-300/90 max-w-2xl mx-auto">
+          Lebih cepat, lebih hemat, dan jauh lebih berkesan. Semua yang
+          dibutuhkan tamu ada dalam satu halaman.
+        </p>
+        <div
+          id="feat"
+          class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left"
+        ></div>
+      </div>
+    </section>
 
-<!-- KEUNGGULAN -->
-<section id="fitur" class="py-20 px-5 bg-n8">
-  <div class="max-w-6xl mx-auto text-center">
-    <h2 data-aos="fade-up" class="font-script text-5xl text-white">Mengapa Undangan Digital?</h2>
-    <p data-aos="fade-up" class="mt-3 text-sk-300/90 max-w-2xl mx-auto">Lebih cepat, lebih hemat, dan jauh lebih berkesan. Semua yang dibutuhkan tamu ada dalam satu halaman.</p>
-    <div id="feat" class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left"></div>
-  </div>
-</section>
+    <!-- CARA KERJA -->
+    <section id="cara" class="py-20 px-5">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2 data-aos="fade-up" class="font-script text-5xl text-white">
+          Semudah 3 Langkah
+        </h2>
+        <div id="steps" class="mt-12 grid md:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
 
-<!-- CARA KERJA -->
-<section id="cara" class="py-20 px-5">
-  <div class="max-w-5xl mx-auto text-center">
-    <h2 data-aos="fade-up" class="font-script text-5xl text-white">Semudah 3 Langkah</h2>
-    <div id="steps" class="mt-12 grid md:grid-cols-3 gap-6"></div>
-  </div>
-</section>
+    <!-- GENERATOR -->
+    <section id="generator" class="py-20 px-5 bg-gradient-to-b from-n8 to-n9">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center">
+          <h2 data-aos="fade-up" class="font-script text-5xl text-white">
+            Generator Link Tamu
+          </h2>
+          <p data-aos="fade-up" class="mt-3 text-sk-300/90">
+            Masukkan nama tamu, link personal langsung jadi. Tinggal salin dan
+            bagikan ke WhatsApp.
+          </p>
+        </div>
+        <div
+          data-aos="fade-up"
+          class="mt-10 rounded-3xl border border-sk-300/25 bg-n9/70 p-6 sm:p-8 space-y-5"
+        >
+          <div>
+            <p class="text-sm mb-2">Pilih desain undangan</p>
+            <div id="pick" class="flex flex-wrap gap-2 text-sm"></div>
+          </div>
+          <label class="block text-sm"
+            >Link undangan
+            <input
+              id="base"
+              class="mt-1 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
+              placeholder="https://username.github.io/nama-undangan/"
+          /></label>
+          <label class="block text-sm"
+            >Daftar nama tamu
+            <span class="text-sk-300/70"
+              >(satu nama per baris — opsional:
+              <code class="text-sk-200">Nama|08123456789</code> agar langsung
+              membuka chat tamu)</span
+            >
+            <textarea
+              id="names"
+              rows="5"
+              class="mt-1 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
+            ></textarea>
+          </label>
+          <details class="text-sm">
+            <summary class="cursor-pointer text-sk-300">
+              Ubah template pesan WhatsApp
+            </summary>
+            <textarea
+              id="msg"
+              rows="8"
+              class="mt-2 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"
+            ></textarea>
+            <p class="mt-1 text-xs text-sk-300/70">
+              Gunakan <b>{nama}</b> dan <b>{link}</b> — keduanya otomatis
+              diganti untuk tiap tamu.
+            </p>
+          </details>
+        </div>
+        <div class="flex items-center justify-between mt-8 mb-3">
+          <h3 class="font-serif text-xl text-white">
+            Hasil <span id="cnt" class="text-sm text-sk-300"></span>
+          </h3>
+          <button
+            id="all"
+            class="text-sm px-4 py-1.5 rounded-full border border-sk-300/50 hover:bg-sk-300 hover:text-n9 transition"
+          >
+            Salin Semua Link
+          </button>
+        </div>
+        <p id="err" class="hidden text-red-300 text-sm mb-3">
+          Link undangan belum valid. Contoh:
+          https://byaisyae.github.io/wedding-rere-jabal/
+        </p>
+        <div id="out" class="space-y-3"></div>
+      </div>
+    </section>
 
-<!-- GENERATOR -->
-<section id="generator" class="py-20 px-5 bg-gradient-to-b from-n8 to-n9">
-  <div class="max-w-3xl mx-auto">
-    <div class="text-center">
-      <h2 data-aos="fade-up" class="font-script text-5xl text-white">Generator Link Tamu</h2>
-      <p data-aos="fade-up" class="mt-3 text-sk-300/90">Masukkan nama tamu, link personal langsung jadi. Tinggal salin dan bagikan ke WhatsApp.</p>
-    </div>
-    <div data-aos="fade-up" class="mt-10 rounded-3xl border border-sk-300/25 bg-n9/70 p-6 sm:p-8 space-y-5">
-      <div><p class="text-sm mb-2">Pilih desain undangan</p><div id="pick" class="flex flex-wrap gap-2 text-sm"></div></div>
-      <label class="block text-sm">Link undangan
-        <input id="base" class="mt-1 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300" placeholder="https://username.github.io/nama-undangan/"></label>
-      <label class="block text-sm">Daftar nama tamu <span class="text-sk-300/70">(satu nama per baris — opsional: <code class="text-sk-200">Nama|08123456789</code> agar langsung membuka chat tamu)</span>
-        <textarea id="names" rows="5" class="mt-1 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"></textarea></label>
-      <details class="text-sm"><summary class="cursor-pointer text-sk-300">Ubah template pesan WhatsApp</summary>
-        <textarea id="msg" rows="8" class="mt-2 w-full px-4 py-3 rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300"></textarea>
-        <p class="mt-1 text-xs text-sk-300/70">Gunakan <b>{nama}</b> dan <b>{link}</b> — keduanya otomatis diganti untuk tiap tamu.</p></details>
-    </div>
-    <div class="flex items-center justify-between mt-8 mb-3"><h3 class="font-serif text-xl text-white">Hasil <span id="cnt" class="text-sm text-sk-300"></span></h3><button id="all" class="text-sm px-4 py-1.5 rounded-full border border-sk-300/50 hover:bg-sk-300 hover:text-n9 transition">Salin Semua Link</button></div>
-    <p id="err" class="hidden text-red-300 text-sm mb-3">Link undangan belum valid. Contoh: https://byaisyae.github.io/wedding-rere-jabal/</p>
-    <div id="out" class="space-y-3"></div>
-  </div>
-</section>
+    <!-- CTA -->
+    <section class="py-24 px-5 text-center bg-n7/40">
+      <div class="max-w-2xl mx-auto">
+        <h2
+          data-aos="fade-up"
+          class="font-script text-5xl sm:text-6xl text-white"
+        >
+          Mulai Kisah Bahagia Anda
+        </h2>
+        <p data-aos="fade-up" class="mt-4 text-sk-300/90">
+          Biarkan undangan Anda bercerita. Kami siapkan desainnya, Anda tinggal
+          menyambut para tamu dengan senyuman.
+        </p>
+      </div>
+    </section>
+    <footer
+      class="py-8 text-center text-xs text-sk-300/70 border-t border-sk-300/10"
+    >
+      &copy; <span id="yr"></span> Aisyae Digital Invitation — Dibuat dengan
+      cinta.
+    </footer>
 
-<!-- CTA -->
-<section class="py-24 px-5 text-center bg-n7/40">
-  <div class="max-w-2xl mx-auto"><h2 data-aos="fade-up" class="font-script text-5xl sm:text-6xl text-white">Mulai Kisah Bahagia Anda</h2>
-  <p data-aos="fade-up" class="mt-4 text-sk-300/90">Biarkan undangan Anda bercerita. Kami siapkan desainnya, Anda tinggal menyambut para tamu dengan senyuman.</p></div>
-</section>
-<footer class="py-8 text-center text-xs text-sk-300/70 border-t border-sk-300/10">&copy; <span id="yr"></span> Aisyae Digital Invitation — Dibuat dengan cinta.</footer>
+    <script>
+      /* ===== PENGATURAN — edit di sini ===== */
+      const C = {
+        wa: "", // nomor WhatsApp kamu, mis. "6281234567890" (kosong = tombol konsultasi disembunyikan)
+        base: "https://byaisyae.github.io/wedding-rere-jabal/",
+        msg: `Assalamualaikum Wr. Wb.\n\nKepada Yth. {nama},\n\nDengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.\n\nBuka undangan digital kami di sini:\n{link}\n\nMerupakan kehormatan bagi kami apabila Anda berkenan hadir dan memberikan doa restu. Terima kasih 🙏`,
+      };
+      const D = [
+        {
+          n: "Rere & Jabal",
+          d: "30 Desember 2026",
+          tag: "Navy Elegant",
+          url: "https://byaisyae.github.io/wedding-rere-jabal/",
+          img: "https://byaisyae.github.io/wedding-rere-jabal/img/4.jpg",
+        },
+        {
+          n: "Ihsan & Ai Liana",
+          d: "11 Oktober 2026",
+          tag: "Soft Blue Classic",
+          url: "https://isanmh.github.io/wedding/",
+          img: "https://isanmh.github.io/wedding/img/grt/1.webp",
+        },
+      ]; // tambah desain baru di sini
+      /* ===================================== */
+      const $ = (s) => document.querySelector(s),
+        esc = (s) =>
+          s.replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[c],
+          );
+      const mm = $("#mm"),
+        mb = $("#mnu");
+      mb.onclick = () => {
+        const o = mm.classList.toggle("hidden") === false;
+        mb.setAttribute("aria-expanded", o);
+        mb.innerHTML = o ? "&#10005;" : "&#9776;";
+      };
+      mm.addEventListener("click", (e) => {
+        if (e.target.closest(".mi")) {
+          mm.classList.add("hidden");
+          mb.innerHTML = "&#9776;";
+          mb.setAttribute("aria-expanded", false);
+        }
+      });
+      $("#yr").textContent = new Date().getFullYear();
+      if (C.wa) {
+        const a = $("#waCta");
+        a.href =
+          "https://wa.me/" +
+          C.wa +
+          "?text=" +
+          encodeURIComponent(
+            "Halo Aisyae Digital Invitation, saya tertarik membuat undangan pernikahan digital.",
+          );
+        a.classList.remove("hidden");
+      }
 
-<script>
-/* ===== PENGATURAN — edit di sini ===== */
-const C={
-  wa:"", // nomor WhatsApp kamu, mis. "6281234567890" (kosong = tombol konsultasi disembunyikan)
-  base:"https://byaisyae.github.io/wedding-rere-jabal/",
-  msg:`Assalamualaikum Wr. Wb.\n\nKepada Yth. {nama},\n\nDengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.\n\nBuka undangan digital kami di sini:\n{link}\n\nMerupakan kehormatan bagi kami apabila Anda berkenan hadir dan memberikan doa restu. Terima kasih 🙏`
-};
-const D=[
- {n:"Rere & Jabal",d:"30 Desember 2026",tag:"Navy Elegant",url:"https://byaisyae.github.io/wedding-rere-jabal/"},
- {n:"Ihsan & Ai Liana",d:"11 Oktober 2026",tag:"Soft Blue Classic",url:"https://isanmh.github.io/wedding/",img:"https://isanmh.github.io/wedding/img/grt/1.webp"}
-]; // tambah desain baru di sini
-/* ===================================== */
-const $=s=>document.querySelector(s),esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const mm=$('#mm'),mb=$('#mnu');
-mb.onclick=()=>{const o=mm.classList.toggle('hidden')===false;mb.setAttribute('aria-expanded',o);mb.innerHTML=o?'&#10005;':'&#9776;'};
-mm.addEventListener('click',e=>{if(e.target.closest('.mi')){mm.classList.add('hidden');mb.innerHTML='&#9776;';mb.setAttribute('aria-expanded',false)}});
-$('#yr').textContent=new Date().getFullYear();
-if(C.wa){const a=$('#waCta');a.href='https://wa.me/'+C.wa+'?text='+encodeURIComponent('Halo Aisyae Digital Invitation, saya tertarik membuat undangan pernikahan digital.');a.classList.remove('hidden')}
+      const F = [
+        [
+          "💌",
+          "Nama Tamu Personal",
+          "Setiap tamu disapa dengan namanya sendiri — terasa istimewa, bukan sekadar broadcast.",
+        ],
+        [
+          "📍",
+          "Peta & Detail Acara",
+          "Lokasi, jam, dan countdown dalam satu halaman. Tamu tidak lagi bingung mencari tempat.",
+        ],
+        [
+          "✅",
+          "RSVP & Ucapan Doa",
+          "Konfirmasi kehadiran dan doa restu terkumpul rapi, tanpa repot rekap manual.",
+        ],
+        [
+          "🎁",
+          "Wedding Gift Praktis",
+          "Nomor rekening dan alamat kado bisa disalin dengan satu ketukan.",
+        ],
+        [
+          "📸",
+          "Galeri & Cerita Cinta",
+          "Pamerkan foto prewedding dan perjalanan kisah kalian secara elegan.",
+        ],
+        [
+          "🎶",
+          "Musik Latar",
+          "Suasana romantis langsung terasa begitu undangan dibuka.",
+        ],
+        [
+          "📱",
+          "Nyaman di Semua Layar",
+          "Tampil memukau di HP, tablet, maupun komputer.",
+        ],
+        [
+          "🌿",
+          "Hemat & Ramah Lingkungan",
+          "Tanpa cetak, tanpa ongkir, tanpa limbah — cukup satu link.",
+        ],
+      ];
+      $("#feat").innerHTML = F.map(
+        ([i, t, p], n) =>
+          `<div data-aos="zoom-in-up" class="rounded-2xl border border-sk-300/20 bg-n9/60 p-6 hover:border-sk-300/60 hover:-translate-y-1 transition" data-aos-delay="${(n % 4) * 100}"><div class="text-3xl">${i}</div><h3 class="font-serif text-lg text-white mt-3">${t}</h3><p class="text-sm mt-2 leading-relaxed text-sk-300/90">${p}</p></div>`,
+      ).join("");
+      $("#steps").innerHTML = [
+        [
+          "1",
+          "Pilih Desain",
+          "Tentukan tema undangan yang paling mewakili kisah cinta Anda.",
+        ],
+        [
+          "2",
+          "Kirim Data & Foto",
+          "Cukup siapkan nama, jadwal, lokasi, dan foto — sisanya kami rapikan.",
+        ],
+        [
+          "3",
+          "Bagikan Link",
+          "Buat link personal tiap tamu lewat generator di bawah, lalu kirim ke WhatsApp.",
+        ],
+      ]
+        .map(
+          ([n, t, p], i) =>
+            `<div data-aos="flip-up" class="rounded-3xl border border-sk-300/20 p-8" data-aos-delay="${i * 120}"><div class="mx-auto w-12 h-12 rounded-full bg-sk-300 text-n9 grid place-items-center font-serif text-xl font-bold">${n}</div><h3 class="font-serif text-xl text-white mt-4">${t}</h3><p class="text-sm mt-2 text-sk-300/90 leading-relaxed">${p}</p></div>`,
+        )
+        .join("");
 
-const F=[['💌','Nama Tamu Personal','Setiap tamu disapa dengan namanya sendiri — terasa istimewa, bukan sekadar broadcast.'],['📍','Peta & Detail Acara','Lokasi, jam, dan countdown dalam satu halaman. Tamu tidak lagi bingung mencari tempat.'],['✅','RSVP & Ucapan Doa','Konfirmasi kehadiran dan doa restu terkumpul rapi, tanpa repot rekap manual.'],['🎁','Wedding Gift Praktis','Nomor rekening dan alamat kado bisa disalin dengan satu ketukan.'],['📸','Galeri & Cerita Cinta','Pamerkan foto prewedding dan perjalanan kisah kalian secara elegan.'],['🎶','Musik Latar','Suasana romantis langsung terasa begitu undangan dibuka.'],['📱','Nyaman di Semua Layar','Tampil memukau di HP, tablet, maupun komputer.'],['🌿','Hemat & Ramah Lingkungan','Tanpa cetak, tanpa ongkir, tanpa limbah — cukup satu link.']];
-$('#feat').innerHTML=F.map(([i,t,p],n)=>`<div data-aos="zoom-in-up" class="rounded-2xl border border-sk-300/20 bg-n9/60 p-6 hover:border-sk-300/60 hover:-translate-y-1 transition" data-aos-delay="${(n%4)*100}"><div class="text-3xl">${i}</div><h3 class="font-serif text-lg text-white mt-3">${t}</h3><p class="text-sm mt-2 leading-relaxed text-sk-300/90">${p}</p></div>`).join('');
-$('#steps').innerHTML=[['1','Pilih Desain','Tentukan tema undangan yang paling mewakili kisah cinta Anda.'],['2','Kirim Data & Foto','Cukup siapkan nama, jadwal, lokasi, dan foto — sisanya kami rapikan.'],['3','Bagikan Link','Buat link personal tiap tamu lewat generator di bawah, lalu kirim ke WhatsApp.']].map(([n,t,p],i)=>`<div data-aos="flip-up" class="rounded-3xl border border-sk-300/20 p-8" data-aos-delay="${i*120}"><div class="mx-auto w-12 h-12 rounded-full bg-sk-300 text-n9 grid place-items-center font-serif text-xl font-bold">${n}</div><h3 class="font-serif text-xl text-white mt-4">${t}</h3><p class="text-sm mt-2 text-sk-300/90 leading-relaxed">${p}</p></div>`).join('');
-
-/* koleksi desain */
-const AN=['fade-right','zoom-in','fade-left'];
-$('#dz').innerHTML=D.map((x,i)=>{const [a,b]=x.n.split(' & ');return`<div data-aos="${AN[i%3]}" data-aos-delay="${i*120}" class="group w-full max-w-[17rem]">
+      /* koleksi desain */
+      const AN = ["fade-right", "zoom-in", "fade-left"];
+      $("#dz").innerHTML =
+        D.map((x, i) => {
+          const [a, b] = x.n.split(" & ");
+          return `<div data-aos="${AN[i % 3]}" data-aos-delay="${i * 120}" class="group w-full max-w-[17rem]">
  <div class="rounded-[2.2rem] p-2 bg-n7 border border-sk-300/30 shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:shadow-sk-400/20">
   <div class="relative aspect-[9/16] overflow-hidden rounded-[1.8rem] bg-gradient-to-b from-n8 to-n9 border border-sk-300/20 grid place-items-center text-center px-4">
-   ${x.img?`<img src="${x.img}" alt="${esc(x.n)}" loading="lazy" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-gradient-to-b from-n9/70 via-n9/40 to-n9/85"></div>`:''}
+   ${x.img ? `<img src="${x.img}" alt="${esc(x.n)}" loading="lazy" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110"><div class="absolute inset-0 bg-gradient-to-b from-n9/70 via-n9/40 to-n9/85"></div>` : ""}
    <div class="relative"><p class="tracking-[.3em] text-[9px] text-sk-300">THE WEDDING OF</p><p class="font-script text-5xl text-white my-2 leading-tight">${esc(a)}<br><span class="text-3xl text-sk-300">&amp;</span><br>${esc(b)}</p>
    <p class="text-[10px] text-sk-300 mt-5">Kepada Yth.</p><p class="font-serif text-lg text-white">Tamu Spesial</p><span class="inline-block mt-4 px-5 py-1.5 rounded-full bg-sk-300 text-n9 text-xs font-medium">Buka Undangan</span></div>
   </div></div>
  <p class="mt-5 text-[10px] tracking-[.3em] text-sk-300">${x.tag.toUpperCase()}</p><h3 class="font-serif text-xl text-white">${esc(x.n)}</h3><p class="text-xs text-sk-300/80">${x.d}</p>
- <div class="mt-4 flex justify-center gap-2 text-sm"><a href="${x.url}?to=Tamu+Spesial" target="_blank" rel="noopener" class="px-4 py-1.5 rounded-full bg-sk-300 text-n9 font-medium hover:bg-white transition">Lihat Demo</a><a href="#generator" data-u="${x.url}" class="pk px-4 py-1.5 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition">Buat Link</a></div></div>`}).join('')+
- `<div data-aos="${AN[D.length%3]}" data-aos-delay="${D.length*120}" class="w-full max-w-[17rem] self-start"><div class="rounded-[2.2rem] p-2 border-2 border-dashed border-sk-300/40"><div class="aspect-[9/16] rounded-[1.8rem] grid place-items-center text-center px-6"><div><p class="font-script text-5xl text-sk-300">Desain Custom</p><p class="text-sm mt-4 text-sk-300/90 leading-relaxed">Punya konsep impian? Warna, tema, hingga animasi bisa disesuaikan dengan kisah Anda.</p><a href="${C.wa?'https://wa.me/'+C.wa:'#generator'}" class="inline-block mt-5 px-5 py-1.5 rounded-full border border-sk-300/60 text-sm hover:bg-sk-300 hover:text-n9 transition">Diskusikan</a></div></div></div></div>`;
-$('#pick').innerHTML=D.map(x=>`<button data-u="${x.url}" class="pk px-4 py-1.5 rounded-full border border-sk-300/40 hover:bg-sk-300 hover:text-n9 transition">${esc(x.n)}</button>`).join('');
+ <div class="mt-4 flex justify-center gap-2 text-sm"><a href="${x.url}?to=Tamu+Spesial" target="_blank" rel="noopener" class="px-4 py-1.5 rounded-full bg-sk-300 text-n9 font-medium hover:bg-white transition">Lihat Demo</a><a href="#generator" data-u="${x.url}" class="pk px-4 py-1.5 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition">Buat Link</a></div></div>`;
+        }).join("") +
+        `<div data-aos="${AN[D.length % 3]}" data-aos-delay="${D.length * 120}" class="w-full max-w-[17rem] self-start"><div class="rounded-[2.2rem] p-2 border-2 border-dashed border-sk-300/40"><div class="aspect-[9/16] rounded-[1.8rem] grid place-items-center text-center px-6"><div><p class="font-script text-5xl text-sk-300">Desain Custom</p><p class="text-sm mt-4 text-sk-300/90 leading-relaxed">Punya konsep impian? Warna, tema, hingga animasi bisa disesuaikan dengan kisah Anda.</p><a href="${C.wa ? "https://wa.me/" + C.wa : "#generator"}" class="inline-block mt-5 px-5 py-1.5 rounded-full border border-sk-300/60 text-sm hover:bg-sk-300 hover:text-n9 transition">Diskusikan</a></div></div></div></div>`;
+      $("#pick").innerHTML = D.map(
+        (x) =>
+          `<button data-u="${x.url}" class="pk px-4 py-1.5 rounded-full border border-sk-300/40 hover:bg-sk-300 hover:text-n9 transition">${esc(x.n)}</button>`,
+      ).join("");
 
-/* generator */
-const K='aisyae-gen',S=JSON.parse(localStorage.getItem(K)||'{}');
-$('#base').value=S.base||C.base;$('#names').value=S.names??'MC Abuy\nihsan';$('#msg').value=S.msg||C.msg;
-const phone=p=>{p=(p||'').replace(/\D/g,'');return p.replace(/^0/,'62')};
-const copyTxt=(t,ok)=>{const fb=()=>{const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;left:-9999px';document.body.appendChild(a);a.select();let g=false;try{g=document.execCommand('copy')}catch(_){}a.remove();g?ok():prompt('Salin manual:',t)};
- navigator.clipboard&&window.isSecureContext?navigator.clipboard.writeText(t).then(ok,fb):fb()};
-let R=[];
-const render=()=>{
- localStorage.setItem(K,JSON.stringify({base:$('#base').value,names:$('#names').value,msg:$('#msg').value}));
- let base;try{base=new URL($('#base').value.trim())}catch(_){base=null}
- $('#err').classList.toggle('hidden',!!base);
- R=!base?[]:$('#names').value.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const[n,p]=l.split('|').map(x=>x.trim());const u=new URL(base);u.searchParams.set('to',n);const link=u.toString();
-  const m=$('#msg').value.replaceAll('{nama}',n).replaceAll('{link}',link);return{n,link,m,wa:`https://wa.me/${phone(p)}?text=${encodeURIComponent(m)}`}});
- $('#cnt').textContent=R.length?`(${R.length} tamu)`:'';
- $('#out').innerHTML=R.map((r,i)=>`<div class="rounded-2xl border border-sk-300/25 bg-n9/70 p-4"><p class="font-medium text-white">${esc(r.n)}</p><p class="text-xs text-sk-300 break-all my-2">${esc(r.link)}</p>
- <div class="flex flex-wrap gap-2 text-sm"><button data-a="l" data-i="${i}" class="px-4 py-1.5 rounded-full bg-sk-300 text-n9 font-medium">Salin Link</button><button data-a="m" data-i="${i}" class="px-4 py-1.5 rounded-full border border-sk-300/50 hover:bg-sk-300/10">Salin Pesan</button><a href="${r.wa}" target="_blank" rel="noopener" class="px-4 py-1.5 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-400">Kirim WhatsApp</a></div></div>`).join('')||'<p class="text-center text-sm text-sk-300/70 py-6">Belum ada nama tamu.</p>'};
-document.addEventListener('click',e=>{const k=e.target.closest('.pk');if(k){$('#base').value=k.dataset.u;render()}});
-['#base','#names','#msg'].forEach(s=>$(s).addEventListener('input',render));
-$('#out').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const r=R[b.dataset.i],t=b.textContent;copyTxt(b.dataset.a==='l'?r.link:r.m,()=>{b.textContent='Tersalin ✓';setTimeout(()=>b.textContent=t,1500)})});
-$('#all').onclick=e=>{const b=e.target;copyTxt(R.map(r=>`${r.n}: ${r.link}`).join('\n'),()=>{b.textContent='Tersalin ✓';setTimeout(()=>b.textContent='Salin Semua Link',1500)})};
-render();
+      /* generator */
+      const K = "aisyae-gen",
+        S = JSON.parse(localStorage.getItem(K) || "{}");
+      $("#base").value = S.base || C.base;
+      $("#names").value = S.names ?? "MC Abuy\nihsan";
+      $("#msg").value = S.msg || C.msg;
+      const phone = (p) => {
+        p = (p || "").replace(/\D/g, "");
+        return p.replace(/^0/, "62");
+      };
+      const copyTxt = (t, ok) => {
+        const fb = () => {
+          const a = document.createElement("textarea");
+          a.value = t;
+          a.style.cssText = "position:fixed;left:-9999px";
+          document.body.appendChild(a);
+          a.select();
+          let g = false;
+          try {
+            g = document.execCommand("copy");
+          } catch (_) {}
+          a.remove();
+          g ? ok() : prompt("Salin manual:", t);
+        };
+        navigator.clipboard && window.isSecureContext
+          ? navigator.clipboard.writeText(t).then(ok, fb)
+          : fb();
+      };
+      let R = [];
+      const render = () => {
+        localStorage.setItem(
+          K,
+          JSON.stringify({
+            base: $("#base").value,
+            names: $("#names").value,
+            msg: $("#msg").value,
+          }),
+        );
+        let base;
+        try {
+          base = new URL($("#base").value.trim());
+        } catch (_) {
+          base = null;
+        }
+        $("#err").classList.toggle("hidden", !!base);
+        R = !base
+          ? []
+          : $("#names")
+              .value.split("\n")
+              .map((l) => l.trim())
+              .filter(Boolean)
+              .map((l) => {
+                const [n, p] = l.split("|").map((x) => x.trim());
+                const u = new URL(base);
+                u.searchParams.set("to", n);
+                const link = u.toString();
+                const m = $("#msg")
+                  .value.replaceAll("{nama}", n)
+                  .replaceAll("{link}", link);
+                return {
+                  n,
+                  link,
+                  m,
+                  wa: `https://wa.me/${phone(p)}?text=${encodeURIComponent(m)}`,
+                };
+              });
+        $("#cnt").textContent = R.length ? `(${R.length} tamu)` : "";
+        $("#out").innerHTML =
+          R.map(
+            (
+              r,
+              i,
+            ) => `<div class="rounded-2xl border border-sk-300/25 bg-n9/70 p-4"><p class="font-medium text-white">${esc(r.n)}</p><p class="text-xs text-sk-300 break-all my-2">${esc(r.link)}</p>
+ <div class="flex flex-wrap gap-2 text-sm"><button data-a="l" data-i="${i}" class="px-4 py-1.5 rounded-full bg-sk-300 text-n9 font-medium">Salin Link</button><button data-a="m" data-i="${i}" class="px-4 py-1.5 rounded-full border border-sk-300/50 hover:bg-sk-300/10">Salin Pesan</button><a href="${r.wa}" target="_blank" rel="noopener" class="px-4 py-1.5 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-400">Kirim WhatsApp</a></div></div>`,
+          ).join("") ||
+          '<p class="text-center text-sm text-sk-300/70 py-6">Belum ada nama tamu.</p>';
+      };
+      document.addEventListener("click", (e) => {
+        const k = e.target.closest(".pk");
+        if (k) {
+          $("#base").value = k.dataset.u;
+          render();
+        }
+      });
+      ["#base", "#names", "#msg"].forEach((s) =>
+        $(s).addEventListener("input", render),
+      );
+      $("#out").addEventListener("click", (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        const r = R[b.dataset.i],
+          t = b.textContent;
+        copyTxt(b.dataset.a === "l" ? r.link : r.m, () => {
+          b.textContent = "Tersalin ✓";
+          setTimeout(() => (b.textContent = t), 1500);
+        });
+      });
+      $("#all").onclick = (e) => {
+        const b = e.target;
+        copyTxt(R.map((r) => `${r.n}: ${r.link}`).join("\n"), () => {
+          b.textContent = "Tersalin ✓";
+          setTimeout(() => (b.textContent = "Salin Semua Link"), 1500);
+        });
+      };
+      render();
 
-/* animasi scroll (AOS) */
-try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){AOS.init({duration:800,easing:'ease-out-cubic',once:false,mirror:true,offset:70});document.documentElement.classList.add('aos-on')}}catch(e){}
-</script>
-</body>
+      /* animasi scroll (AOS) */
+      try {
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          AOS.init({
+            duration: 800,
+            easing: "ease-out-cubic",
+            once: false,
+            mirror: true,
+            offset: 70,
+          });
+          document.documentElement.classList.add("aos-on");
+        }
+      } catch (e) {}
+    </script>
+  </body>
 </html>

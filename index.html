@@ -137,7 +137,8 @@
             aria-expanded="false"
             class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-sk-300/40 text-white hover:bg-sk-300/10 transition"
           >
-            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <svg id="icOpen" viewBox="0 0 24 24" class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <svg id="icClose" viewBox="0 0 24 24" class="w-5 h-5 pointer-events-none hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
           </button>
         </div>
       </div>
@@ -456,17 +457,19 @@
       const mm = $("#mm"),
         mb = $("#mnu"),
         hd = $("#hd");
-      const IC_OPEN =
-          '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
-        IC_CLOSE =
-          '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+      const icOpen = $("#icOpen"),
+        icClose = $("#icClose");
       const setMenu = (o) => {
         mm.classList.toggle("hidden", !o);
+        icOpen.classList.toggle("hidden", o);
+        icClose.classList.toggle("hidden", !o);
         mb.setAttribute("aria-expanded", o);
         mb.setAttribute("aria-label", o ? "Tutup menu" : "Buka menu");
-        mb.innerHTML = o ? IC_CLOSE : IC_OPEN;
       };
-      mb.onclick = () => setMenu(mm.classList.contains("hidden"));
+      mb.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setMenu(mm.classList.contains("hidden"));
+      });
       mm.addEventListener("click", (e) => {
         if (e.target.closest("a")) setMenu(false);
       });

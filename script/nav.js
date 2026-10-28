@@ -29,8 +29,4 @@ matchMedia("(min-width:768px)").addEventListener("change", (e) => {
 });
 $("#yr").textContent = new Date().getFullYear();
 
-document.querySelectorAll("[data-wa]").forEach((a) => {
-  a.href = WA(C[a.dataset.wa]);
-  a.target = "_blank";
-  a.rel = "noopener";
-});
+bindWa();

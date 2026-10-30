@@ -1,22 +1,28 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import Home from "./pages/Home";
+import CatalogPage from "./pages/CatalogPage";
 import NotFound from "./pages/NotFound";
 
-// Beranda hanya untuk "/" (atau "/index.html"); alamat lain → halaman 404.
+// Rute sederhana tanpa router: "/" → beranda, "/katalog/" → katalog, selain itu → 404.
 // Di GitHub Pages, 404.html (salinan index.html) memuat app ini untuk alamat yang tidak ada.
-const isHome = () => {
+const route = () => {
   const base = import.meta.env.BASE_URL; // "/" atau "/nama-repo/"
-  const p = location.pathname;
-  return p === base || p === base.replace(/\/$/, "") || p === base + "index.html";
+  let p = location.pathname;
+  if (p + "/" === base) p = base;
+  p = p.startsWith(base) ? p.slice(base.length) : p;
+  p = p.replace(/index\.html$/, "").replace(/\/+$/, "");
+  if (p === "") return "home";
+  if (p === "katalog") return "catalog";
+  return "404";
 };
 
 export default function App() {
-  const home = isHome();
+  const page = route();
 
   // animasi scroll (AOS), dimatikan jika pengguna memilih reduced motion
   useEffect(() => {
-    if (!home) return;
+    if (page === "404") return;
     try {
       if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
         AOS.init({
@@ -29,7 +35,9 @@ export default function App() {
         document.documentElement.classList.add("aos-on");
       }
     } catch (_) {}
-  }, [home]);
+  }, [page]);
 
-  return home ? <Home /> : <NotFound />;
+  if (page === "home") return <Home />;
+  if (page === "catalog") return <CatalogPage />;
+  return <NotFound />;
 }

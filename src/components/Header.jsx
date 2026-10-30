@@ -3,11 +3,14 @@ import { C } from "../config";
 import { WA } from "../utils/wa";
 import WaIcon from "./WaIcon";
 
+const BASE = import.meta.env.BASE_URL;
+// href absolut ke beranda agar menu juga berfungsi dari halaman katalog
 const NAV = [
-  ["#katalog", "Koleksi"],
-  ["#fitur", "Keunggulan"],
-  ["#cara", "Cara Kerja"],
-  ["#generator", "Generator"],
+  [`${BASE}#katalog`, "Koleksi"],
+  [`${BASE}katalog/`, "Katalog"],
+  [`${BASE}#fitur`, "Keunggulan"],
+  [`${BASE}#cara`, "Cara Kerja"],
+  [`${BASE}#generator`, "Generator"],
 ];
 
 export default function Header() {
@@ -43,7 +46,7 @@ export default function Header() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         <a
-          href="#top"
+          href={BASE}
           className="inline-flex items-center h-10 pt-1 font-script text-3xl leading-none text-white"
         >
           Aisyae
@@ -61,7 +64,7 @@ export default function Header() {
         </nav>
         <div className="flex items-center gap-2">
           <a
-            href="#generator"
+            href={`${BASE}#generator`}
             className="hidden sm:inline-flex items-center justify-center h-10 px-5 rounded-full bg-sk-300 text-n9 text-sm font-medium leading-none whitespace-nowrap hover:bg-white transition"
           >
             Buat Link Tamu
@@ -119,7 +122,7 @@ export default function Header() {
             </a>
           ))}
           <a
-            href="#generator"
+            href={`${BASE}#generator`}
             className="flex items-center justify-center h-12 mt-2 rounded-full bg-sk-300 text-n9 font-medium hover:bg-white transition sm:hidden"
           >
             Buat Link Tamu

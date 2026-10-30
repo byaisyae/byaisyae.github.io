@@ -1,4 +1,4 @@
-# Aisyae Digital Invitation — React + Vite project
+# Aisyae Digital Invitation — React + Vite
 
 Konversi dari situs HTML/JS statis ke **React 18 + Vite 5 + Tailwind CSS 3** (kelas Tailwind, warna, dan font sama persis dengan versi sebelumnya).
 
@@ -13,12 +13,14 @@ npm run preview   # cek hasil build
 
 ## Mengubah konten
 
-| Yang diubah                                         | File                 |
-| --------------------------------------------------- | -------------------- |
-| Nomor WA admin, pesan otomatis, daftar desain (`D`) | `src/config.js`      |
-| Daftar keunggulan & langkah                         | `src/content.js`     |
-| Warna & font                                        | `tailwind.config.js` |
-| Gaya kustom (animasi, glow)                         | `src/index.css`      |
+| Yang diubah | File |
+| --- | --- |
+| Nomor WA admin, pesan otomatis | `src/config.js` (`C`) |
+| Kategori & pricelist katalog | `src/config.js` (`CATS`) |
+| Desain di katalog (`/katalog/`) & beranda | `src/config.js` (`D`) — isi `cat` untuk kategori, `featured: true` untuk tampil di beranda |
+| Daftar keunggulan & langkah | `src/content.js` |
+| Warna & font | `tailwind.config.js` |
+| Gaya kustom (animasi, glow) | `src/index.css` |
 
 ## Deploy ke GitHub Pages (GitHub Actions)
 
@@ -36,7 +38,7 @@ Jika nanti dipindah ke repo biasa (`username.github.io/nama-repo/`), ubah `base`
 ```
 src/
   main.jsx  App.jsx  index.css  config.js  content.js
-  pages/        Home.jsx, NotFound.jsx
+  pages/        Home.jsx, CatalogPage.jsx, NotFound.jsx
   components/   Header, Hero, Catalog, DesignCard, Features, Steps,
                 Generator, Cta, Footer, WaFloat, WaIcon
   utils/        wa.js, copy.js, storage.js

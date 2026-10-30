@@ -1,12 +1,11 @@
 import { C, D } from "../config";
+import { AN } from "../utils/anim";
 import { WA } from "../utils/wa";
 import DesignCard from "./DesignCard";
 import WaIcon from "./WaIcon";
 
-// animasi kartu: di layar kecil semuanya fade-up
-const AN = matchMedia("(max-width:767px)").matches
-  ? ["fade-up", "fade-up", "fade-up"]
-  : ["fade-right", "zoom-in", "fade-left"];
+const FEATURED = D.filter((x) => x.featured);
+const CATALOG = `${import.meta.env.BASE_URL}katalog/`;
 
 export default function Catalog({ onPick }) {
   return (
@@ -34,7 +33,7 @@ export default function Catalog({ onPick }) {
           id="dz"
           className="mt-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 justify-items-center"
         >
-          {D.map((x, i) => (
+          {FEATURED.map((x, i) => (
             <DesignCard
               key={x.url}
               design={x}
@@ -46,8 +45,8 @@ export default function Catalog({ onPick }) {
 
           {/* kartu desain custom */}
           <div
-            data-aos={AN[D.length % 3]}
-            data-aos-delay={D.length * 120}
+            data-aos={AN[FEATURED.length % 3]}
+            data-aos-delay={FEATURED.length * 120}
             className="w-full max-w-[17rem] self-start"
           >
             <div className="rounded-[2.2rem] p-2 border-2 border-dashed border-sk-300/40">
@@ -74,6 +73,14 @@ export default function Catalog({ onPick }) {
               </div>
             </div>
           </div>
+        </div>
+        <div data-aos="fade-up" className="mt-14">
+          <a
+            href={CATALOG}
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-sk-300/50 text-white hover:bg-sk-300 hover:text-n9 transition"
+          >
+            Lihat Semua Koleksi <span aria-hidden="true">→</span>
+          </a>
         </div>
       </div>
     </section>

@@ -62,7 +62,7 @@ export default function NotFound() {
               Kembali ke Beranda
             </a>
             <a
-              href={`${HOME}#katalog`}
+              href={`${HOME}katalog/`}
               className="px-7 py-3 text-center rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
             >
               Lihat Koleksi

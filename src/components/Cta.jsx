@@ -2,7 +2,7 @@ import { C } from "../config";
 import { WA } from "../utils/wa";
 import WaIcon from "./WaIcon";
 
-export default function Cta() {
+export default function Cta({ hideCollection = false }) {
   return (
     <section id="pesan" className="py-20 sm:py-24 px-5 text-center bg-n7/40">
       <div className="max-w-2xl mx-auto">
@@ -33,12 +33,14 @@ export default function Cta() {
           >
             <WaIcon /> Pesan Undangan Digital
           </a>
-          <a
-            href="#katalog"
-            className="px-7 py-3 text-center rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
-          >
-            Lihat Koleksi
-          </a>
+          {!hideCollection && (
+            <a
+              href={`${import.meta.env.BASE_URL}katalog/`}
+              className="px-7 py-3 text-center rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
+            >
+              Lihat Katalog Undangan
+            </a>
+          )}
         </div>
       </div>
     </section>

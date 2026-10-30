@@ -1,6 +1,6 @@
-/* Konfigurasi Tailwind (CDN) — warna & font kustom.
-   Dimuat SETELAH cdn.tailwindcss.com dan SEBELUM konten halaman. */
-tailwind.config = {
+/** Konfigurasi Tailwind — warna & font kustom (sama seperti versi CDN sebelumnya). */
+export default {
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       colors: {
@@ -16,4 +16,5 @@ tailwind.config = {
       },
     },
   },
+  plugins: [],
 };

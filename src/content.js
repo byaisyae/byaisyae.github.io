@@ -1,5 +1,5 @@
 /* Konten statis: daftar keunggulan & langkah pemesanan */
-const F = [
+export const F = [
   [
     "💌",
     "Nama Tamu Personal",
@@ -42,7 +42,7 @@ const F = [
   ],
 ];
 
-const STEPS = [
+export const STEPS = [
   [
     "1",
     "Pilih Desain",

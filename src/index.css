@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Gaya kustom di luar Tailwind */
 html {
   -webkit-text-size-adjust: 100%;

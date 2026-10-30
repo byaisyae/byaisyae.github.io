@@ -1,4 +1,4 @@
-# Aisyae Digital Invitation — React + Vite
+# Aisyae Digital Invitation — React + Vite project
 
 Konversi dari situs HTML/JS statis ke **React 18 + Vite 5 + Tailwind CSS 3** (kelas Tailwind, warna, dan font sama persis dengan versi sebelumnya).
 
@@ -13,12 +13,12 @@ npm run preview   # cek hasil build
 
 ## Mengubah konten
 
-| Yang diubah | File |
-| --- | --- |
-| Nomor WA admin, pesan otomatis, daftar desain (`D`) | `src/config.js` |
-| Daftar keunggulan & langkah | `src/content.js` |
-| Warna & font | `tailwind.config.js` |
-| Gaya kustom (animasi, glow) | `src/index.css` |
+| Yang diubah                                         | File                 |
+| --------------------------------------------------- | -------------------- |
+| Nomor WA admin, pesan otomatis, daftar desain (`D`) | `src/config.js`      |
+| Daftar keunggulan & langkah                         | `src/content.js`     |
+| Warna & font                                        | `tailwind.config.js` |
+| Gaya kustom (animasi, glow)                         | `src/index.css`      |
 
 ## Deploy ke GitHub Pages (GitHub Actions)
 

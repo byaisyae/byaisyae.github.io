@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { C } from "../config";
 import { loadSaved } from "../utils/storage";
 import Header from "../components/Header";
@@ -14,6 +14,21 @@ import WaFloat from "../components/WaFloat";
 export default function Home() {
   // link undangan terpilih dipakai bersama oleh Katalog ("Buat Link") dan Generator
   const [base, setBase] = useState(() => loadSaved().base || C.base);
+
+  // Saat dibuka dari halaman lain (mis. /katalog/ → /#generator), isi halaman baru dirender
+  // oleh React setelah browser mencoba scroll ke #hash, sehingga tujuan belum ada.
+  // Scroll ulang ke section setelah halaman tampil.
+  useEffect(() => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const go = () =>
+      document
+        .getElementById(id)
+        ?.scrollIntoView({ behavior: "instant", block: "start" });
+    go();
+    const t = setTimeout(go, 400); // koreksi setelah gambar/animasi selesai memuat
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <>

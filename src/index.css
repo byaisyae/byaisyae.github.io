@@ -40,6 +40,14 @@ img {
     animation: none;
   }
 }
+.dd-in {
+  animation: mmIn 0.18s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dd-in {
+    animation: none;
+  }
+}
 html:not(.aos-on) [data-aos] {
   opacity: 1 !important;
   transform: none !important;

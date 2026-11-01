@@ -12,6 +12,7 @@ export const SITE = (
 ).replace(/\/+$/, "");
 
 export const C = {
+  ig: "saevitation", // username Instagram (tanpa @), tampil di footer
   wa: "6282233505516", // nomor WhatsApp admin (format internasional, tanpa + atau 0 di depan)
   // pesan otomatis saat tombol WhatsApp diklik
   msgOrder: `Halo Aisyae Digital Invitation 👋\n\nSaya ingin memesan undangan pernikahan digital. Mohon info paket, harga, dan prosesnya ya.\n\nNama mempelai:\nTanggal acara:\nDesain yang diminati:\n\nTerima kasih 🙏`,

@@ -26,6 +26,9 @@ jobs:
       # pakai "npm ci" jika package-lock.json sudah di-commit
       - run: npm install
       - run: npm run build
+        env:
+          # opsional: atur di Settings → Secrets and variables → Actions → Variables
+          VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

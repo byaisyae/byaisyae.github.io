@@ -49,7 +49,7 @@ export default function Header() {
           href={BASE}
           className="inline-flex items-center h-10 pt-1 font-script text-3xl leading-none text-white"
         >
-          Aisyae
+          saevitaion
         </a>
         <nav className="hidden md:flex items-center gap-1 text-sm">
           {NAV.map(([href, label]) => (

@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// base "/"  → situs di root domain (username.github.io)
-// Jika situs ada di sub-folder repo (username.github.io/nama-repo/), ganti menjadi "/nama-repo/".
+// base "/"  → situs di root domain (https://saevitation.com/)
+// Jika situs dipindah ke sub-folder (domain.com/nama-folder/), ganti menjadi "/nama-folder/".
 export default defineConfig({
   base: "/",
   plugins: [react()],

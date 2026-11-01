@@ -19,6 +19,7 @@ const Shot = ({ src }) => (
     src={src}
     alt=""
     loading="lazy"
+          decoding="async"
     className="absolute inset-0 w-full h-full object-cover object-top"
   />
 );
@@ -37,6 +38,7 @@ export default function CatalogCard({ design: x, title, price, orderHref, index,
           src={src}
           alt=""
           loading="lazy"
+          decoding="async"
           onError={() => setImgOk(false)}
           style={{ objectPosition: pos }}
           className="absolute inset-0 w-full h-full object-cover"
@@ -49,7 +51,7 @@ export default function CatalogCard({ design: x, title, price, orderHref, index,
     <div
       data-aos={anim}
       data-aos-delay={index * 120}
-      className="group w-full rounded-3xl border border-sk-300/25 bg-white/[0.04] backdrop-blur-sm px-5 py-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.25)] hover:border-sk-300/50 transition"
+      className="group w-full h-full rounded-3xl border border-sk-300/25 bg-white/[0.04] backdrop-blur-sm px-5 py-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.25)] hover:border-sk-300/50 transition"
     >
       {/* dua ponsel: cover & halaman dalam */}
       <div className="flex justify-center items-start">
@@ -100,7 +102,18 @@ export default function CatalogCard({ design: x, title, price, orderHref, index,
         </Phone>
       </div>
 
-      <h3 className="font-serif text-xl text-white mt-8">{title}</h3>
+      {x.client ? (
+        // koleksi client: label tema + nama mempelai + tanggal nikah (seperti di beranda)
+        <div className="mt-8">
+          <p className="text-[10px] tracking-[.3em] text-sk-300">
+            {x.tag.toUpperCase()}
+          </p>
+          <h3 className="font-serif text-xl text-white">{x.n}</h3>
+          <p className="text-xs text-sk-300/80">{x.d}</p>
+        </div>
+      ) : (
+        <h3 className="font-serif text-xl text-white mt-8">{title}</h3>
+      )}
       {price && (
         <div className="mt-3">
           <p className="text-sm text-sk-300/70 line-through decoration-red-400">

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import AOS from "aos";
-import { C, D, CATS } from "../config";
+import { D, CATS, CLIENT } from "../config";
 import { AN } from "../utils/anim";
 import { WA, orderDesign } from "../utils/wa";
 import Header from "../components/Header";
@@ -10,31 +10,36 @@ import Footer from "../components/Footer";
 import WaFloat from "../components/WaFloat";
 import WaIcon from "../components/WaIcon";
 
+// jumlah kartu yang tampil per grup; tombol "Muat Lebih Banyak" menambah sebanyak ini
+const PAGE = 6;
+
 const initialCat = () => {
   const k = new URLSearchParams(location.search).get("kategori");
-  return CATS.some((c) => c.id === k) ? k : "semua";
+  return [...CATS, CLIENT].some((c) => c.id === k) ? k : "semua";
 };
 
 export default function CatalogPage() {
   const [cat, setCat] = useState(initialCat);
+  const [visible, setVisible] = useState({}); // id grup → jumlah kartu yang ditampilkan
+  const countOf = (id) => visible[id] ?? PAGE;
+  const loadMore = (id) =>
+    setVisible((v) => ({ ...v, [id]: (v[id] ?? PAGE) + PAGE }));
 
   useEffect(() => {
     document.title = "Katalog Undangan Pernikahan Digital | Aisyae Digital Invitation";
   }, []);
 
-  // grup per kategori (+ desain tanpa kategori di "Koleksi Lainnya")
-  const groups = useMemo(() => {
-    const g = CATS.map((c) => ({ ...c, items: D.filter((x) => x.cat === c.id) }));
-    const rest = D.filter((x) => !CATS.some((c) => c.id === x.cat));
-    if (rest.length)
-      g.push({
-        id: "lainnya",
-        label: "Koleksi Lainnya",
-        desc: "Desain pilihan dengan gaya lainnya.",
-        items: rest,
-      });
-    return g;
-  }, []);
+  // grup tema per kategori + grup koleksi client (desain dengan client: true)
+  const groups = useMemo(
+    () => [
+      ...CATS.map((c) => ({
+        ...c,
+        items: D.filter((x) => !x.client && x.cat === c.id),
+      })),
+      { ...CLIENT, items: D.filter((x) => x.client) },
+    ],
+    [],
+  );
 
   const shown =
     cat === "semua"
@@ -54,15 +59,15 @@ export default function CatalogPage() {
   useEffect(() => {
     if (document.documentElement.classList.contains("aos-on"))
       AOS.refreshHard();
-  }, [cat]);
+  }, [cat, visible]);
 
   const pills = [
-    { id: "semua", label: "Semua", n: D.length },
-    ...CATS.map((c) => ({
-      id: c.id,
-      label: c.label,
-      n: D.filter((x) => x.cat === c.id).length,
-    })),
+    {
+      id: "semua",
+      label: "Semua",
+      n: groups.reduce((t, g) => t + g.items.length, 0),
+    },
+    ...groups.map((g) => ({ id: g.id, label: g.short || g.label, n: g.items.length })),
   ];
 
   return (
@@ -135,26 +140,50 @@ export default function CatalogPage() {
               </div>
 
               {g.items.length ? (
-                <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
-                  {g.items.map((x, i) => {
+                <>
+                <div className="mt-10 flex flex-wrap justify-center gap-6">
+                  {g.items.slice(0, countOf(g.id)).map((x, i) => {
                     const title =
                       x.title ||
-                      (CATS.some((c) => c.id === g.id)
-                        ? `${g.label} ${String(i + 1).padStart(2, "0")}`
-                        : x.tag);
+                      (x.client
+                        ? x.tag
+                        : `${g.label} ${String(i + 1).padStart(2, "0")}`);
+                    // pesan WA untuk koleksi client menyebut undangan contoh yang dimaksud
+                    const orderTitle = x.client
+                      ? `${x.tag} (seperti undangan ${x.n})`
+                      : title;
                     return (
-                      <CatalogCard
+                      <div
                         key={x.url}
-                        design={x}
-                        title={title}
-                        index={i}
-                        anim={AN[i % 3]}
-                        price={g.price}
-                        orderHref={orderDesign(title, x, g)}
-                      />
+                        className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
+                      >
+                        <CatalogCard
+                          design={x}
+                          title={title}
+                          index={i % PAGE}
+                          anim={AN[i % 3]}
+                          price={g.price}
+                          orderHref={orderDesign(orderTitle, x, g)}
+                        />
+                      </div>
                     );
                   })}
                 </div>
+                {g.items.length > countOf(g.id) && (
+                  <div className="mt-10 text-center">
+                    <button
+                      type="button"
+                      onClick={() => loadMore(g.id)}
+                      className="px-8 py-3 rounded-full border border-sk-300/50 text-white hover:bg-sk-300 hover:text-n9 transition"
+                    >
+                      Muat Lebih Banyak{" "}
+                      <span className="text-sk-300/70">
+                        ({g.items.length - countOf(g.id)} lagi)
+                      </span>
+                    </button>
+                  </div>
+                )}
+                </>
               ) : (
                 <div className="mt-10 max-w-md mx-auto rounded-3xl border-2 border-dashed border-sk-300/30 px-6 py-10 text-center">
                   <p className="font-script text-4xl text-sk-300">Segera Hadir</p>

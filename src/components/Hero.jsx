@@ -1,5 +1,3 @@
-import { C } from "../config";
-
 export default function Hero() {
   return (
     <section
@@ -43,12 +41,10 @@ export default function Hero() {
           Buat Link Tamu Sekarang
         </a>
         <a
-          href={C.demo}
-          target="_blank"
-          rel="noopener"
+          href={`${import.meta.env.BASE_URL}katalog/`}
           className="px-7 py-3 text-center rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
         >
-          Lihat Contoh Undangan
+          Lihat Katalog Undangan
         </a>
       </div>
     </section>

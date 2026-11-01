@@ -20,7 +20,7 @@ npm run preview   # cek hasil build
 | Desain tema di katalog (`/katalog/`) | `src/config.js` (`D`) — isi `cat` (kategori tema) |
 | Koleksi client (nama & tanggal nikah) | `src/config.js` (`D`) — isi `client: true` (tanpa `cat`); otomatis jadi pilihan di generator link. `featured: true` = tampil juga di beranda |
 | Template pesan WA per bahasa (ID/EN/AR) | `src/config.js` (`C.msgs`) |
-| Daftar keunggulan & langkah | `src/content.js` |
+| Daftar keunggulan, langkah, **F.A.Q** (`/faq/`), dan **Add On** (`/add-on/`) — harga & ketentuan | `src/content.js` |
 | Warna & font | `tailwind.config.js` |
 | Gaya kustom (animasi, glow) | `src/index.css` |
 
@@ -34,7 +34,7 @@ Situs ini berjalan di domain kustom `https://saevitation.com/`, jadi `base: "/"`
 4. Setiap push ke `main`, workflow `.github/workflows/deploy.yml` otomatis build dan deploy. Bisa juga dijalankan manual dari tab **Actions**.
 
 Jika nanti dipindah ke sub-folder (`domain.com/nama-folder/`), ubah `base` menjadi `"/nama-folder/"`.
-`npm run build` otomatis membuat `dist/404.html` dan `dist/katalog/index.html` agar alamat yang tidak ada menampilkan halaman 404 buatan sendiri dan `/katalog/` terbuka normal.
+`npm run build` otomatis membuat `dist/404.html` serta `dist/katalog/`, `dist/faq/`, dan `dist/add-on/` (`index.html`) agar alamat yang tidak ada menampilkan halaman 404 buatan sendiri dan `/katalog/` terbuka normal.
 
 ## Katalog: muat lebih banyak
 

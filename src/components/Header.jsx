@@ -27,6 +27,18 @@ const MENU = {
       desc: "Pilih desain, kirim data & foto, lalu bagikan link ke tamu hanya dalam 3 langkah.",
       icon: "M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2",
     },
+    {
+      href: `${BASE}faq/`,
+      title: "F.A.Q",
+      desc: "Jawaban seputar pemesanan, lama pengerjaan, revisi, masa aktif, dan refund.",
+      icon: "M12 21a9 9 0 100-18 9 9 0 000 18zM9.5 9.5a2.5 2.5 0 115 0c0 1.6-2.5 2-2.5 3.5M12 17h.01",
+    },
+    {
+      href: `${BASE}add-on/`,
+      title: "Add On",
+      desc: "Layanan tambahan: pengerjaan prioritas, ganti background, font, dan tone.",
+      icon: "M12 21a9 9 0 100-18 9 9 0 000 18zM12 8v8M8 12h8",
+    },
   ],
 };
 

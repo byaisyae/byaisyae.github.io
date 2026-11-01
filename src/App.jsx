@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import AOS from "aos";
 import Home from "./pages/Home";
 import CatalogPage from "./pages/CatalogPage";
+import FaqPage from "./pages/FaqPage";
+import AddOnPage from "./pages/AddOnPage";
 import NotFound from "./pages/NotFound";
 
-// Rute sederhana tanpa router: "/" → beranda, "/katalog/" → katalog, selain itu → 404.
+// Rute sederhana tanpa router: "/" → beranda, "/katalog/", "/faq/", "/add-on/", selain itu → 404.
 // Di GitHub Pages, 404.html (salinan index.html) memuat app ini untuk alamat yang tidak ada.
 const route = () => {
   const base = import.meta.env.BASE_URL; // "/" atau "/nama-repo/"
@@ -14,6 +16,8 @@ const route = () => {
   p = p.replace(/index\.html$/, "").replace(/\/+$/, "");
   if (p === "") return "home";
   if (p === "katalog") return "catalog";
+  if (p === "faq") return "faq";
+  if (p === "add-on") return "addon";
   return "404";
 };
 
@@ -39,5 +43,7 @@ export default function App() {
 
   if (page === "home") return <Home />;
   if (page === "catalog") return <CatalogPage />;
+  if (page === "faq") return <FaqPage />;
+  if (page === "addon") return <AddOnPage />;
   return <NotFound />;
 }

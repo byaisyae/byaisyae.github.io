@@ -109,4 +109,12 @@ export const D = [
     img: "https://images.unsplash.com/photo-1517456215183-9a2c3a748d0c?auto=format&fit=crop&q=75&w=900&h=1400", // ganti dengan foto cover asli
   },
 ];
+
+// Angka di kartu kecil pada hero. Default dihitung otomatis dari data `D` di atas.
+// Jika jumlah sebenarnya lebih banyak daripada yang dipajang di katalog, ganti manual,
+// mis. clients: 25
+export const STATS = {
+  themes: D.filter((x) => !x.client && x.cat).length, // tema/template tersedia
+  clients: D.filter((x) => x.client).length, // undangan client yang telah dibuat
+};
 /* ===================================== */

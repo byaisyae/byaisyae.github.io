@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { C } from "../config";
-import { WA } from "../utils/wa";
+import { C, PROMO, promoActive } from "../config";
+import { WA, orderPromo } from "../utils/wa";
 import WaIcon from "./WaIcon";
 
 const BASE = import.meta.env.BASE_URL;
@@ -137,6 +137,27 @@ export default function Header() {
       ref={hdRef}
       className="fixed top-0 inset-x-0 z-40 bg-n9/85 backdrop-blur-md border-b border-sk-300/15"
     >
+      {promoActive && (
+        <a
+          href={orderPromo()}
+          target="_blank"
+          rel="noopener"
+          className="flex items-center justify-center gap-2 h-9 px-3 bg-sk-300 text-n9 text-[11px] sm:text-sm font-semibold leading-none hover:bg-white transition"
+        >
+          <span aria-hidden="true">🎉</span>
+          <span className="truncate">
+            <span className="hidden sm:inline">
+              Promo Nov–Des: semua desain undangan{" "}
+            </span>
+            <span className="sm:hidden">Promo s.d. 31 Des: semua desain </span>
+            <span className="font-bold">Rp {PROMO.price}</span>{" "}
+            <s className="font-normal opacity-60">Rp {PROMO.normal}</s>
+          </span>
+          <span className="hidden sm:inline underline underline-offset-2">
+            Klaim sekarang →
+          </span>
+        </a>
+      )}
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         <a
           href={BASE}

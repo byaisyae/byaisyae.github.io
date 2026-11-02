@@ -13,7 +13,7 @@ export default function AddOnPage() {
   return (
     <>
       <Header />
-      <main className="pt-16">
+      <main className="pt-[calc(4rem+var(--bar))]">
         <AddOn />
       </main>
       <Cta />

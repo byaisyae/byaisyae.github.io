@@ -139,7 +139,7 @@ export default function Hero() {
       ref={secRef}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className="hg glow relative pt-28 sm:pt-32 pb-16 sm:pb-20 px-5"
+      className="hg glow relative pt-[calc(7rem+var(--bar))] sm:pt-[calc(8rem+var(--bar))] pb-16 sm:pb-20 px-5"
     >
       <div
         aria-hidden="true"

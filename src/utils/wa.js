@@ -1,4 +1,4 @@
-import { C } from "../config";
+import { C, PROMO } from "../config";
 
 /** Link WhatsApp admin dengan pesan otomatis. */
 export const WA = (m) =>
@@ -13,3 +13,9 @@ export const orderDesign = (title, d, cat) => {
     `Halo Aisyae Digital Invitation 👋\n\nSaya tertarik memesan desain ${title}.${price}\nDemo: ${d.url}\n\nNama mempelai:\nTanggal acara:\n\nTerima kasih 🙏`,
   );
 };
+
+/** Link WhatsApp untuk klaim promo (dipakai popup promo). */
+export const orderPromo = () =>
+  WA(
+    `Halo Aisyae Digital Invitation 👋\n\nSaya ingin klaim promo undangan digital Rp ${PROMO.price} (s.d. ${PROMO.untilLabel}).\n\nNama mempelai:\nTanggal acara:\nDesain yang diminati:\n\nTerima kasih 🙏`,
+  );

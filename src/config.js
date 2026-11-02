@@ -29,7 +29,7 @@ export const C = {
 
 // Kategori katalog — tambah/ubah kategori & pricelist di sini.
 // "price" opsional: { was: harga coret, now: harga promo }
-export const CATS = [
+const BASE_CATS = [
   {
     id: "minimalist-elegant",
     label: "Minimalist Elegant",
@@ -47,6 +47,32 @@ export const CATS = [
     desc: "Desain santun bernuansa islami untuk pernikahan yang menjaga adab.",
   },
 ];
+
+// Promo musiman: selama periode aktif, SEMUA desain tampil dengan harga promo di bawah.
+// Ubah tanggal/harga di sini; setelah "end" lewat, harga otomatis kembali normal & popup hilang.
+export const PROMO = {
+  id: "promo-nov-des-2026", // ganti id untuk menampilkan ulang popup ke pengunjung lama
+  start: "2026-11-01T00:00:00+07:00",
+  end: "2026-12-31T23:59:59+07:00",
+  price: "80.000",
+  normal: "299.000", // harga normal yang dicoret
+  untilLabel: "31 Desember 2026",
+};
+export const promoActive = (() => {
+  const t = Date.now();
+  return t >= Date.parse(PROMO.start) && t <= Date.parse(PROMO.end);
+})();
+
+// beri tahu CSS bahwa bar promo tampil (dipakai untuk offset konten di bawah header tetap)
+if (promoActive && typeof document !== "undefined")
+  document.documentElement.classList.add("has-bar");
+
+export const CATS = promoActive
+  ? BASE_CATS.map((c) => ({
+      ...c,
+      price: { was: PROMO.normal, now: PROMO.price },
+    }))
+  : BASE_CATS;
 
 // Bahasa pesan di generator link tamu
 export const LANGS = [

@@ -3,10 +3,16 @@
 @tailwind utilities;
 
 /* Gaya kustom di luar Tailwind */
+:root {
+  --bar: 0px; /* tinggi bar promo di atas header */
+}
+html.has-bar {
+  --bar: 2.25rem;
+}
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: 4.5rem;
+  scroll-padding-top: calc(4.5rem + var(--bar));
   overflow-x: hidden;
 }
 body {
@@ -152,6 +158,38 @@ html:not(.aos-on) [data-aos] {
 }
 @media (prefers-reduced-motion: reduce) {
   .nf-rise {
+    animation: none;
+  }
+}
+
+/* popup promo */
+.pop-bg {
+  animation: popFade 0.25s ease-out;
+}
+.pop-card {
+  animation: popIn 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+@keyframes popFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pop-bg,
+  .pop-card {
     animation: none;
   }
 }

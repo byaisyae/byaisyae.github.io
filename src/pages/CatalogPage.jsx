@@ -73,7 +73,7 @@ export default function CatalogPage() {
   return (
     <>
       <Header />
-      <section className="glow pt-28 sm:pt-32 pb-8 px-5 text-center">
+      <section className="glow pt-[calc(7rem+var(--bar))] sm:pt-[calc(8rem+var(--bar))] pb-8 px-5 text-center">
         <p
           data-aos="fade-up"
           className="tracking-[.3em] sm:tracking-[.4em] text-[11px] sm:text-xs text-sk-300"

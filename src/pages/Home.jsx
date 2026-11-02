@@ -10,6 +10,7 @@ import Generator from "../components/Generator";
 import Cta from "../components/Cta";
 import Footer from "../components/Footer";
 import WaFloat from "../components/WaFloat";
+import PromoPopup from "../components/PromoPopup";
 
 export default function Home() {
   // link undangan terpilih dipakai bersama oleh Katalog ("Buat Link") dan Generator
@@ -41,6 +42,7 @@ export default function Home() {
       <Cta />
       <Footer />
       <WaFloat />
+      <PromoPopup />
     </>
   );
 }

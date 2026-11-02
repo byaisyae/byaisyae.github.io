@@ -124,8 +124,8 @@ export const D = [
     tag: "Soft Blue Classic",
     client: true,
     featured: true,
-    url: "https://isanmh.github.io/wedding/",
-    img: "https://isanmh.github.io/wedding/img/grt/1.webp",
+    url: `${SITE}/wedding-ihsan-ai-liana/`,
+    img: `${SITE}/wedding-ihsan-ai/img/grt/1.webp`,
   },
   {
     n: "Icha & Ridwan",

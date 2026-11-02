@@ -124,7 +124,7 @@ export const D = [
     tag: "Soft Blue Classic",
     client: true,
     featured: true,
-    url: `${SITE}/wedding-ihsan-ai-liana/`,
+    url: `${SITE}/wedding-ihsan-ai/`,
     img: `${SITE}/wedding-ihsan-ai/img/grt/1.webp`,
   },
   {

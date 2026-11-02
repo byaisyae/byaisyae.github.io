@@ -184,10 +184,12 @@ export default function Header() {
         </nav>
         <div className="flex items-center gap-2">
           <a
-            href={`${BASE}#generator`}
-            className="hidden sm:inline-flex items-center justify-center h-10 px-5 rounded-full bg-sk-300 text-n9 text-sm font-medium leading-none whitespace-nowrap hover:bg-white transition"
+            href={WA(C.msgOrder)}
+            target="_blank"
+            rel="noopener"
+            className="hidden sm:inline-flex items-center justify-center gap-2 h-10 px-5 rounded-full bg-emerald-500 text-white text-sm font-medium leading-none whitespace-nowrap hover:bg-emerald-400 transition"
           >
-            Buat Link Tamu
+            <WaIcon className="w-4 h-4" /> Pesan Sekarang
           </a>
           <button
             id="mnu"
@@ -284,18 +286,18 @@ export default function Header() {
             </a>
           ))}
           <a
-            href={`${BASE}#generator`}
-            className="flex items-center justify-center h-12 mt-2 rounded-full bg-sk-300 text-n9 font-medium hover:bg-white transition sm:hidden"
-          >
-            Buat Link Tamu
-          </a>
-          <a
             href={WA(C.msgOrder)}
             target="_blank"
             rel="noopener"
-            className="flex items-center justify-center gap-2 h-12 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-400 transition"
+            className="flex items-center justify-center gap-2 h-12 mt-2 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-400 transition"
           >
-            <WaIcon /> Pesan via WhatsApp
+            <WaIcon /> Pesan Sekarang
+          </a>
+          <a
+            href={`${BASE}#generator`}
+            className="flex items-center justify-center h-12 rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
+          >
+            Buat Link Tamu
           </a>
         </div>
       </div>

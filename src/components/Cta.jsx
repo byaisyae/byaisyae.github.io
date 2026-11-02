@@ -42,6 +42,10 @@ export default function Cta({ hideCollection = false }) {
             </a>
           )}
         </div>
+        <p data-aos="fade-up" className="mt-4 text-xs sm:text-sm text-sk-300/80">
+          Preview maks. 2 hari kerja • Revisi teks tanpa batas • Balasan cepat
+          lewat WhatsApp
+        </p>
       </div>
     </section>
   );

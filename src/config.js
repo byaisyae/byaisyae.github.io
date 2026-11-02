@@ -91,6 +91,14 @@ export const D = [
     img: "https://isanmh.github.io/wedding/img/grt/1.webp",
   },
   {
+    n: "Icha & Ridwan",
+    d: "12 Desember 2026",
+    tag: "Minimalist Elegant",
+    client: true,
+    url: `${SITE}/wedding-icha-ridwan/`,
+    img: "https://images.unsplash.com/photo-1646325311277-0c35409fdd57?auto=format&fit=crop&q=75&w=900&h=1400", // ganti dengan foto cover asli client
+  },
+  {
     n: "Emily & Daniel",
     d: "16 Januari 2027",
     tag: "Minimalist Elegant",

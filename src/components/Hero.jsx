@@ -1,7 +1,10 @@
 import { useRef } from "react";
 import banner from "../assets/banner.webp";
-import { STATS } from "../config";
+import { STATS, CATS } from "../config";
 import { useCountUp } from "../utils/useCountUp";
+
+// harga promo terendah dari kategori yang punya pricelist (untuk microcopy CTA)
+const PRICE = CATS.find((c) => c.price)?.price.now;
 
 /** Kartu kecil di atas gambar: angka menghitung naik + melayang pelan. */
 function StatCard({ value, label, className, float, delay, depth = 1 }) {
@@ -176,18 +179,27 @@ export default function Hero() {
             className="mt-9 flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start items-stretch sm:items-center gap-3 max-w-xs sm:max-w-none mx-auto lg:mx-0"
           >
             <a
-              href="#generator"
+              href={`${import.meta.env.BASE_URL}katalog/`}
               className="px-7 py-3 text-center rounded-full bg-sk-300 text-n9 font-semibold hover:bg-white sm:hover:scale-105 transition"
             >
-              Buat Link Tamu Sekarang
+              Lihat Desain &amp; Harga
             </a>
             <a
-              href={`${import.meta.env.BASE_URL}katalog/`}
+              href="#generator"
               className="px-7 py-3 text-center rounded-full border border-sk-300/50 hover:bg-sk-300/10 transition"
             >
-              Lihat Katalog Undangan
+              Buat Link Tamu
             </a>
           </div>
+          {/* microcopy penghilang keraguan di bawah tombol */}
+          <p
+            data-aos="fade-up"
+            data-aos-delay="400"
+            className="mt-4 text-xs sm:text-sm text-sk-300/80 leading-relaxed"
+          >
+            {PRICE ? `Mulai Rp ${PRICE} • ` : ""}Preview maks. 2 hari kerja •
+            Revisi teks tanpa batas • Pesan langsung via WhatsApp
+          </p>
         </div>
 
         {/* gambar: di atas teks pada layar kecil/tablet, di kanan pada layar lebar */}

@@ -4,6 +4,7 @@ import { loadSaved } from "../utils/storage";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Catalog from "../components/Catalog";
+import Testimonials from "../components/Testimonials";
 import Features from "../components/Features";
 import Steps from "../components/Steps";
 import Generator from "../components/Generator";
@@ -36,6 +37,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Catalog onPick={setBase} />
+      <Testimonials />
       <Features />
       <Steps />
       <Generator base={base} setBase={setBase} />

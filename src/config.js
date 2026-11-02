@@ -163,3 +163,84 @@ export const STATS = {
   clients: D.filter((x) => x.client).length, // undangan client yang telah dibuat
 };
 /* ===================================== */
+
+// Testimoni client — tambah di sini. Bagian "Testimoni" otomatis muncul di beranda
+// setelah ada minimal 1 data, dan tersembunyi jika kosong.
+//  name    : nama client (mis. "Rere & Jabal")
+//  comment : isi testimoni (pakai kata-kata asli client / dengan izin mereka)
+//  theme   : nama tema yang dipilih (tampil sebagai label)
+//  photo   : (opsional) foto client — nama file di public/testimoni/ (mis. "rere-jabal.webp")
+//            atau URL lengkap. Jika kosong, tampil inisial nama.
+//  url     : (opsional) link undangan client; label tema jadi bisa diklik
+//  rating  : (opsional) 1–5; bintang hanya tampil jika diisi
+export const TESTIMONIALS = [
+  // Contoh format (hapus tanda komentar & ganti dengan data asli):
+  // {
+  //   name: "Rere & Jabal",
+  //   comment: "Isi testimoni dari client...",
+  //   theme: "Navy Elegant",
+  //   photo: "rere-jabal.webp",
+  //   url: `${SITE}/wedding-rere-jabal/`,
+  //   rating: 5,
+  // },
+];
+
+// Contoh PRATINJAU — hanya tampil saat `npm run dev`, tidak ikut ke build/produksi.
+export const TESTIMONIALS_SAMPLE = [
+  {
+    name: "Nama Client",
+    comment:
+      "Contoh testimoni: prosesnya cepat, undangannya cantik, dan tamu kami banyak yang memuji.",
+    theme: "Minimalist Elegant",
+    rating: 5,
+  },
+  {
+    name: "Nama Client Dua",
+    comment: "Contoh testimoni kedua untuk melihat susunan kartu.",
+    theme: "Navy Elegant",
+    rating: 5,
+  },
+  {
+    name: "Nama Client Tiga",
+    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
+    theme: "Soft Blue Classic",
+  },
+  {
+    name: "Nama Client Tiga",
+    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
+    theme: "Soft Blue Classic",
+  },
+  {
+    name: "Nama Client Tiga",
+    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
+    theme: "Soft Blue Classic",
+  },
+  {
+    name: "Nama Client Tiga",
+    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
+    theme: "Soft Blue Classic",
+  },
+  {
+    name: "Nama Client Tiga",
+    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
+    theme: "Soft Blue Classic",
+  },
+  {
+    name: "Nama Client Tiga",
+    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
+    theme: "Soft Blue Classic",
+  },
+  {
+    name: "Nama Client Tiga",
+    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
+    theme: "Soft Blue Classic",
+  },
+];
+
+// Form testimoni (halaman rahasia /form-testimoni/, tidak ditautkan dari mana pun).
+// endpoint: URL Web App Google Apps Script (lihat apps-script/SETUP.md). Kosong = form belum aktif.
+export const TESTIMONI_FORM = {
+  endpoint:
+    "https://script.google.com/macros/s/AKfycbyvkaBnJwiYsHhyOucF7NtcgYEVj5BJb_Aop1lChzv8Sbd0hwDFGg3gMT5p78tPMVtrBw/exec",
+  photoMaxPx: 600, // foto diperkecil di browser sebelum dikirim
+};

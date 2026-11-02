@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { C, PROMO, promoActive } from "../config";
+import { useTestimonials } from "../utils/useTestimonials";
 import { WA, orderPromo } from "../utils/wa";
 import WaIcon from "./WaIcon";
 
@@ -92,6 +93,11 @@ export default function Header() {
   const [dd, setDd] = useState(false); // dropdown desktop
   const [mdd, setMdd] = useState(false); // dropdown di menu mobile
   const hdRef = useRef(null);
+  // menu "Testimoni" hanya ada jika sudah ada testimoni (bagiannya tersembunyi saat kosong)
+  const testi = useTestimonials();
+  const navBefore = testi.length
+    ? [...NAV_BEFORE, [`${BASE}#testimoni`, "Testimoni"]]
+    : NAV_BEFORE;
   const ddTimer = useRef(null);
 
   // dropdown desktop terbuka saat di-hover; ditutup dengan jeda singkat agar tidak berkedip
@@ -166,7 +172,7 @@ export default function Header() {
           saevitation
         </a>
         <nav className="hidden md:flex items-center gap-1 text-sm">
-          {NAV_BEFORE.map(([href, label]) => (
+          {navBefore.map(([href, label]) => (
             <a
               key={href}
               href={href}
@@ -272,7 +278,7 @@ export default function Header() {
         className={`${open ? "" : "hidden"} md:hidden absolute inset-x-0 top-full border-b border-sk-300/15 bg-n9/95 backdrop-blur-md shadow-2xl shadow-black/40`}
       >
         <div className="grid gap-1 px-4 py-4 text-base">
-          {NAV_BEFORE.map(([href, label]) => (
+          {navBefore.map(([href, label]) => (
             <a
               key={href}
               href={href}

@@ -137,6 +137,34 @@ export default function CatalogPage() {
                 <p className="mt-2 text-sm text-sk-300/90 max-w-xl mx-auto">
                   {g.desc}
                 </p>
+                {g.features && (
+                  <>
+                    <ul className="mt-5 inline-grid gap-2 text-left text-sm sm:text-base text-white">
+                      {g.features.items.map((f) => (
+                        <li key={f} className="flex items-center gap-2.5">
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="w-4 h-4 shrink-0 text-sk-300"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M5 12.5l4.5 4.5L19 7.5" />
+                          </svg>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    {g.features.note && (
+                      <p className="mt-2 text-xs text-sk-300/70">
+                        {g.features.note}
+                      </p>
+                    )}
+                  </>
+                )}
               </div>
 
               {g.items.length ? (

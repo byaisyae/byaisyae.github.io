@@ -27,6 +27,18 @@ export const C = {
   },
 };
 
+// Keunggulan yang tampil di setiap tema katalog. Per kategori bisa ditimpa lewat
+// properti "features" di kategori itu; "note" = catatan kaki untuk tanda bintang (*).
+export const FEATURES = {
+  items: [
+    "Masa Aktif Selamanya*",
+    "Unlimited Share",
+    "Jumlah Foto Maksimal 25",
+    "Responsive di semua device",
+  ],
+  note: "*Selama layanan Saevitation masih beroperasi.",
+};
+
 // Kategori katalog — tambah/ubah kategori & pricelist di sini.
 // "price" opsional: { was: harga coret, now: harga promo }
 const BASE_CATS = [
@@ -67,12 +79,11 @@ export const promoActive = (() => {
 if (promoActive && typeof document !== "undefined")
   document.documentElement.classList.add("has-bar");
 
-export const CATS = promoActive
-  ? BASE_CATS.map((c) => ({
-      ...c,
-      price: { was: PROMO.normal, now: PROMO.price },
-    }))
-  : BASE_CATS;
+export const CATS = BASE_CATS.map((c) => ({
+  features: FEATURES,
+  ...c,
+  ...(promoActive ? { price: { was: PROMO.normal, now: PROMO.price } } : {}),
+}));
 
 // Bahasa pesan di generator link tamu
 export const LANGS = [

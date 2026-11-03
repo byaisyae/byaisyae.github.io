@@ -5,7 +5,10 @@ export default function DesignCard({ design: x, index, anim, onPick }) {
   const [imgOk, setImgOk] = useState(true);
   const [a, b] = x.n.split(" & ");
   // gambar cover berupa screenshot (sudah berisi tulisan): tampilkan apa adanya tanpa lapisan & teks
-  const bare = Boolean(x.noText && x.img && imgOk);
+  // jika ada dua screenshot, screenshot 1 dipakai sebagai cover
+  const shot = x.shots?.length >= 2 ? x.shots[0] : "";
+  const cover = shot || x.img;
+  const bare = Boolean((x.noText || shot) && cover && imgOk);
 
   return (
     <div
@@ -15,10 +18,10 @@ export default function DesignCard({ design: x, index, anim, onPick }) {
     >
       <div className="rounded-[2.2rem] p-2 bg-n7 border border-sk-300/30 shadow-2xl transition duration-500 group-hover:-translate-y-2 group-hover:shadow-sk-400/20">
         <div className="relative aspect-[9/16] overflow-hidden rounded-[1.8rem] bg-gradient-to-b from-n8 to-n9 border border-sk-300/20 grid place-items-center text-center px-4">
-          {x.img && imgOk && (
+          {cover && imgOk && (
             <>
               <img
-                src={x.img}
+                src={cover}
                 alt={x.n}
                 loading="lazy"
                 onError={() => setImgOk(false)}

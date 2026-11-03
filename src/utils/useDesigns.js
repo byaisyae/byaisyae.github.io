@@ -48,7 +48,8 @@ export function toDesign(r) {
     ...(client
       ? { client: true, featured: r.featured === true }
       : { cat: str(r.cat) }),
-    ...(!client && shots[0] && shots[1] ? { shots } : {}),
+    // dua screenshot (tema maupun client) → kartu katalog menampilkan 2 ponsel tanpa teks tambahan
+    ...(shots[0] && shots[1] ? { shots } : {}),
     // harga khusus tema ini (menimpa harga kategori; kosong = ikut kategori)
     ...(!client && str(r.was) && str(r.now)
       ? { price: { was: str(r.was), now: str(r.now) } }

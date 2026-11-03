@@ -438,7 +438,6 @@ function clean_(it) {
     if (!/^[a-z0-9-]{1,40}$/.test(cat)) throw new Error("Kategori tidak valid.");
     out.cat = cat;
     out.featured = false;
-    if (!!out.shot1 !== !!out.shot2) throw new Error("Isi kedua screenshot atau kosongkan keduanya.");
     // harga khusus tema ini (opsional; kosong = ikut harga kategori)
     const price = (v, label) => {
       v = String(v == null ? "" : v).trim();
@@ -448,10 +447,9 @@ function clean_(it) {
     out.was = price(it.was, "Harga coret");
     out.now = price(it.now, "Harga");
     if (!!out.was !== !!out.now) throw new Error("Isi harga coret dan harga sekaligus, atau kosongkan keduanya.");
-  } else {
-    out.shot1 = "";
-    out.shot2 = "";
   }
+  // screenshot berlaku untuk tema DAN client: dua-duanya terisi (kartu 2 ponsel tanpa tulisan) atau kosong
+  if (!!out.shot1 !== !!out.shot2) throw new Error("Isi kedua screenshot atau kosongkan keduanya.");
   return out;
 }
 

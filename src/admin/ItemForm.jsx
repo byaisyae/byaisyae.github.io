@@ -48,8 +48,7 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
     for (const k of ["img", "shot1", "shot2"]) {
       if (f[k].trim() && !isHttps(f[k])) v[k] = "Harus berupa link https://";
     }
-    if (type === "tema" && !!f.shot1.trim() !== !!f.shot2.trim())
-      v.shot2 = "Isi kedua screenshot atau kosongkan keduanya";
+    if (!!f.shot1.trim() !== !!f.shot2.trim()) v.shot2 = "Isi kedua screenshot atau kosongkan keduanya";
     if (type === "tema") {
       if (f.was.trim() && !isPrice(f.was)) v.was = "Hanya angka, mis. 299.000";
       if (f.now.trim() && !isPrice(f.now)) v.now = "Hanya angka, mis. 149.000";
@@ -76,8 +75,8 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
       cat: type === "tema" ? f.cat : "",
       url: f.url.trim(),
       img: f.img.trim(),
-      shot1: type === "tema" ? f.shot1.trim() : "",
-      shot2: type === "tema" ? f.shot2.trim() : "",
+      shot1: f.shot1.trim(),
+      shot2: f.shot2.trim(),
       featured: type === "client" ? f.featured : false,
       visible: f.visible,
       noText: f.noText,
@@ -191,11 +190,12 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
               <span className="font-medium">Gambar cover sudah berisi tulisan (screenshot)</span>
               <span className="block text-adm-sec mt-0.5">
                 Centang jika yang diunggah screenshot undangan, bukan foto polos. Teks nama, “Kepada Yth.”, dan tombol di
-                kartu akan disembunyikan agar gambar terlihat utuh.
+                kartu akan disembunyikan agar gambar terlihat utuh. Tidak perlu dicentang jika Anda mengisi kedua
+                screenshot di bawah.
               </span>
             </span>
           </label>
-          {type === "tema" && (
+          <div>
             <div className="grid md:grid-cols-2 gap-6">
               <ImageField
                 label="Screenshot 1 (cover)"
@@ -216,7 +216,12 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
                 error={errs.shot2}
               />
             </div>
-          )}
+            <p className="text-xs text-adm-sec mt-2">
+              Opsional. Jika <b>kedua</b> screenshot diisi, kartu di katalog tampil dengan <b>dua ponsel</b> berisi
+              screenshot apa adanya (tanpa teks tambahan), seperti koleksi client lainnya. Jika kosong, kartu memakai foto
+              cover di atas.
+            </p>
+          </div>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">

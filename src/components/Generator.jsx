@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { C, D, LANGS, SITE } from "../config";
+import { C, LANGS, SITE } from "../config";
+import { designKey, useDesigns } from "../utils/useDesigns";
 import { copyText } from "../utils/copy";
 import { loadSaved, save } from "../utils/storage";
 import { translateMessage } from "../utils/translate";
@@ -49,6 +50,7 @@ function ResultRow({ r }) {
 }
 
 export default function Generator({ base, setBase }) {
+  const D = useDesigns();
   const [names, setNames] = useState(
     () => loadSaved().names ?? "Aisyae Invitation\nMC Abuy",
   );
@@ -184,7 +186,7 @@ export default function Generator({ base, setBase }) {
             <div id="pick" className="flex flex-wrap gap-2 text-sm">
               {D.filter((x) => x.client).map((x) => (
                 <button
-                  key={x.url}
+                  key={designKey(x)}
                   type="button"
                   onClick={() => setBase(x.url)}
                   className="px-4 py-2 rounded-full border border-sk-300/40 hover:bg-sk-300 hover:text-n9 transition"

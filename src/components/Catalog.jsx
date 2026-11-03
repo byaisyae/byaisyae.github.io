@@ -1,13 +1,14 @@
-import { C, D } from "../config";
+import { C } from "../config";
+import { designKey, useDesigns } from "../utils/useDesigns";
 import { AN } from "../utils/anim";
 import { WA } from "../utils/wa";
 import DesignCard from "./DesignCard";
 import WaIcon from "./WaIcon";
 
-const FEATURED = D.filter((x) => x.featured);
 const CATALOG = `${import.meta.env.BASE_URL}katalog/`;
 
 export default function Catalog({ onPick }) {
+  const FEATURED = useDesigns().filter((x) => x.featured);
   return (
     <section id="katalog" className="py-16 sm:py-20 px-5">
       <div className="max-w-6xl mx-auto text-center">
@@ -35,7 +36,7 @@ export default function Catalog({ onPick }) {
         >
           {FEATURED.map((x, i) => (
             <DesignCard
-              key={x.url}
+              key={designKey(x)}
               design={x}
               index={i}
               anim={AN[i % 3]}

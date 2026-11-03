@@ -3,9 +3,9 @@
 // dan ke folder tiap halaman (katalog, faq, add-on, form-testimoni) agar dibuka normal (status 200) saat diakses langsung.
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
-const PAGES = ["katalog", "faq", "add-on", "testimoni", "form-testimoni"];
+const PAGES = ["katalog", "faq", "add-on", "testimoni", "form-testimoni", "super-admin-saevitation"];
 // halaman rahasia: jangan diindeks mesin pencari
-const NOINDEX = ["form-testimoni"];
+const NOINDEX = ["form-testimoni", "super-admin-saevitation"];
 
 copyFileSync("dist/index.html", "dist/404.html");
 for (const p of PAGES) {

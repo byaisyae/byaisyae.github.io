@@ -29,6 +29,9 @@ jobs:
         env:
           # opsional: atur di Settings → Secrets and variables → Actions → Variables
           VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
+          # URL Web App Google Apps Script (testimoni + dashboard admin; lihat apps-script/SETUP.md)
+          VITE_APPS_SCRIPT_URL: ${{ vars.VITE_APPS_SCRIPT_URL }}
+          VITE_KOLEKSI_API_URL: ${{ vars.VITE_KOLEKSI_API_URL }} # nama lama, tetap didukung
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

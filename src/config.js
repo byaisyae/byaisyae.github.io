@@ -39,7 +39,7 @@ export const FEATURES = {
   note: "*Selama layanan Saevitation masih beroperasi.",
 };
 
-// Kategori katalog — tambah/ubah kategori & pricelist di sini.
+// Kategori katalog bawaan (kategori baru lebih mudah ditambah lewat dashboard admin).
 // "price" opsional: { was: harga coret, now: harga promo }
 const BASE_CATS = [
   {
@@ -79,11 +79,16 @@ export const promoActive = (() => {
 if (promoActive && typeof document !== "undefined")
   document.documentElement.classList.add("has-bar");
 
-export const CATS = BASE_CATS.map((c) => ({
+// Lengkapi kategori dengan keunggulan bawaan & harga promo (berlaku juga untuk kategori dari dashboard).
+export const withCatDefaults = (c) => ({
   features: FEATURES,
   ...c,
   ...(promoActive ? { price: { was: PROMO.normal, now: PROMO.price } } : {}),
-}));
+});
+
+// Kategori bawaan di kode. Kategori tambahan dikelola dari dashboard admin (menu Kategori Tema)
+// dan digabung otomatis lewat useCats() di utils/useDesigns.js.
+export const CATS = BASE_CATS.map(withCatDefaults);
 
 // Bahasa pesan di generator link tamu
 export const LANGS = [
@@ -124,8 +129,8 @@ export const D = [
     tag: "Soft Blue Classic",
     client: true,
     featured: true,
-    url: `${SITE}/wedding-ihsan-ai/`,
-    img: `${SITE}/wedding-ihsan-ai/img/grt/1.webp`,
+    url: "https://isanmh.github.io/wedding/",
+    img: "https://isanmh.github.io/wedding/img/grt/1.webp",
   },
   {
     n: "Icha & Ridwan",
@@ -155,12 +160,12 @@ export const D = [
   },
 ];
 
-// Angka di kartu kecil pada hero. Default dihitung otomatis dari data `D` di atas.
-// Jika jumlah sebenarnya lebih banyak daripada yang dipajang di katalog, ganti manual,
+// Angka di kartu kecil pada hero. Default dihitung otomatis dari semua desain
+// (data di atas + data dari dashboard admin). Isi angka untuk menimpa hitungan otomatis,
 // mis. clients: 25
 export const STATS = {
-  themes: D.filter((x) => !x.client && x.cat).length, // tema/template tersedia
-  clients: D.filter((x) => x.client).length, // undangan client yang telah dibuat
+  themes: null, // tema/template tersedia
+  clients: null, // undangan client yang telah dibuat
 };
 /* ===================================== */
 
@@ -205,42 +210,22 @@ export const TESTIMONIALS_SAMPLE = [
     comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
     theme: "Soft Blue Classic",
   },
-  {
-    name: "Nama Client Tiga",
-    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
-    theme: "Soft Blue Classic",
-  },
-  {
-    name: "Nama Client Tiga",
-    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
-    theme: "Soft Blue Classic",
-  },
-  {
-    name: "Nama Client Tiga",
-    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
-    theme: "Soft Blue Classic",
-  },
-  {
-    name: "Nama Client Tiga",
-    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
-    theme: "Soft Blue Classic",
-  },
-  {
-    name: "Nama Client Tiga",
-    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
-    theme: "Soft Blue Classic",
-  },
-  {
-    name: "Nama Client Tiga",
-    comment: "Contoh testimoni ketiga. Ganti dengan komentar asli client.",
-    theme: "Soft Blue Classic",
-  },
 ];
 
+// URL Web App Google Apps Script — SATU script untuk form testimoni DAN dashboard admin
+// (lihat apps-script/SETUP.md). Isi lewat env VITE_APPS_SCRIPT_URL saat build (GitHub Actions → Variables),
+// atau tulis langsung di sini. Kosong = form testimoni & dashboard admin belum aktif.
+const APPS_SCRIPT_URL =
+  import.meta.env.VITE_APPS_SCRIPT_URL || import.meta.env.VITE_KOLEKSI_API_URL || "";
+
 // Form testimoni (halaman rahasia /form-testimoni/, tidak ditautkan dari mana pun).
-// endpoint: URL Web App Google Apps Script (lihat apps-script/SETUP.md). Kosong = form belum aktif.
 export const TESTIMONI_FORM = {
-  endpoint:
-    "https://script.google.com/macros/s/AKfycbyvkaBnJwiYsHhyOucF7NtcgYEVj5BJb_Aop1lChzv8Sbd0hwDFGg3gMT5p78tPMVtrBw/exec",
+  endpoint: APPS_SCRIPT_URL,
   photoMaxPx: 600, // foto diperkecil di browser sebelum dikirim
+};
+
+// Dashboard admin: https://saevitation.com/super-admin-saevitation/ — memakai Apps Script yang sama.
+// Koleksi dari dashboard ditambahkan ke data di config.js (D) dan tampil di katalog tanpa build ulang.
+export const KOLEKSI_API = {
+  endpoint: APPS_SCRIPT_URL,
 };

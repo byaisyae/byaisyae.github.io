@@ -4,6 +4,8 @@ import { useState } from "react";
 export default function DesignCard({ design: x, index, anim, onPick }) {
   const [imgOk, setImgOk] = useState(true);
   const [a, b] = x.n.split(" & ");
+  // gambar cover berupa screenshot (sudah berisi tulisan): tampilkan apa adanya tanpa lapisan & teks
+  const bare = Boolean(x.noText && x.img && imgOk);
 
   return (
     <div
@@ -20,11 +22,14 @@ export default function DesignCard({ design: x, index, anim, onPick }) {
                 alt={x.n}
                 loading="lazy"
                 onError={() => setImgOk(false)}
-                className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                className={`absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110 ${
+                  bare ? "object-top" : ""
+                }`}
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-n9/70 via-n9/40 to-n9/85" />
+              {!bare && <div className="absolute inset-0 bg-gradient-to-b from-n9/70 via-n9/40 to-n9/85" />}
             </>
           )}
+          {!bare && (
           <div className="relative">
             <p className="tracking-[.3em] text-[9px] text-sk-300">
               THE WEDDING OF
@@ -42,6 +47,7 @@ export default function DesignCard({ design: x, index, anim, onPick }) {
               Buka Undangan
             </span>
           </div>
+          )}
         </div>
       </div>
       <p className="mt-5 text-[10px] tracking-[.3em] text-sk-300">

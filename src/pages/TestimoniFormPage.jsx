@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { C, CATS, D, TESTIMONI_FORM } from "../config";
+import { C, TESTIMONI_FORM } from "../config";
+import { useCats, useDesigns } from "../utils/useDesigns";
 
 const inputCls =
   "mt-1 w-full px-4 py-3 text-base rounded-xl bg-n8 border border-sk-300/30 outline-none focus:border-sk-300";
@@ -78,6 +79,8 @@ export default function TestimoniFormPage() {
   }, []);
 
   // pilihan tema: kategori + tema undangan client yang sudah ada
+  const D = useDesigns();
+  const CATS = useCats();
   const themes = useMemo(
     () => [
       ...new Set([
@@ -85,7 +88,7 @@ export default function TestimoniFormPage() {
         ...D.filter((x) => x.client).map((x) => x.tag),
       ]),
     ],
-    [],
+    [D, CATS],
   );
 
   const set = (k) => (e) =>

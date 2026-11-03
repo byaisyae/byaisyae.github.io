@@ -64,3 +64,14 @@ src/
                 Generator, Cta, Footer, WaFloat, WaIcon
   utils/        wa.js, copy.js, storage.js
 ```
+
+## Backend Google Apps Script (testimoni + dashboard admin)
+
+**Satu script** (`apps-script/Code.gs`, panduan di `apps-script/SETUP.md`) melayani dua fitur dengan satu Google Sheet dan satu URL `/exec`:
+
+- **Form testimoni** — halaman rahasia `/form-testimoni/` → tab `Testimoni` (moderasi lewat kolom Status).
+- **Dashboard admin** — halaman rahasia **`/super-admin-saevitation/`** (tanpa tautan di situs, `noindex`) untuk menambah, mengubah, menyembunyikan, dan menghapus **koleksi client** dan **tema katalog**, termasuk unggah foto → tab `Koleksi`. Data langsung tampil di katalog, generator link, dan kartu statistik hero tanpa build ulang.
+
+Hubungkan dengan variable `VITE_APPS_SCRIPT_URL` (GitHub Actions → Variables) atau tulis di `src/config.js` (`TESTIMONI_FORM.endpoint` dan `KOLEKSI_API.endpoint`).
+Login dashboard memakai username & password di **Script Properties** Apps Script (bukan di kode). Aksi tulis wajib token sesi; 5× salah login dikunci 10 menit.
+Kategori tema & harga tetap diatur di `CATS` pada `src/config.js`; data bawaan `D` tetap tampil bersama data dari dashboard.

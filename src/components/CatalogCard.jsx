@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 /** Mockup ponsel mungil. */
-function Phone({ className = "", children }) {
+function Phone({ className = "", wide = false, children }) {
   return (
     <div
-      className={`w-[6.4rem] sm:w-[6.8rem] shrink-0 rounded-[1.3rem] p-1 bg-n7 border border-sk-300/30 shadow-xl transition duration-500 ${className}`}
+      className={`${wide ? "w-[8.2rem] sm:w-[8.8rem]" : "w-[6.4rem] sm:w-[6.8rem]"} shrink-0 rounded-[1.3rem] p-1 bg-n7 border border-sk-300/30 shadow-xl transition duration-500 ${className}`}
     >
       <div className="relative aspect-[9/16] overflow-hidden rounded-[1rem] bg-gradient-to-b from-n8 to-n9">
         {children}
@@ -29,6 +29,8 @@ export default function CatalogCard({ design: x, title, price, orderHref, index,
   const [imgOk, setImgOk] = useState(true);
   const shots = x.shots?.length >= 2 ? x.shots : null;
   const [a, b] = x.n.split(" & ");
+  // cover berupa screenshot (sudah berisi tulisan): satu ponsel berisi gambar apa adanya, tanpa lapisan & teks
+  const bare = Boolean(x.noText && x.img && imgOk && !shots);
   const [day, ...rest] = x.d.split(" ");
   const photo = (src, pos) =>
     src &&
@@ -55,9 +57,22 @@ export default function CatalogCard({ design: x, title, price, orderHref, index,
     >
       {/* dua ponsel: cover & halaman dalam */}
       <div className="flex justify-center items-start">
-        <Phone className="-translate-y-1.5 group-hover:scale-105">
-          {shots ? <Shot src={shots[0]} /> : photo(x.img, "center")}
-          {!shots && (
+        <Phone wide={bare} className="-translate-y-1.5 group-hover:scale-105">
+          {shots ? (
+            <Shot src={shots[0]} />
+          ) : bare ? (
+            <img
+              src={x.img}
+              alt={x.n}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImgOk(false)}
+              className="absolute inset-0 w-full h-full object-cover object-top"
+            />
+          ) : (
+            photo(x.img, "center")
+          )}
+          {!shots && !bare && (
           <div className="absolute inset-0 grid place-items-center text-center px-1">
             <div>
               <p className="tracking-[.2em] text-[4px] text-sk-300">
@@ -79,6 +94,7 @@ export default function CatalogCard({ design: x, title, price, orderHref, index,
           </div>
           )}
         </Phone>
+        {!bare && (
         <Phone className="-ml-4 mt-7 translate-y-1 group-hover:scale-105">
           {shots ? <Shot src={shots[1]} /> : photo(x.img, "75% 25%")}
           {!shots && (
@@ -100,6 +116,7 @@ export default function CatalogCard({ design: x, title, price, orderHref, index,
           </div>
           )}
         </Phone>
+        )}
       </div>
 
       {x.client ? (

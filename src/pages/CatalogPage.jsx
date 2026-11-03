@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import AOS from "aos";
-import { D, CATS, CLIENT } from "../config";
+import { CLIENT } from "../config";
+import { designKey, useCats, useDesigns } from "../utils/useDesigns";
 import { AN } from "../utils/anim";
 import { WA, orderDesign } from "../utils/wa";
 import Header from "../components/Header";
@@ -13,13 +14,14 @@ import WaIcon from "../components/WaIcon";
 // jumlah kartu yang tampil per grup; tombol "Muat Lebih Banyak" menambah sebanyak ini
 const PAGE = 6;
 
-const initialCat = () => {
-  const k = new URLSearchParams(location.search).get("kategori");
-  return [...CATS, CLIENT].some((c) => c.id === k) ? k : "semua";
-};
+// kategori dari alamat (?kategori=...); divalidasi setelah daftar kategori dimuat
+const initialCat = () => new URLSearchParams(location.search).get("kategori") || "semua";
 
 export default function CatalogPage() {
-  const [cat, setCat] = useState(initialCat);
+  const D = useDesigns();
+  const CATS = useCats(); // bawaan di kode + dari dashboard admin
+  const [catRaw, setCat] = useState(initialCat);
+  const cat = [...CATS, CLIENT].some((c) => c.id === catRaw) ? catRaw : "semua";
   const [visible, setVisible] = useState({}); // id grup → jumlah kartu yang ditampilkan
   const countOf = (id) => visible[id] ?? PAGE;
   const loadMore = (id) =>
@@ -38,7 +40,7 @@ export default function CatalogPage() {
       })),
       { ...CLIENT, items: D.filter((x) => x.client) },
     ],
-    [],
+    [D, CATS],
   );
 
   const shown =
@@ -182,7 +184,7 @@ export default function CatalogPage() {
                       : title;
                     return (
                       <div
-                        key={x.url}
+                        key={designKey(x)}
                         className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
                       >
                         <CatalogCard

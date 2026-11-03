@@ -1,10 +1,8 @@
 import { useRef } from "react";
 import banner from "../assets/banner.webp";
-import { STATS, CATS } from "../config";
+import { STATS } from "../config";
 import { useCountUp } from "../utils/useCountUp";
-
-// harga promo terendah dari kategori yang punya pricelist (untuk microcopy CTA)
-const PRICE = CATS.find((c) => c.price)?.price.now;
+import { statsOf, useCats, useDesigns } from "../utils/useDesigns";
 
 /** Kartu kecil di atas gambar: angka menghitung naik + melayang pelan. */
 function StatCard({ value, label, className, float, delay, depth = 1 }) {
@@ -34,6 +32,9 @@ function StatCard({ value, label, className, float, delay, depth = 1 }) {
 
 /** Gambar banner + kartu: miring/bergeser mengikuti mouse saat di-hover. */
 function HeroVisual() {
+  const auto = statsOf(useDesigns());
+  const themes = STATS.themes ?? auto.themes;
+  const clients = STATS.clients ?? auto.clients;
   const ref = useRef(null);
   const raf = useRef(0);
   const still = useRef(
@@ -86,7 +87,7 @@ function HeroVisual() {
           className="hv-img relative w-full h-auto select-none"
         />
         <StatCard
-          value={STATS.themes}
+          value={themes}
           label="Tema tersedia"
           className="top-[1%] left-[1%] sm:top-[3%] sm:left-[2%] lg:top-0 lg:left-0"
           float="float-a"
@@ -94,7 +95,7 @@ function HeroVisual() {
           depth={1}
         />
         <StatCard
-          value={STATS.clients}
+          value={clients}
           label="Undangan client telah dibuat"
           className="bottom-[1%] right-[1%] sm:bottom-[3%] sm:right-[2%] lg:bottom-1 lg:right-0"
           float="float-b"
@@ -107,6 +108,8 @@ function HeroVisual() {
 }
 
 export default function Hero() {
+  // harga dari kategori pertama yang punya pricelist (untuk microcopy CTA)
+  const PRICE = useCats().find((c) => c.price)?.price.now;
   const secRef = useRef(null);
   const raf = useRef(0);
   const still = useRef(

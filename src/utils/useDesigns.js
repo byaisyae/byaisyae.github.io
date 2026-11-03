@@ -8,14 +8,26 @@ const KEY = "koleksi-remote:v3";
 const TTL = 2 * 60 * 1000;
 
 const BULAN = [
-  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-  "Juli", "Agustus", "September", "Oktober", "November", "Desember",
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
 ];
 
 /** "2026-12-30" → "30 Desember 2026" (teks lain dikembalikan apa adanya). */
 export const fmtDate = (v) => {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(v || ""));
-  return m ? `${+m[3]} ${BULAN[+m[2] - 1] || ""} ${m[1]}`.replace("  ", " ") : String(v || "").trim();
+  return m
+    ? `${+m[3]} ${BULAN[+m[2] - 1] || ""} ${m[1]}`.replace("  ", " ")
+    : String(v || "").trim();
 };
 
 const str = (v) => (typeof v === "string" ? v.trim() : "");
@@ -33,10 +45,14 @@ export function toDesign(r) {
     url: link(r.url),
     img: link(r.img),
     ...(r.noText === true ? { noText: true } : {}), // cover berupa screenshot → sembunyikan teks di kartu
-    ...(client ? { client: true, featured: r.featured === true } : { cat: str(r.cat) }),
+    ...(client
+      ? { client: true, featured: r.featured === true }
+      : { cat: str(r.cat) }),
     ...(!client && shots[0] && shots[1] ? { shots } : {}),
     // harga khusus tema ini (menimpa harga kategori; kosong = ikut kategori)
-    ...(!client && str(r.was) && str(r.now) ? { price: { was: str(r.was), now: str(r.now) } } : {}),
+    ...(!client && str(r.was) && str(r.now)
+      ? { price: { was: str(r.was), now: str(r.now) } }
+      : {}),
   };
 }
 
@@ -63,24 +79,46 @@ const mergeCats = (remote) => [
 /** Kunci unik tiap desain (dipakai sebagai React key). Link yang sama boleh dipakai beberapa entri. */
 export const designKey = (d) => d.id || `${d.url}|${d.n}`;
 
-// Entri dari dashboard dianggap duplikat data di config.js hanya jika LINK dan NAMA-nya sama.
-// (Link saja tidak cukup: client berbeda boleh memakai link undangan yang sama, mis. saat uji coba.)
-const norm = (s) => String(s || "").trim().toLowerCase();
-const isDup = (d) => STATIC.some((s) => s.url === d.url && norm(s.n) === norm(d.n));
+// Entri dari dashboard dianggap duplikat data di config.js hanya jika JENIS (client / tema), LINK, dan NAMA-nya sama.
+// (Link saja tidak cukup: client berbeda boleh memakai link undangan yang sama, mis. saat uji coba.
+// Jenis juga dibandingkan agar tema di dashboard tidak hilang karena sama dengan koleksi client di config.js.)
+const norm = (s) =>
+  String(s || "")
+    .trim()
+    .toLowerCase();
+const isDup = (d) =>
+  STATIC.some(
+    (s) =>
+      Boolean(s.client) === Boolean(d.client) &&
+      s.url === d.url &&
+      norm(s.n) === norm(d.n),
+  );
 
 // tema hanya tampil jika kategorinya dikenal (bawaan atau dari dashboard & tidak disembunyikan)
 const merge = (remote, remoteCats, remotePromo) => {
   const cats = mergeCats(remoteCats);
-  const ok = (d) => d.n && d.url && (d.client || cats.some((c) => c.id === d.cat));
+  const ok = (d) =>
+    d.n && d.url && (d.client || cats.some((c) => c.id === d.cat));
   return {
     cats,
     promo: resolvePromo(remotePromo),
-    list: [...STATIC, ...remote.map(toDesign).filter(ok).filter((d) => !isDup(d))],
+    list: [
+      ...STATIC,
+      ...remote
+        .map(toDesign)
+        .filter(ok)
+        .filter((d) => !isDup(d)),
+    ],
   };
 };
 
 // state dibuat objek baru setiap berubah (syarat useSyncExternalStore)
-let state = { list: STATIC, cats: CATS, promo: resolvePromo(null), loading: Boolean(KOLEKSI_API.endpoint) };
+let state = {
+  list: STATIC,
+  cats: CATS,
+  promo: resolvePromo(null),
+  loading: Boolean(KOLEKSI_API.endpoint),
+};
 let started = false;
 const subs = new Set();
 const set = (patch) => {

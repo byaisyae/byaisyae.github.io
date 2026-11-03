@@ -25,6 +25,7 @@ export const api = {
   upload: (token, img) => post({ action: "upload", token, ...img }),
   catSave: (token, item) => post({ action: "catSave", token, item }),
   catRemove: (token, id) => post({ action: "catRemove", token, id }),
+  promoSave: (token, item) => post({ action: "promoSave", token, item }),
   testiList: (token) => post({ action: "testiList", token }),
   testiStatus: (token, id, status) => post({ action: "testiStatus", token, id, status }),
   testiRemove: (token, id) => post({ action: "testiRemove", token, id }),

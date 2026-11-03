@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { C, PROMO, promoActive } from "../config";
+import { C } from "../config";
+import { usePromo } from "../utils/useDesigns";
 import { useTestimonials } from "../utils/useTestimonials";
 import { WA, orderPromo } from "../utils/wa";
 import WaIcon from "./WaIcon";
@@ -89,6 +90,7 @@ const MenuItem = ({ item, onClick }) => (
 );
 
 export default function Header() {
+  const promo = usePromo();
   const [open, setOpen] = useState(false); // menu mobile
   const [dd, setDd] = useState(false); // dropdown desktop
   const [mdd, setMdd] = useState(false); // dropdown di menu mobile
@@ -143,9 +145,9 @@ export default function Header() {
       ref={hdRef}
       className="fixed top-0 inset-x-0 z-40 bg-n9/85 backdrop-blur-md border-b border-sk-300/15"
     >
-      {promoActive && (
+      {promo.active && (
         <a
-          href={orderPromo()}
+          href={orderPromo(promo)}
           target="_blank"
           rel="noopener"
           className="flex items-center justify-center gap-2 h-9 px-3 bg-sk-300 text-n9 text-[11px] sm:text-sm font-semibold leading-none hover:bg-white transition"
@@ -153,11 +155,11 @@ export default function Header() {
           <span aria-hidden="true">🎉</span>
           <span className="truncate">
             <span className="hidden sm:inline">
-              Promo Nov–Des: semua desain undangan{" "}
+              {promo.label}: {promo.headline}{" "}
             </span>
-            <span className="sm:hidden">Promo s.d. 31 Des: semua desain </span>
-            <span className="font-bold">Rp {PROMO.price}</span>{" "}
-            <s className="font-normal opacity-60">Rp {PROMO.normal}</s>
+            <span className="sm:hidden">Promo s.d. {promo.untilShort}: </span>
+            <span className="font-bold">Rp {promo.price}</span>{" "}
+            {promo.normal && <s className="font-normal opacity-60">Rp {promo.normal}</s>}
           </span>
           <span className="hidden sm:inline underline underline-offset-2">
             Klaim sekarang →

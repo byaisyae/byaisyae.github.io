@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { C } from "../config";
-import { loadSaved } from "../utils/storage";
+import { savedBase } from "../utils/storage";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Catalog from "../components/Catalog";
@@ -15,7 +15,7 @@ import PromoPopup from "../components/PromoPopup";
 
 export default function Home() {
   // link undangan terpilih dipakai bersama oleh Katalog ("Buat Link") dan Generator
-  const [base, setBase] = useState(() => loadSaved().base || C.base);
+  const [base, setBase] = useState(() => savedBase() || C.base);
 
   // Saat dibuka dari halaman lain (mis. /katalog/ → /#generator), isi halaman baru dirender
   // oleh React setelah browser mencoba scroll ke #hash, sehingga tujuan belum ada.

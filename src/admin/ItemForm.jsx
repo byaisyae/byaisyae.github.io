@@ -8,6 +8,7 @@ const TITLES = {
   client: ["Tambah Koleksi Client", "Edit Koleksi Client"],
   tema: ["Tambah Tema Baru", "Edit Tema"],
 };
+const isPrice = (v) => /^[0-9.,]{1,12}$/.test(v.trim());
 const isHttps = (v) => /^https:\/\/\S+$/i.test(v.trim());
 
 /** Form tambah / ubah satu koleksi (client atau tema). */
@@ -26,6 +27,8 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
     featured: item?.featured ?? false,
     visible: item?.visible ?? true,
     noText: item?.noText ?? false,
+    was: item?.was || "",
+    now: item?.now || "",
   }));
   const [errs, setErrs] = useState({});
   const [busy, setBusy] = useState(false);
@@ -47,6 +50,12 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
     }
     if (type === "tema" && !!f.shot1.trim() !== !!f.shot2.trim())
       v.shot2 = "Isi kedua screenshot atau kosongkan keduanya";
+    if (type === "tema") {
+      if (f.was.trim() && !isPrice(f.was)) v.was = "Hanya angka, mis. 299.000";
+      if (f.now.trim() && !isPrice(f.now)) v.now = "Hanya angka, mis. 149.000";
+      if (!v.was && !v.now && !!f.was.trim() !== !!f.now.trim())
+        v.now = "Isi harga coret dan harga sekaligus, atau kosongkan keduanya";
+    }
     return v;
   };
 
@@ -72,6 +81,8 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
       featured: type === "client" ? f.featured : false,
       visible: f.visible,
       noText: f.noText,
+      was: type === "tema" ? f.was.trim() : "",
+      now: type === "tema" ? f.now.trim() : "",
     };
     const out = await api.save(token, payload);
     setBusy(false);
@@ -159,6 +170,21 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
             onExpired={onExpired}
             error={errs.img}
           />
+          {type === "tema" && (
+            <div>
+              <div className="grid sm:grid-cols-2 gap-5">
+                <Field label="Harga coret khusus tema ini (opsional)" hint="Contoh: 299.000" error={errs.was}>
+                  <input value={f.was} onChange={set("was")} inputMode="decimal" maxLength={12} className={inputCls} placeholder="299.000" />
+                </Field>
+                <Field label="Harga khusus tema ini (opsional)" hint="Contoh: 149.000" error={errs.now}>
+                  <input value={f.now} onChange={set("now")} inputMode="decimal" maxLength={12} className={inputCls} placeholder="149.000" />
+                </Field>
+              </div>
+              <p className="text-xs text-adm-sec mt-2">
+                Kosongkan keduanya untuk memakai harga kategori. Selama promo berjalan, harga promo tetap menggantikan harga ini.
+              </p>
+            </div>
+          )}
           <label className="flex items-start gap-3 cursor-pointer text-sm">
             <input type="checkbox" checked={f.noText} onChange={toggle("noText")} className="mt-0.5 size-5 shrink-0 accent-adm-primary" />
             <span>

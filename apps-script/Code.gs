@@ -9,8 +9,9 @@
  *   POST action login / adminList / save / remove / upload / logout / verify → dashboard admin
  *   POST action testiList / testiStatus / testiRemove → moderasi testimoni (wajib login admin)
  *   POST action catSave / catRemove → kategori tema (wajib login admin; daftar ikut di adminList)
+ *   POST action promoSave        → pengaturan promo (wajib login admin; datanya ikut di adminList)
  *   GET  ?action=approved        → testimoni yang disetujui (publik)
- *   GET  ?action=list            → koleksi yang Tampil = Ya + kategori tema yang Tampil = Ya (publik)
+ *   GET  ?action=list            → koleksi yang Tampil = Ya + kategori tema yang Tampil = Ya + promo (publik)
  *
  * Keamanan dashboard: username & password di Script Properties (ADMIN_USER, ADMIN_PASSWORD), aksi tulis
  * wajib token hasil login, 5x salah login → dikunci 10 menit (global, Apps Script tidak melihat IP).
@@ -30,9 +31,12 @@ const KOLEKSI_FOLDER = "Koleksi Saevitation (gambar)";
 const KOLEKSI_HEADERS = [
   "ID", "Jenis", "Nama", "Tanggal", "Tag", "Kategori", "URL",
   "Foto Cover", "Foto 1", "Foto 2", "Unggulan", "Tampil", "Dibuat", "Diubah", "Tanpa Teks",
+  "Harga Coret", "Harga",
 ];
 const KAT_SHEET = "Kategori";
 const KAT_HEADERS = ["ID", "Nama", "Deskripsi", "Harga Coret", "Harga", "Tampil", "Dibuat", "Diubah"];
+const PROMO_SHEET = "Promo";
+const PROMO_HEADERS = ["Aktif", "ID", "Label", "Judul", "Harga Promo", "Harga Normal", "Mulai", "Selesai", "Diubah"];
 const TOKEN_TTL = 6 * 60 * 60; // detik (batas maksimum CacheService)
 const MAX_FAILS = 5;
 const LOCK_SECONDS = 10 * 60;
@@ -48,6 +52,7 @@ function setup() {
   koleksiSheet_();
   koleksiFolder_();
   katSheet_();
+  promoSheet_();
   if (!PropertiesService.getScriptProperties().getProperty("ADMIN_PASSWORD")) {
     Logger.log("PERINGATAN: ADMIN_PASSWORD belum diatur. Project Settings → Script Properties → tambahkan ADMIN_PASSWORD (dan opsional ADMIN_USER).");
   }
@@ -93,12 +98,14 @@ function koleksiSheet_() {
     sh.getRange(2, 11, 999, 2).setDataValidation(yesNo());
     sh.getRange(2, 15, 999, 1).setDataValidation(yesNo());
   } else {
-    // migrasi sheet lama: tambah kolom "Tanpa Teks" (kolom 15) bila belum ada
+    // migrasi sheet lama: tambah kolom baru (kolom 15 "Tanpa Teks", 16-17 harga per tema) bila belum ada
     const n = KOLEKSI_HEADERS.length;
     if (sh.getMaxColumns() < n) sh.insertColumnsAfter(sh.getMaxColumns(), n - sh.getMaxColumns());
-    if (!str_(sh.getRange(1, n).getValue())) {
-      sh.getRange(1, n).setValue(KOLEKSI_HEADERS[n - 1]).setFontWeight("bold");
-      sh.getRange(2, n, 999, 1).setNumberFormat("@").setDataValidation(yesNo());
+    for (let c = 15; c <= n; c++) {
+      if (str_(sh.getRange(1, c).getValue())) continue;
+      sh.getRange(1, c).setValue(KOLEKSI_HEADERS[c - 1]).setFontWeight("bold");
+      const col = sh.getRange(2, c, 999, 1).setNumberFormat("@");
+      if (c === 15) col.setDataValidation(yesNo());
     }
   }
   return sh;
@@ -114,6 +121,22 @@ function katSheet_() {
     sh.setFrozenRows(1);
     sh.getRange(2, 1, 999, KAT_HEADERS.length).setNumberFormat("@");
     sh.getRange(2, 6, 999, 1).setDataValidation(
+      SpreadsheetApp.newDataValidation().requireValueInList(["Ya", "Tidak"], true).build(),
+    );
+  }
+  return sh;
+}
+
+/** Tab "Promo" (satu baris pengaturan promo); dibuat otomatis bila belum ada. */
+function promoSheet_() {
+  const ss = spreadsheet_();
+  let sh = ss.getSheetByName(PROMO_SHEET);
+  if (!sh) {
+    sh = ss.insertSheet(PROMO_SHEET);
+    sh.getRange(1, 1, 1, PROMO_HEADERS.length).setValues([PROMO_HEADERS]).setFontWeight("bold");
+    sh.setFrozenRows(1);
+    sh.getRange(2, 1, 2, PROMO_HEADERS.length).setNumberFormat("@");
+    sh.getRange(2, 1, 1, 1).setDataValidation(
       SpreadsheetApp.newDataValidation().requireValueInList(["Ya", "Tidak"], true).build(),
     );
   }
@@ -356,6 +379,7 @@ function row2item_(r) {
     featured: str_(r[10]) === "Ya", visible: str_(r[11]) !== "Tidak",
     created: str_(r[12]), updated: str_(r[13]),
     noText: str_(r[14]) === "Ya",
+    was: str_(r[15]), now: str_(r[16]),
   };
 }
 
@@ -402,6 +426,8 @@ function clean_(it) {
     featured: it.featured === true,
     visible: it.visible !== false,
     noText: it.noText === true,
+    was: "",
+    now: "",
   };
   if (!out.url) throw new Error("Link undangan wajib diisi.");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(out.date) || isNaN(new Date(out.date).getTime()))
@@ -413,6 +439,15 @@ function clean_(it) {
     out.cat = cat;
     out.featured = false;
     if (!!out.shot1 !== !!out.shot2) throw new Error("Isi kedua screenshot atau kosongkan keduanya.");
+    // harga khusus tema ini (opsional; kosong = ikut harga kategori)
+    const price = (v, label) => {
+      v = String(v == null ? "" : v).trim();
+      if (v && !/^[0-9.,]{1,12}$/.test(v)) throw new Error(label + " hanya boleh angka, mis. 149.000");
+      return v;
+    };
+    out.was = price(it.was, "Harga coret");
+    out.now = price(it.now, "Harga");
+    if (!!out.was !== !!out.now) throw new Error("Isi harga coret dan harga sekaligus, atau kosongkan keduanya.");
   } else {
     out.shot1 = "";
     out.shot2 = "";
@@ -445,7 +480,7 @@ function koleksiSave_(raw) {
       it.id, it.type, it.name, it.date, it.tag, it.cat, it.url,
       it.img, it.shot1, it.shot2,
       it.featured ? "Ya" : "Tidak", it.visible ? "Ya" : "Tidak", created, now,
-      it.noText ? "Ya" : "Tidak",
+      it.noText ? "Ya" : "Tidak", it.was, it.now,
     ]]);
     it.created = created;
     it.updated = now;
@@ -574,6 +609,75 @@ function katRemove_(id) {
   });
 }
 
+/* ============ 2. Dashboard admin: promo ============ */
+
+/** Pengaturan promo dari tab Promo, atau null bila belum pernah disimpan (situs memakai cadangan di config.js). */
+function promoGet_() {
+  const sh = spreadsheet_().getSheetByName(PROMO_SHEET);
+  if (!sh || sh.getLastRow() < 2) return null;
+  const r = sh.getRange(2, 1, 1, PROMO_HEADERS.length).getValues()[0];
+  if (!str_(r[1])) return null;
+  const dt = (v) => {
+    if (v instanceof Date) return Utilities.formatDate(v, tz_(), "yyyy-MM-dd'T'HH:mm");
+    return str_(v);
+  };
+  return {
+    enabled: str_(r[0]) === "Ya", id: str_(r[1]), label: str_(r[2]), headline: str_(r[3]),
+    price: str_(r[4]), normal: str_(r[5]), start: dt(r[6]), end: dt(r[7]), updated: str_(r[8]),
+  };
+}
+
+function cleanPromo_(it) {
+  it = it || {};
+  const txt = (v, max, label, req) => {
+    v = String(v == null ? "" : v).trim();
+    if (req && !v) throw new Error(label + " wajib diisi.");
+    if (v.length > max) throw new Error(label + " terlalu panjang.");
+    if (/^[=+\-@]/.test(v)) throw new Error(label + " tidak boleh diawali = + - atau @.");
+    return v;
+  };
+  const price = (v, label, req) => {
+    v = String(v == null ? "" : v).trim();
+    if (req && !v) throw new Error(label + " wajib diisi.");
+    if (v && !/^[0-9.,]{1,12}$/.test(v)) throw new Error(label + " hanya boleh angka, mis. 80.000");
+    return v;
+  };
+  const dt = (v, label) => {
+    v = String(v || "").trim();
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(v) || isNaN(new Date(v + ":00+07:00").getTime()))
+      throw new Error(label + " tidak valid.");
+    return v;
+  };
+  const out = {
+    enabled: it.enabled === true,
+    label: txt(it.label, 50, "Nama promo", true),
+    headline: txt(it.headline, 60, "Judul promo", true),
+    price: price(it.price, "Harga promo", true),
+    normal: price(it.normal, "Harga normal", false),
+    start: dt(it.start, "Waktu mulai"),
+    end: dt(it.end, "Waktu selesai"),
+  };
+  if (out.end <= out.start) throw new Error("Waktu selesai harus setelah waktu mulai.");
+  // ID otomatis: berubah bila isi promo berubah, sehingga popup tampil lagi ke pengunjung lama
+  out.id = "p" + hash_([out.label, out.headline, out.price, out.normal, out.start, out.end].join("|")).slice(0, 10);
+  return out;
+}
+
+function promoSave_(raw) {
+  const it = cleanPromo_(raw);
+  return locked_(() => {
+    const sh = promoSheet_();
+    const now = Utilities.formatDate(new Date(), tz_(), "yyyy-MM-dd HH:mm");
+    const range = sh.getRange(2, 1, 1, PROMO_HEADERS.length);
+    range.setNumberFormat("@");
+    range.setValues([[
+      it.enabled ? "Ya" : "Tidak", it.id, it.label, it.headline, it.price, it.normal, it.start, it.end, now,
+    ]]);
+    it.updated = now;
+    return { ok: true, item: it };
+  });
+}
+
 function adminPost_(d) {
   try {
     if (d.action === "login") return login_(d);
@@ -589,11 +693,13 @@ function adminPost_(d) {
         CacheService.getScriptCache().remove(tokKey_(d.token));
         return { ok: true };
       case "adminList":
-        return { ok: true, items: koleksiAll_(), categories: katAll_() };
+        return { ok: true, items: koleksiAll_(), categories: katAll_(), promo: promoGet_() };
       case "catSave":
         return katSave_(d.item);
       case "catRemove":
         return katRemove_(d.id);
+      case "promoSave":
+        return promoSave_(d.item);
       case "save":
         return koleksiSave_(d.item);
       case "remove":
@@ -622,12 +728,16 @@ function koleksiPublic_() {
       .map((it) => ({
         id: it.id, type: it.type, name: it.name, date: it.date, tag: it.tag, cat: it.cat,
         url: it.url, img: it.img, shot1: it.shot1, shot2: it.shot2, featured: it.featured,
-        noText: it.noText,
+        noText: it.noText, was: it.was, now: it.now,
       }));
     const categories = katAll_()
       .filter((c) => c.visible)
       .map((c) => ({ id: c.id, label: c.label, desc: c.desc, was: c.was, now: c.now }));
-    return { ok: true, items, categories };
+    const p = promoGet_();
+    const promo = p
+      ? { enabled: p.enabled, id: p.id, label: p.label, headline: p.headline, price: p.price, normal: p.normal, start: p.start, end: p.end }
+      : null;
+    return { ok: true, items, categories, promo };
   } catch (err) {
     return { ok: false, error: errMsg_(err) };
   }

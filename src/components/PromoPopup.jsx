@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { PROMO, promoActive } from "../config";
+import { usePromo } from "../utils/useDesigns";
 import { orderPromo } from "../utils/wa";
 import WaIcon from "./WaIcon";
 
-const KEY = `promo-seen:${PROMO.id}`;
-
 // sudah ditutup di sesi ini? (storage bisa diblokir browser → anggap belum)
-const seen = () => {
+const seen = (id) => {
   try {
-    return sessionStorage.getItem(KEY) === "1";
+    return sessionStorage.getItem(`promo-seen:${id}`) === "1";
   } catch {
     return false;
   }
@@ -16,20 +14,21 @@ const seen = () => {
 
 /** Popup promo: muncul sekali per sesi, hanya selama periode promo aktif. */
 export default function PromoPopup() {
+  const promo = usePromo();
   const [open, setOpen] = useState(false);
   const closeRef = useRef(null);
 
   // tampil setelah jeda singkat agar tidak menutupi hero saat halaman baru dibuka
   useEffect(() => {
-    if (!promoActive || seen()) return;
+    if (!promo.active || seen(promo.id)) return;
     const t = setTimeout(() => setOpen(true), 1800);
     return () => clearTimeout(t);
-  }, []);
+  }, [promo.active, promo.id]);
 
   const close = () => {
     setOpen(false);
     try {
-      sessionStorage.setItem(KEY, "1");
+      sessionStorage.setItem(`promo-seen:${promo.id}`, "1");
     } catch {
       /* abaikan */
     }
@@ -48,7 +47,7 @@ export default function PromoPopup() {
     };
   }, [open]);
 
-  if (!open) return null;
+  if (!open || !promo.active) return null;
 
   return (
     <div
@@ -81,30 +80,32 @@ export default function PromoPopup() {
           </svg>
         </button>
 
-        <p className="tracking-[.3em] text-[11px] text-sk-300">
-          PROMO NOVEMBER – DESEMBER
+        <p className="tracking-[.3em] text-[11px] text-sk-300 uppercase">
+          {promo.label}
         </p>
         <h2
           id="promo-title"
           className="font-script text-4xl sm:text-5xl text-white mt-3 leading-tight"
         >
-          Semua Desain Undangan
+          {promo.headline}
         </h2>
 
-        <p className="mt-4 text-sm text-sk-300/70 line-through">
-          Rp {PROMO.normal}
-        </p>
+        {promo.normal && (
+          <p className="mt-4 text-sm text-sk-300/70 line-through">
+            Rp {promo.normal}
+          </p>
+        )}
         <p className="font-serif text-5xl sm:text-6xl font-bold text-sk-300 leading-none mt-1">
-          Rp {PROMO.price}
+          Rp {promo.price}
         </p>
         <p className="mt-3 text-sm text-sk-200/90">
-          Berlaku sampai {PROMO.untilLabel}. Preview maks. 2 hari kerja, revisi
+          Berlaku sampai {promo.untilLabel}. Preview maks. 2 hari kerja, revisi
           teks tanpa batas.
         </p>
 
         <div className="mt-6 grid gap-3">
           <a
-            href={orderPromo()}
+            href={orderPromo(promo)}
             target="_blank"
             rel="noopener"
             onClick={close}

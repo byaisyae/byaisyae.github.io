@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import AOS from "aos";
 import { CLIENT } from "../config";
-import { designKey, useCats, useDesigns } from "../utils/useDesigns";
+import { designKey, useCats, useDesigns, usePromo } from "../utils/useDesigns";
+import { applyPromo } from "../utils/promo";
 import { AN } from "../utils/anim";
 import { WA, orderDesign } from "../utils/wa";
 import Header from "../components/Header";
@@ -20,6 +21,7 @@ const initialCat = () => new URLSearchParams(location.search).get("kategori") ||
 export default function CatalogPage() {
   const D = useDesigns();
   const CATS = useCats(); // bawaan di kode + dari dashboard admin
+  const promo = usePromo();
   const [catRaw, setCat] = useState(initialCat);
   const cat = [...CATS, CLIENT].some((c) => c.id === catRaw) ? catRaw : "semua";
   const [visible, setVisible] = useState({}); // id grup → jumlah kartu yang ditampilkan
@@ -182,6 +184,8 @@ export default function CatalogPage() {
                     const orderTitle = x.client
                       ? `${x.tag} (seperti undangan ${x.n})`
                       : title;
+                    // harga: promo (jika berjalan) > harga khusus tema ini > harga kategori
+                    const priced = applyPromo(x.price ? { ...g, price: x.price } : g, promo);
                     return (
                       <div
                         key={designKey(x)}
@@ -192,8 +196,8 @@ export default function CatalogPage() {
                           title={title}
                           index={i % PAGE}
                           anim={AN[i % 3]}
-                          price={g.price}
-                          orderHref={orderDesign(orderTitle, x, g)}
+                          price={priced.price}
+                          orderHref={orderDesign(orderTitle, x, priced)}
                         />
                       </div>
                     );

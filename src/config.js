@@ -60,30 +60,23 @@ const BASE_CATS = [
   },
 ];
 
-// Promo musiman: selama periode aktif, SEMUA desain tampil dengan harga promo di bawah.
-// Ubah tanggal/harga di sini; setelah "end" lewat, harga otomatis kembali normal & popup hilang.
+// Promo: pengaturan UTAMA ada di dashboard admin (menu "Promo") dan tidak perlu mengubah kode.
+// Data di bawah hanya CADANGAN: dipakai selama promo belum pernah disimpan dari dashboard (atau
+// server tidak bisa dihubungi). Setelah Anda menyimpan promo di dashboard, dashboard yang berlaku.
 export const PROMO = {
   id: "promo-nov-des-2026", // ganti id untuk menampilkan ulang popup ke pengunjung lama
+  label: "Promo November – Desember",
+  headline: "Semua Desain Undangan",
   start: "2026-11-01T00:00:00+07:00",
   end: "2026-12-31T23:59:59+07:00",
   price: "80.000",
   normal: "299.000", // harga normal yang dicoret
-  untilLabel: "31 Desember 2026",
 };
-export const promoActive = (() => {
-  const t = Date.now();
-  return t >= Date.parse(PROMO.start) && t <= Date.parse(PROMO.end);
-})();
 
-// beri tahu CSS bahwa bar promo tampil (dipakai untuk offset konten di bawah header tetap)
-if (promoActive && typeof document !== "undefined")
-  document.documentElement.classList.add("has-bar");
-
-// Lengkapi kategori dengan keunggulan bawaan & harga promo (berlaku juga untuk kategori dari dashboard).
+// Lengkapi kategori dengan keunggulan bawaan. Harga promo dipasang saat tampil (lihat utils/promo.js).
 export const withCatDefaults = (c) => ({
   features: FEATURES,
   ...c,
-  ...(promoActive ? { price: { was: PROMO.normal, now: PROMO.price } } : {}),
 });
 
 // Kategori bawaan di kode. Kategori tambahan dikelola dari dashboard admin (menu Kategori Tema)
@@ -129,8 +122,8 @@ export const D = [
     tag: "Soft Blue Classic",
     client: true,
     featured: true,
-    url: "https://isanmh.github.io/wedding/",
-    img: "https://isanmh.github.io/wedding/img/grt/1.webp",
+    url: `${SITE}/wedding-ihsan-ai/`,
+    img: `${SITE}/wedding-ihsan-ai/img/grt/1.webp`,
   },
   {
     n: "Icha & Ridwan",
@@ -216,7 +209,9 @@ export const TESTIMONIALS_SAMPLE = [
 // (lihat apps-script/SETUP.md). Isi lewat env VITE_APPS_SCRIPT_URL saat build (GitHub Actions → Variables),
 // atau tulis langsung di sini. Kosong = form testimoni & dashboard admin belum aktif.
 const APPS_SCRIPT_URL =
-  import.meta.env.VITE_APPS_SCRIPT_URL || import.meta.env.VITE_KOLEKSI_API_URL || "";
+  import.meta.env.VITE_APPS_SCRIPT_URL ||
+  import.meta.env.VITE_KOLEKSI_API_URL ||
+  "";
 
 // Form testimoni (halaman rahasia /form-testimoni/, tidak ditautkan dari mana pun).
 export const TESTIMONI_FORM = {

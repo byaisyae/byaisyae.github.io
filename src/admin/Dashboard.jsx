@@ -5,6 +5,7 @@ import { api } from "./api";
 import CategoryForm from "./CategoryForm";
 import CategoryPanel from "./CategoryPanel";
 import ItemForm from "./ItemForm";
+import PromoPanel from "./PromoPanel";
 import TestimoniPanel from "./TestimoniPanel";
 import { Icon, Modal, Spinner, Toast, inputCls } from "./ui";
 
@@ -14,6 +15,7 @@ const MENU = [
   { id: "tema", label: "Tema Katalog", icon: "palette", title: "Tema Katalog" },
   { id: "kategori", label: "Kategori Tema", icon: "layers", title: "Kategori Tema" },
   { id: "testimoni", label: "Testimoni", icon: "chat", title: "Moderasi Testimoni" },
+  { id: "promo", label: "Promo", icon: "tag", title: "Pengaturan Promo" },
 ];
 
 const match = (it, q) =>
@@ -79,6 +81,12 @@ function ItemCard({ it, busy, onEdit, onToggle, onDelete }) {
         <h3 className="font-bold text-lg truncate">{it.name}</h3>
         <p className="text-sm text-adm-sec">{fmtDate(it.date)}</p>
         <p className="text-xs text-adm-sec/80 truncate">{it.url}</p>
+        {it.type === "tema" && it.now && (
+          <p className="text-sm mt-1">
+            <span className="text-adm-sec line-through mr-2">Rp {it.was}</span>
+            <span className="font-bold">Rp {it.now}</span>
+          </p>
+        )}
         <div className="flex items-center gap-2 mt-4 pt-4 border-t border-adm-line">
           <button
             type="button"
@@ -126,6 +134,7 @@ export default function Dashboard({ token, onLogout, onExpired }) {
   const [menu, setMenu] = useState(false);
   const [toast, setToast] = useState(null);
   // kategori tema (dari Google Sheet)
+  const [promo, setPromo] = useState(null); // pengaturan promo dari Sheet (null = belum pernah disimpan)
   const [cats, setCats] = useState([]);
   const [catForm, setCatForm] = useState(null); // {} = baru, { item } = ubah
   const [catDel, setCatDel] = useState(null);
@@ -160,6 +169,7 @@ export default function Dashboard({ token, onLogout, onExpired }) {
     if (out.ok) {
       setItems(out.items);
       setCats(out.categories || []);
+      setPromo(out.promo || null);
     } else setLoadErr(out.error || "Gagal memuat data.");
     if (tOut.ok) setTesti(tOut.items);
     else if (out.ok)
@@ -399,7 +409,7 @@ export default function Dashboard({ token, onLogout, onExpired }) {
             <h2 className="font-bold text-xl md:text-2xl truncate">{current.title}</h2>
           </div>
           <div className="flex items-center gap-3">
-            {view !== "ringkasan" && (
+            {view !== "ringkasan" && view !== "promo" && (
               <div className="hidden sm:flex items-center gap-2 bg-adm-muted rounded-xl px-3 focus-within:ring-2 focus-within:ring-adm-primary/20">
                 <Icon name="search" className="size-4 text-adm-sec" />
                 <input
@@ -420,7 +430,7 @@ export default function Dashboard({ token, onLogout, onExpired }) {
             >
               {loading ? <Spinner className="size-5" /> : <Icon name="refresh" className="size-5 text-adm-sec" />}
             </button>
-            {view !== "testimoni" && (
+            {view !== "testimoni" && view !== "promo" && (
               <button
                 type="button"
                 onClick={() => (view === "kategori" ? setCatForm({}) : setForm({ type: addType }))}
@@ -548,7 +558,7 @@ export default function Dashboard({ token, onLogout, onExpired }) {
             {view !== "ringkasan" && (
               <>
                 {/* pencarian untuk layar kecil */}
-                <div className="sm:hidden flex items-center gap-2 bg-white rounded-xl px-3 ring-1 ring-adm-line mb-5">
+                <div className={`${view === "promo" ? "hidden" : "sm:hidden flex"} items-center gap-2 bg-white rounded-xl px-3 ring-1 ring-adm-line mb-5`}>
                   <Icon name="search" className="size-4 text-adm-sec" />
                   <input
                     value={q}
@@ -569,6 +579,20 @@ export default function Dashboard({ token, onLogout, onExpired }) {
                     onEdit={(c) => setCatForm({ item: c })}
                     onToggle={toggleCat}
                     onDelete={setCatDel}
+                  />
+                )}
+
+                {view === "promo" && (
+                  <PromoPanel
+                    promo={promo}
+                    loading={loading}
+                    token={token}
+                    onExpired={onExpired}
+                    onSaved={(p) => {
+                      setPromo(p);
+                      refreshDesigns(); // situs di tab ini ikut memakai data terbaru
+                      say("Promo disimpan.");
+                    }}
                   />
                 )}
 
@@ -610,7 +634,7 @@ export default function Dashboard({ token, onLogout, onExpired }) {
                   </div>
                 )}
 
-                {view === "testimoni" || view === "kategori" ? null : loading ? (
+                {view === "testimoni" || view === "kategori" || view === "promo" ? null : loading ? (
                   <p className="text-adm-sec flex items-center gap-2"><Spinner /> Memuat…</p>
                 ) : listItems.length === 0 ? (
                   <div className="bg-white rounded-3xl border-2 border-dashed border-adm-line p-10 text-center">

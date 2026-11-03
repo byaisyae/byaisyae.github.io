@@ -21,6 +21,7 @@ npm run preview   # cek hasil build
 | Koleksi client (nama & tanggal nikah)                                                            | `src/config.js` (`D`) — isi `client: true` (tanpa `cat`); otomatis jadi pilihan di generator link. `featured: true` = tampil juga di beranda |
 | Template pesan WA per bahasa (ID/EN/AR)                                                          | `src/config.js` (`C.msgs`)                                                                                                                   |
 | Daftar keunggulan, langkah, **F.A.Q** (`/faq/`), dan **Add On** (`/add-on/`) — harga & ketentuan | `src/content.js`                                                                                                                             |
+| Promo (harga, periode, teks) | **Dashboard admin → menu Promo** (tanpa ubah kode; `PROMO` di `src/config.js` hanya cadangan) |
 | Warna & font                                                                                     | `tailwind.config.js`                                                                                                                         |
 | Gaya kustom (animasi, glow)                                                                      | `src/index.css`                                                                                                                              |
 

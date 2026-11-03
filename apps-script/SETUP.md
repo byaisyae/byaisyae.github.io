@@ -71,3 +71,19 @@ Kolom `Tanpa Teks` ditambahkan otomatis ke tab `Koleksi` lama saat script baru d
   berakhiran `/exec`, dan situs sudah dibuild ulang setelah mengisi variable.
 - "Script ini belum terhubung ke Google Sheet" → buka Apps Script lewat **Extensions → Apps Script** dari dalam Sheet.
 - Foto tidak muncul → jalankan `setup` dan beri izin Drive.
+
+## D. Promo musiman (tanpa ubah kode)
+Menu **Promo** di dashboard mengatur bar promo di atas situs, popup, dan harga promo di semua kategori katalog:
+nama promo, judul, harga promo, harga normal (coret), serta waktu mulai & selesai (WIB). Centang/hilangkan
+**Promo aktif** untuk menyalakan atau mematikan kapan saja. Setelah waktu selesai lewat, situs kembali normal otomatis.
+
+- Data tersimpan di tab `Promo` (dibuat otomatis) pada Google Sheet.
+- **Wajib tempel `Code.gs` terbaru lalu Deploy → Manage deployments → pensil → New version → Deploy** agar menu ini berfungsi.
+- Selama promo belum pernah disimpan dari dashboard, situs memakai data cadangan `PROMO` di `src/config.js`.
+  Setelah disimpan dari dashboard, dashboard yang berlaku.
+
+## E. Harga per tema
+Di form **Tambah/Edit Tema** ada kolom *Harga coret* dan *Harga* khusus tema itu. Jika diisi, kartu tema di katalog memakai harga
+tersebut; jika kosong, ikut harga kategori. Selama promo berjalan (menu Promo), harga promo tetap menggantikan keduanya.
+Prioritas: **promo > harga tema > harga kategori**. Dua kolom baru (`Harga Coret`, `Harga`) otomatis ditambahkan ke tab `Koleksi`
+saat Code.gs terbaru di-deploy. Perlu **New version** deploy seperti biasa.

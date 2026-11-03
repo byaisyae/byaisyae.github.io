@@ -1,4 +1,4 @@
-# Aisyae Digital Invitation — React + Vite
+# Aisyae Digital Invitation — React + Vites
 
 Konversi dari situs HTML/JS statis ke **React 18 + Vite 5 + Tailwind CSS 3** (kelas Tailwind, warna, dan font sama persis dengan versi sebelumnya).
 
@@ -13,16 +13,16 @@ npm run preview   # cek hasil build
 
 ## Mengubah konten
 
-| Yang diubah | File |
-| --- | --- |
-| Nomor WA admin, pesan otomatis | `src/config.js` (`C`) |
-| Kategori & pricelist katalog | `src/config.js` (`CATS`) |
-| Desain tema di katalog (`/katalog/`) | `src/config.js` (`D`) — isi `cat` (kategori tema) |
-| Koleksi client (nama & tanggal nikah) | `src/config.js` (`D`) — isi `client: true` (tanpa `cat`); otomatis jadi pilihan di generator link. `featured: true` = tampil juga di beranda |
-| Template pesan WA per bahasa (ID/EN/AR) | `src/config.js` (`C.msgs`) |
-| Daftar keunggulan, langkah, **F.A.Q** (`/faq/`), dan **Add On** (`/add-on/`) — harga & ketentuan | `src/content.js` |
-| Warna & font | `tailwind.config.js` |
-| Gaya kustom (animasi, glow) | `src/index.css` |
+| Yang diubah                                                                                      | File                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nomor WA admin, pesan otomatis                                                                   | `src/config.js` (`C`)                                                                                                                        |
+| Kategori & pricelist katalog                                                                     | `src/config.js` (`CATS`)                                                                                                                     |
+| Desain tema di katalog (`/katalog/`)                                                             | `src/config.js` (`D`) — isi `cat` (kategori tema)                                                                                            |
+| Koleksi client (nama & tanggal nikah)                                                            | `src/config.js` (`D`) — isi `client: true` (tanpa `cat`); otomatis jadi pilihan di generator link. `featured: true` = tampil juga di beranda |
+| Template pesan WA per bahasa (ID/EN/AR)                                                          | `src/config.js` (`C.msgs`)                                                                                                                   |
+| Daftar keunggulan, langkah, **F.A.Q** (`/faq/`), dan **Add On** (`/add-on/`) — harga & ketentuan | `src/content.js`                                                                                                                             |
+| Warna & font                                                                                     | `tailwind.config.js`                                                                                                                         |
+| Gaya kustom (animasi, glow)                                                                      | `src/index.css`                                                                                                                              |
 
 ## Deploy ke GitHub Pages (GitHub Actions)
 

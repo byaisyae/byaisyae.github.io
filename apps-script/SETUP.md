@@ -71,6 +71,15 @@ Kolom `Tanpa Teks` ditambahkan otomatis ke tab `Koleksi` lama saat script baru d
   berakhiran `/exec`, dan situs sudah dibuild ulang setelah mengisi variable.
 - "Script ini belum terhubung ke Google Sheet" → buka Apps Script lewat **Extensions → Apps Script** dari dalam Sheet.
 - Foto tidak muncul → jalankan `setup` dan beri izin Drive.
+- **Foto yang diunggah dari dashboard tidak masuk ke folder "Koleksi Saevitation (gambar)":**
+  1. Tempel `Code.gs` terbaru, lalu **Deploy → Manage deployments → pensil → New version → Deploy** (tanpa ini kode lama yang jalan).
+  2. Di editor pilih fungsi **`cekFolder`** → Run → buka *Execution log*. Di situ terlihat folder mana yang dipakai script (`AKTIF`),
+     apakah ada beberapa folder bernama sama, dan akun yang menjalankan script. Foto selalu tersimpan di Drive **akun pemilik
+     script** (Execute as: **Me**), bukan akun yang sedang membuka dashboard.
+  3. Kalau folder yang Anda maksud berbeda dari yang `AKTIF`: Project Settings → Script Properties → ubah `KOLEKSI_FOLDER_ID`
+     menjadi ID folder yang benar (bagian setelah `/folders/` pada URL folder Drive).
+  Versi baru `Code.gs` otomatis memakai folder bernama sama yang sudah ada dan mengabaikan folder di Sampah. Foto lama yang
+  terlanjur masuk folder lain tidak dipindah otomatis; pindahkan manual di Drive (link fotonya tetap berfungsi).
 
 ## D. Promo musiman (tanpa ubah kode)
 Menu **Promo** di dashboard mengatur bar promo di atas situs, popup, dan harga promo di semua kategori katalog:

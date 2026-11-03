@@ -143,11 +143,31 @@ function promoSheet_() {
   return sh;
 }
 
+/**
+ * Folder gambar di Drive. Urutan pencarian:
+ *  1) ID tersimpan di Script Properties (propKey), selama folder itu ada DAN tidak di Sampah;
+ *  2) folder bernama `name` yang sudah ada di Drive akun pemilik script (bukan yang di Sampah);
+ *  3) baru buat folder baru.
+ * Folder yang ditemukan lewat nama otomatis disimpan ke Script Properties agar seterusnya konsisten.
+ * Sebelumnya hanya langkah 1 + 3: folder buatan manual / folder yang terhapus ke Sampah tidak pernah dipakai,
+ * sehingga foto masuk ke folder lain.
+ */
 function folder_(propKey, name) {
   const props = PropertiesService.getScriptProperties();
   const saved = props.getProperty(propKey);
   if (saved) {
-    try { return DriveApp.getFolderById(saved); } catch (_) { /* dibuat ulang */ }
+    try {
+      const f = DriveApp.getFolderById(saved);
+      if (!f.isTrashed()) return f;
+    } catch (_) { /* ID salah / tidak bisa diakses → cari berdasarkan nama */ }
+  }
+  const it = DriveApp.getFoldersByName(name);
+  while (it.hasNext()) {
+    const f = it.next();
+    if (!f.isTrashed()) {
+      props.setProperty(propKey, f.getId());
+      return f;
+    }
   }
   const f = DriveApp.createFolder(name);
   props.setProperty(propKey, f.getId());
@@ -156,6 +176,27 @@ function folder_(propKey, name) {
 // FOLDER_ID dipertahankan untuk testimoni agar script testimoni lama tetap memakai folder yang sama
 function testiFolder_() { return folder_("FOLDER_ID", TESTI_FOLDER); }
 function koleksiFolder_() { return folder_("KOLEKSI_FOLDER_ID", KOLEKSI_FOLDER); }
+
+/**
+ * Diagnosa folder gambar: jalankan dari editor (pilih `cekFolder` → Run), lalu buka View → Logs / Execution log.
+ * Menampilkan folder yang sedang dipakai script, semua folder dengan nama sama, dan akun pemilik script.
+ */
+function cekFolder() {
+  Logger.log("Script berjalan sebagai: " + Session.getEffectiveUser().getEmail());
+  [["KOLEKSI_FOLDER_ID", KOLEKSI_FOLDER], ["FOLDER_ID", TESTI_FOLDER]].forEach(function (x) {
+    const active = folder_(x[0], x[1]);
+    Logger.log("== " + x[1] + " ==");
+    Logger.log("DIPAKAI SCRIPT → " + active.getUrl() + " (id: " + active.getId() + ")");
+    const it = DriveApp.getFoldersByName(x[1]);
+    while (it.hasNext()) {
+      const f = it.next();
+      let n = 0;
+      const fi = f.getFiles();
+      while (fi.hasNext()) { fi.next(); n++; }
+      Logger.log("  folder bernama sama: " + f.getUrl() + " | file: " + n + " | sampah: " + f.isTrashed() + (f.getId() === active.getId() ? " | ← AKTIF" : ""));
+    }
+  });
+}
 
 /* ============ Util bersama ============ */
 
@@ -508,7 +549,7 @@ function koleksiUpload_(d) {
   const id = Utilities.getUuid().replace(/-/g, "").slice(0, 10);
   const file = koleksiFolder_().createFile(Utilities.newBlob(bytes, d.mime, id + "." + ext));
   file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-  return { ok: true, url: "https://drive.google.com/thumbnail?id=" + file.getId() + "&sz=w1000" };
+  return { ok: true, url: "https://drive.google.com/thumbnail?id=" + file.getId() + "&sz=w1000", folder: koleksiFolder_().getUrl() };
 }
 
 /* ============ 2. Dashboard admin: kategori tema ============ */

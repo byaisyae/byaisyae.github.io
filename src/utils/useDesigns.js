@@ -50,6 +50,8 @@ export function toDesign(r) {
       : { cat: str(r.cat) }),
     // dua screenshot (tema maupun client) → kartu katalog menampilkan 2 ponsel tanpa teks tambahan
     ...(shots[0] && shots[1] ? { shots } : {}),
+    // nama tema di kartu katalog (kosong = otomatis "<Kategori> 01, 02, ...")
+    ...(!client && str(r.title) ? { title: str(r.title) } : {}),
     // harga khusus tema ini (menimpa harga kategori; kosong = ikut kategori)
     ...(!client && str(r.was) && str(r.now)
       ? { price: { was: str(r.was), now: str(r.now) } }
@@ -80,36 +82,34 @@ const mergeCats = (remote) => [
 /** Kunci unik tiap desain (dipakai sebagai React key). Link yang sama boleh dipakai beberapa entri. */
 export const designKey = (d) => d.id || `${d.url}|${d.n}`;
 
-// Entri dari dashboard dianggap duplikat data di config.js hanya jika JENIS (client / tema), LINK, dan NAMA-nya sama.
-// (Link saja tidak cukup: client berbeda boleh memakai link undangan yang sama, mis. saat uji coba.
-// Jenis juga dibandingkan agar tema di dashboard tidak hilang karena sama dengan koleksi client di config.js.)
+// Entri dari dashboard yang SAMA dengan data bawaan di config.js (jenis, link, dan nama sama) MENGGANTIKAN
+// entri bawaan itu di posisi yang sama. Jadi tema bawaan bisa diubah namanya/harganya dari Sheet:
+// tambahkan tema yang sama di dashboard lalu isi "Nama tema". Link saja tidak cukup untuk dianggap sama
+// (client berbeda boleh memakai link yang sama, mis. saat uji coba).
 const norm = (s) =>
   String(s || "")
     .trim()
     .toLowerCase();
-const isDup = (d) =>
-  STATIC.some(
-    (s) =>
-      Boolean(s.client) === Boolean(d.client) &&
-      s.url === d.url &&
-      norm(s.n) === norm(d.n),
-  );
+const sameKey = (d) => `${d.client ? "c" : "t"}|${d.url}|${norm(d.n)}`;
 
 // tema hanya tampil jika kategorinya dikenal (bawaan atau dari dashboard & tidak disembunyikan)
 const merge = (remote, remoteCats, remotePromo) => {
   const cats = mergeCats(remoteCats);
   const ok = (d) =>
     d.n && d.url && (d.client || cats.some((c) => c.id === d.cat));
+  const incoming = remote.map(toDesign).filter(ok);
+  const byKey = new Map(incoming.map((d) => [sameKey(d), d]));
+  const used = new Set();
+  const base = STATIC.map((s) => {
+    const r = byKey.get(sameKey(s));
+    if (!r) return s;
+    used.add(sameKey(s));
+    return r;
+  });
   return {
     cats,
     promo: resolvePromo(remotePromo),
-    list: [
-      ...STATIC,
-      ...remote
-        .map(toDesign)
-        .filter(ok)
-        .filter((d) => !isDup(d)),
-    ],
+    list: [...base, ...incoming.filter((d) => !used.has(sameKey(d)))],
   };
 };
 

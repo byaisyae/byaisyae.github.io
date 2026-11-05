@@ -31,7 +31,7 @@ const KOLEKSI_FOLDER = "Koleksi Saevitation (gambar)";
 const KOLEKSI_HEADERS = [
   "ID", "Jenis", "Nama", "Tanggal", "Tag", "Kategori", "URL",
   "Foto Cover", "Foto 1", "Foto 2", "Unggulan", "Tampil", "Dibuat", "Diubah", "Tanpa Teks",
-  "Harga Coret", "Harga",
+  "Harga Coret", "Harga", "Nama Tema",
 ];
 const KAT_SHEET = "Kategori";
 const KAT_HEADERS = ["ID", "Nama", "Deskripsi", "Harga Coret", "Harga", "Tampil", "Dibuat", "Diubah"];
@@ -98,7 +98,7 @@ function koleksiSheet_() {
     sh.getRange(2, 11, 999, 2).setDataValidation(yesNo());
     sh.getRange(2, 15, 999, 1).setDataValidation(yesNo());
   } else {
-    // migrasi sheet lama: tambah kolom baru (kolom 15 "Tanpa Teks", 16-17 harga per tema) bila belum ada
+    // migrasi sheet lama: tambah kolom baru (15 "Tanpa Teks", 16-17 harga per tema, 18 "Nama Tema") bila belum ada
     const n = KOLEKSI_HEADERS.length;
     if (sh.getMaxColumns() < n) sh.insertColumnsAfter(sh.getMaxColumns(), n - sh.getMaxColumns());
     for (let c = 15; c <= n; c++) {
@@ -421,6 +421,7 @@ function row2item_(r) {
     created: str_(r[12]), updated: str_(r[13]),
     noText: str_(r[14]) === "Ya",
     was: str_(r[15]), now: str_(r[16]),
+    title: str_(r[17]),
   };
 }
 
@@ -469,6 +470,7 @@ function clean_(it) {
     noText: it.noText === true,
     was: "",
     now: "",
+    title: "",
   };
   if (!out.url) throw new Error("Link undangan wajib diisi.");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(out.date) || isNaN(new Date(out.date).getTime()))
@@ -479,6 +481,8 @@ function clean_(it) {
     if (!/^[a-z0-9-]{1,40}$/.test(cat)) throw new Error("Kategori tidak valid.");
     out.cat = cat;
     out.featured = false;
+    // nama tema di kartu katalog (opsional; kosong = otomatis "<Kategori> 01, 02, ...")
+    out.title = txt(it.title, 80, "Nama tema", false);
     // harga khusus tema ini (opsional; kosong = ikut harga kategori)
     const price = (v, label) => {
       v = String(v == null ? "" : v).trim();
@@ -519,7 +523,7 @@ function koleksiSave_(raw) {
       it.id, it.type, it.name, it.date, it.tag, it.cat, it.url,
       it.img, it.shot1, it.shot2,
       it.featured ? "Ya" : "Tidak", it.visible ? "Ya" : "Tidak", created, now,
-      it.noText ? "Ya" : "Tidak", it.was, it.now,
+      it.noText ? "Ya" : "Tidak", it.was, it.now, it.title,
     ]]);
     it.created = created;
     it.updated = now;
@@ -767,7 +771,7 @@ function koleksiPublic_() {
       .map((it) => ({
         id: it.id, type: it.type, name: it.name, date: it.date, tag: it.tag, cat: it.cat,
         url: it.url, img: it.img, shot1: it.shot1, shot2: it.shot2, featured: it.featured,
-        noText: it.noText, was: it.was, now: it.now,
+        noText: it.noText, was: it.was, now: it.now, title: it.title,
       }));
     const categories = katAll_()
       .filter((c) => c.visible)

@@ -78,7 +78,8 @@ function ItemCard({ it, busy, onEdit, onToggle, onDelete }) {
         </div>
       </a>
       <div className="p-5 flex flex-col gap-1 flex-1">
-        <h3 className="font-bold text-lg truncate">{it.name}</h3>
+        <h3 className="font-bold text-lg truncate">{it.type === "tema" && it.title ? it.title : it.name}</h3>
+        {it.type === "tema" && it.title && <p className="text-xs text-adm-sec/80 truncate">Contoh: {it.name}</p>}
         <p className="text-sm text-adm-sec">{fmtDate(it.date)}</p>
         <p className="text-xs text-adm-sec/80 truncate">{it.url}</p>
         {it.type === "tema" && it.now && (

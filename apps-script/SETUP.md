@@ -48,8 +48,11 @@ izin tampil tidak bisa disetujui. Foto di Drive tidak ikut terhapus saat testimo
 
 **Dashboard admin:** masuk di `/super-admin-saevitation/` dengan `ADMIN_USER` & `ADMIN_PASSWORD`. Tambah / ubah / sembunyikan /
 hapus **Koleksi Client** dan **Tema**, termasuk unggah foto (disimpan di Drive, akses: siapa pun dengan link). Hasilnya tampil di
-katalog, generator link, dan angka hero tanpa build ulang (cache ±2 menit). Data bawaan di `src/config.js` (`D`) tetap tampil dan
-hanya bisa diubah lewat kode. Kolom **Tampil** / **Unggulan** / **Tanpa Teks** di tab `Koleksi` juga bisa diedit langsung (`Ya` / `Tidak`).
+katalog, generator link, dan angka hero tanpa build ulang (cache ±2 menit). Data bawaan di `src/config.js` (`D`) tetap tampil; untuk
+mengubah nama/harga tema bawaan dari dashboard, tambahkan tema yang **sama persis** (kategori, link demo, dan nama contoh yang sama)
+lalu isi "Nama tema": entri dari Sheet akan menggantikan entri bawaan di posisi yang sama. Kolom **Nama Tema** di tab `Koleksi` (khusus baris `tema`) menentukan judul kartu di katalog; kosong = otomatis "Kategori 01, 02, …". Bisa diisi lewat dashboard (field "Nama tema") atau langsung di Sheet.
+
+Kolom **Tampil** / **Unggulan** / **Tanpa Teks** di tab `Koleksi` juga bisa diedit langsung (`Ya` / `Tidak`).
 Centang **"Gambar cover sudah berisi tulisan (screenshot)"** di form koleksi jika cover yang diunggah screenshot undangan: teks
 di kartu (nama, "Kepada Yth.", tombol) disembunyikan agar gambar terlihat utuh. Di data bawaan `config.js`, tambahkan `noText: true`.
 Kolom `Tanpa Teks` ditambahkan otomatis ke tab `Koleksi` lama saat script baru dipakai (tidak perlu mengubah Sheet manual).

@@ -29,6 +29,7 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
     noText: item?.noText ?? false,
     was: item?.was || "",
     now: item?.now || "",
+    title: item?.title || "",
   }));
   const [errs, setErrs] = useState({});
   const [busy, setBusy] = useState(false);
@@ -44,6 +45,7 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
     if (!/^\d{4}-\d{2}-\d{2}$/.test(f.date)) v.date = "Pilih tanggal";
     if (type === "client" && !f.tag.trim()) v.tag = "Wajib diisi";
     if (type === "tema" && !f.cat) v.cat = "Pilih kategori";
+    if (type === "tema" && f.title.trim().length > 80) v.title = "Maksimal 80 karakter";
     if (!isHttps(f.url)) v.url = "Harus berupa link https://";
     for (const k of ["img", "shot1", "shot2"]) {
       if (f[k].trim() && !isHttps(f[k])) v[k] = "Harus berupa link https://";
@@ -80,6 +82,7 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
       featured: type === "client" ? f.featured : false,
       visible: f.visible,
       noText: f.noText,
+      title: type === "tema" ? f.title.trim() : "",
       was: type === "tema" ? f.was.trim() : "",
       now: type === "tema" ? f.now.trim() : "",
     };
@@ -132,16 +135,21 @@ export default function ItemForm({ type, item, token, tagOptions, cats, onClose,
               </datalist>
             </Field>
           ) : (
-            <Field label="Kategori tema" hint="Belum ada yang cocok? Tambahkan di menu Kategori Tema." error={errs.cat}>
-              <select value={f.cat} onChange={set("cat")} className={inputCls}>
-                {cats.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.label}
-                    {c.visible === false ? " (disembunyikan)" : ""}
-                  </option>
-                ))}
-              </select>
-            </Field>
+            <>
+              <Field label="Kategori tema" hint="Belum ada yang cocok? Tambahkan di menu Kategori Tema." error={errs.cat}>
+                <select value={f.cat} onChange={set("cat")} className={inputCls}>
+                  {cats.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.label}
+                      {c.visible === false ? " (disembunyikan)" : ""}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Nama tema (opsional)" hint='Judul di kartu katalog, mis. "Rustic Garden". Kosongkan untuk otomatis "Kategori 01, 02, …".' error={errs.title}>
+                <input value={f.title} onChange={set("title")} maxLength={80} className={inputCls} placeholder="mis. Rustic Garden" />
+              </Field>
+            </>
           )}
 
           <Field

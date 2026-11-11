@@ -140,7 +140,7 @@ export const D = [
     d: "12 Desember 2026",
     tag: "Minimalist Elegant",
     cat: "minimalist-elegant",
-    title: "Elegant 02 - Cream",
+    title: "Elegant 02 - Mocca",
     shots: [elegant02Cover, elegant02Gallery],
     url: `${SITE}/minimalist-elegant-02/`,
     img: "https://images.unsplash.com/photo-1517456215183-9a2c3a748d0c?auto=format&fit=crop&q=75&w=900&h=1400", // ganti dengan foto cover asli

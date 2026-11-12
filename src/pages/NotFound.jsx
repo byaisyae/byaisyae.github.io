@@ -9,7 +9,7 @@ const HOME = import.meta.env.BASE_URL;
 export default function NotFound() {
   useEffect(() => {
     document.title =
-      "404 — Halaman Tidak Ditemukan | Aisyae Digital Invitation";
+      "404 — Halaman Tidak Ditemukan | Saevitation by Aisyae Digital Invitation";
     const meta = document.createElement("meta");
     meta.name = "robots";
     meta.content = "noindex";
@@ -25,7 +25,7 @@ export default function NotFound() {
             href={HOME}
             className="inline-flex items-center h-10 pt-1 font-script text-3xl leading-none text-white"
           >
-            Aisyae
+            saevitation
           </a>
         </div>
       </header>

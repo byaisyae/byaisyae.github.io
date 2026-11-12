@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /form-testimoni/
+Disallow: /super-admin-saevitation/
+
+Sitemap: https://saevitation.com/sitemap.xml

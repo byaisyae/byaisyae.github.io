@@ -7,16 +7,77 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="theme-color" content="#06122a" />
-    <link rel="icon" type="image/png" href="/img/sae.png" />
-    <link rel="apple-touch-icon" href="/img/sae.png" />
-    <title>
-      Aisyae Digital Invitation — Undangan Pernikahan Digital & Generator Link
-      Tamu
-    </title>
+    <!-- Favicon: Google butuh ikon persegi, kelipatan 48px, dan bisa dicrawl -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <title>Saevitation — Undangan Pernikahan Digital | Aisyae Digital Invitation</title>
     <meta
       name="description"
+      content="Saevitation (Aisyae Digital Invitation): undangan pernikahan digital elegan, personal untuk setiap tamu, siap dibagikan lewat WhatsApp dalam hitungan detik."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="__SITE__/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Saevitation" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content="Saevitation — Undangan Pernikahan Digital" />
+    <meta
+      property="og:description"
       content="Undangan pernikahan digital elegan, personal untuk setiap tamu, siap dibagikan lewat WhatsApp dalam hitungan detik."
     />
+    <meta property="og:url" content="__SITE__/" />
+    <meta property="og:image" content="__SITE__/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="__SITE__/og-image.png" />
+
+    <!-- Structured data: nama situs + logo untuk Google Search & AI -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "__SITE__/#website",
+            "url": "__SITE__/",
+            "name": "Saevitation",
+            "alternateName": ["saevitation", "Saevitation.com", "Aisyae Digital Invitation"],
+            "inLanguage": "id",
+            "publisher": { "@id": "__SITE__/#organization" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "__SITE__/#organization",
+            "name": "Saevitation",
+            "alternateName": ["Aisyae Digital Invitation", "saevitation"],
+            "url": "__SITE__/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "__SITE__/icon-512.png",
+              "width": 512,
+              "height": 512
+            },
+            "image": "__SITE__/og-image.png",
+            "description": "Jasa undangan pernikahan digital elegan dan personal untuk setiap tamu.",
+            "sameAs": ["https://www.instagram.com/saevitation/"],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "telephone": "+6282233505516",
+              "availableLanguage": ["id", "en"]
+            }
+          }
+        ]
+      }
+    </script>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
       rel="stylesheet"
@@ -24,6 +85,16 @@
   </head>
   <body class="bg-n9 text-sk-200 font-sans antialiased overflow-x-hidden">
     <div id="root"></div>
+    <noscript>
+      <h1>Saevitation — Aisyae Digital Invitation</h1>
+      <p>Undangan pernikahan digital elegan, personal untuk setiap tamu, siap dibagikan lewat WhatsApp.</p>
+      <ul>
+        <li><a href="/katalog/">Katalog Undangan</a></li>
+        <li><a href="/faq/">F.A.Q</a></li>
+        <li><a href="/add-on/">Add On</a></li>
+        <li><a href="/testimoni/">Testimoni</a></li>
+      </ul>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
